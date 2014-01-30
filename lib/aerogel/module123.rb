@@ -1,4 +1,4 @@
-require 'aerogel'
+require 'aerogel/core'
 require "aerogel/module123/version"
 
 module Aerogel
