@@ -1,0 +1,5 @@
+ru:
+    aerogel:
+        module123:
+            views:
+                index: Список

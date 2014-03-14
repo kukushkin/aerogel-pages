@@ -1,0 +1,8 @@
+en:
+    mongoid:
+        models:
+            model123: Model 123
+
+        attributes:
+            'module123/model123':
+                attr1: Attr 1
