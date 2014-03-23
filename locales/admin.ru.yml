@@ -1,0 +1,10 @@
+ru:
+    aerogel:
+        admin:
+            panes:
+                pages: Страницы
+
+            decorators:
+                # confirmed: confirmed
+                # not_confirmed: not confirmed
+

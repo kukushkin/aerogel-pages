@@ -1,0 +1,118 @@
+<% assets 'controllers/admin-pages' %>
+
+<% page_title t.aerogel.admin.panes.pages %>
+
+<div id='debug'>
+debug message
+</div>
+
+<table id="tree" class="smart-tree-table table table-condensed">
+<thead>
+    <tr>
+        <th width="20"></th>
+        <th width="20"></th>
+        <th>name</th>
+    </tr>
+</thead>
+<tbody>
+  <tr data-id="1">
+    <td><div class="drag-handle"><%= icon 'fa-arrows-v' %></div></td>
+    <td></td>
+    <td>Parent 1</td>
+  </tr>
+  <tr data-id="2" data-parent-id="1">
+    <td><div class="drag-handle"><%= icon 'fa-arrows-v' %></div></td>
+    <td><%= icon 'fa-eye' %></td>
+    <td>Child</td>
+  </tr>
+  <tr data-id="3" data-parent-id="1">
+    <td><div class="drag-handle"><%= icon 'fa-arrows-v' %></div></td>
+    <td></td>
+    <td>Child</td>
+  </tr>
+  <tr data-id="4" data-parent-id="1">
+    <td><div class="drag-handle"><%= icon 'fa-arrows-v' %></div></td>
+    <td></td>
+    <td>Child</td>
+  </tr>
+  <tr data-id="13" data-parent-id="1">
+    <td><div class="drag-handle"><%= icon 'fa-arrows-v' %></div></td>
+    <td></td>
+    <td>Child</td>
+  </tr>
+  <tr data-id="14" data-parent-id="1">
+    <td><div class="drag-handle"><%= icon 'fa-arrows-v' %></div></td>
+    <td></td>
+    <td>Child</td>
+  </tr>
+  <tr data-id="15" data-parent-id="1">
+    <td><div class="drag-handle"><%= icon 'fa-arrows-v' %></div></td>
+    <td></td>
+    <td>Child</td>
+  </tr>
+  <tr data-id="16" data-parent-id="1">
+    <td><div class="drag-handle"><%= icon 'fa-arrows-v' %></div></td>
+    <td></td>
+    <td>Child</td>
+  </tr>
+  <tr data-id="5">
+    <td><div class="drag-handle"><%= icon 'fa-arrows-v' %></div></td>
+    <td></td>
+    <td>Parent 2 </td>
+  </tr>
+  <tr data-id="6" data-parent-id="5">
+    <td><div class="drag-handle"><%= icon 'fa-arrows-v' %></div></td>
+    <td></td>
+    <td>Child</td>
+  </tr>
+  <tr data-id="7" data-parent-id="6">
+    <td><div class="drag-handle"><%= icon 'fa-arrows-v' %></div></td>
+    <td></td>
+    <td>SubChild</td>
+  </tr>
+  <tr data-id="8" data-parent-id="5">
+    <td><div class="drag-handle"><%= icon 'fa-arrows-v' %></div></td>
+    <td></td>
+    <td>Child</td>
+  </tr>
+</tbody>
+<tfoot>
+    <tr>
+        <td></td>
+        <td></td>
+        <td colspan="2">
+            <button class="btn btn-default btn-sm"><%= icon 'fa-plus' %> Add page</button>
+            <button class="btn btn-default btn-sm"><%= icon 'fa-minus' %> Delete page</button>
+        </td>
+    </tr>
+</tfoot>
+</table>
+
+<script type="text/javascript">
+    $(function(){
+        tree = new SmartTreeTable('#tree', {
+          column: 3,
+          on_select: tree_item_selected,
+          prefix: {
+            branch: {
+              expanded: '<i class="prefix-expanded fa fa-caret-down"></i>',
+              collapsed: '<i class="prefix-collapsed fa fa-caret-right"></i>',
+            }
+          },
+          dragAndDrop: {
+            dropTarget: {
+              overlay: {
+                before: '<i class="fa fa-long-arrow-up"></i>',
+                into: '<i class="fa fa-long-arrow-right"></i>',
+                after: '<i class="fa fa-long-arrow-down"></i>'
+              }
+            }
+          }
+        });
+        tree.select( 6 );
+    });
+
+function tree_item_selected( id ) {
+  $("#debug").text("selected: "+id);
+}
+</script>

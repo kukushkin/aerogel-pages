@@ -1,15 +1,15 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'aerogel/module123/version'
+require 'aerogel/pages/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "aerogel-module123"
-  spec.version       = Aerogel::Module123::VERSION
+  spec.name          = "aerogel-pages"
+  spec.version       = Aerogel::Pages::VERSION
   spec.authors       = ["Alex Kukushkin"]
   spec.email         = ["alex@kukushk.in"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Page editing/publishing module for aerogel CMS}
+  spec.summary       = %q{Page editing/publishing module for aerogel CMS}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "aerogel-core"
+  spec.add_dependency "aerogel-admin"
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"

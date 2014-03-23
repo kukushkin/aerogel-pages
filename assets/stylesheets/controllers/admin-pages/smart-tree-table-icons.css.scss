@@ -1,0 +1,42 @@
+.smart-tree-table {
+    td {
+        .prefix-expanded {
+            width: 12px;
+            margin-left: -12px;
+        }
+        .prefix-collapsed {
+            width: 9px;
+            margin-left: -9px;
+        }
+    }
+    tr:not(:hover) .drag-handle {
+        display: none;
+    }
+
+    // drag-n-drop disabled by default
+    tr .drag-handle {
+        display: none;
+    }
+
+    .drop-target-overlay i {
+        display: inline-block;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+
+        width: 16px;
+        height: 16px;
+    }
+    .drop-target-overlay.before i {
+        left: 10px;
+    }
+    .drop-target-overlay.into i {
+        left: 7px;
+    }
+    .drop-target-overlay.after i {
+        left: 10px;
+    }
+
+
+}
