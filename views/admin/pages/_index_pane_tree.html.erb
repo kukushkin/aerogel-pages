@@ -1,0 +1,46 @@
+<div class="tab  btn-open">
+    <%= icon 'fa-arrow-right' %>
+</div>
+
+<div class="content">
+    <div id='debug' style="display:none">
+    debug message
+    </div>
+
+    <table id="tree" class="smart-tree-table table table-condensed">
+    <thead>
+        <tr>
+            <th width="20"></th>
+            <th width="20"></th>
+            <th>name</th>
+        </tr>
+    </thead>
+    <tbody>
+    <%= partial 'admin/pages/page', collection: @pages %>
+    </tbody>
+    <tfoot>
+        <tr class="actions">
+            <td></td>
+            <td></td>
+            <td colspan="2">
+                <div class="btn-group">
+                    <% link_to_modal "new", class: "btn btn-default btn-sm btn-add", title: "Add new page" do %>
+                        <%= icon 'fa-plus' %>
+                    <% end %>
+
+                    <% link_to_modal "new", class: "btn btn-default btn-sm btn-insert", title: "Insert new page" do %>
+                        <%= icon 'fa-arrow-right' %>
+                    <% end %>
+
+                    <% link_to_modal "new", class: "btn btn-default btn-sm btn-delete" do %>
+                        <%= icon 'fa-minus' %>
+                        Delete page
+                    <% end %>
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+    </table>
+
+</div> <!-- .content -->
+

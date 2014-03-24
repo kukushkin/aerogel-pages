@@ -1,0 +1,103 @@
+
+//
+// TwoPaneWidget styles mixin for a widget
+//
+@mixin two-pane-widget {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    .pane.left {
+        @include two-pane-widget-pane( -1 );
+    }
+    .pane.right {
+        @include two-pane-widget-pane( 1 );
+    }
+}
+
+//
+// TwoPaneWidget styles mixin for a pane
+// $left_or_right: -1 for left, 1 for right
+//
+@mixin two-pane-widget-pane( $left_or_right ) {
+
+    display: inline-block;
+    box-sizing: border-box;
+    width: 50%;
+    height: 100%;
+    vertical-align: top;
+
+    position: relative;
+
+    &.closed {
+        width: 0;
+        .btn-open {
+            display: inline-block;
+        }
+        .content {
+            display: none;
+        }
+    }
+    &.half-open{
+        width: 50%;
+        &:not(:hover) .btn-open { display: none }
+    }
+    &.open {
+        width: 100%;
+        .btn-open { display: none }
+    }
+
+    // scrollable content of a pane
+    .content {
+        overflow-y: scroll;
+        height: 100%;
+    }
+
+    // opening button/tab
+    .btn-open {
+        @include two-pane-widget-button( $left_or_right );
+    }
+    &.closed {
+        .btn-open:not(:hover) {
+            opacity: 0.5;
+        }
+    }
+}
+
+
+// Opening button/tab mixin.
+// $left_or_right: -1 for left, 1 for right
+//
+@mixin two-pane-widget-button( $left_or_right ) {
+    $btn-size: 45px;
+
+    width: $btn-size;
+    height: $btn-size;
+    position: absolute;
+    z-index: 50;
+    top: 45%;
+
+    @if $left_or_right > 0 {
+        right: 100%;
+    } @else {
+        left: 100%;
+    }
+
+    cursor: pointer;
+
+    i {
+        display: inline-block;
+        margin: auto;
+        position: absolute;
+        height: 16px;
+        width: 16px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+}
+
+

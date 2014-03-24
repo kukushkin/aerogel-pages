@@ -1,0 +1,89 @@
+@import "two-pane-widget";
+@import "admin/utils/center-absolutely";
+
+#page-content {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+}
+
+$pane-btn-radius: 6px;
+$pane-btn-hover-bg: $item-hover-bg; // #eee;
+$pane-border: 1px solid #ccc;
+
+//
+//
+//
+.pages-widget {
+    @include two-pane-widget;
+
+    // stylize panes
+    .pane.left:hover {
+        box-shadow: 5px 0px 10px -5px rgba( 0,0,0, 0.3 );
+        .btn-open {
+            box-shadow: 5px 0px 10px rgba( 0,0,0, 0.3 );
+        }
+    }
+    .pane.right:hover {
+        box-shadow: -5px 0px 10px -5px rgba( 0,0,0, 0.3 );
+        .btn-open {
+            box-shadow: -5px 0px 10px rgba( 0,0,0, 0.3 );
+        }
+    }
+    .pane.right.half-open {
+        border-left: $pane-border;
+    }
+
+    // stylize buttons
+    .pane .btn-open {
+        background: white;
+        border: $pane-border;
+        &:hover {
+            background: $pane-btn-hover-bg;
+        }
+    }
+    .pane.left .btn-open {
+        border-left: none;
+        border-radius: 0 $pane-btn-radius $pane-btn-radius 0;
+    }
+    .pane.right .btn-open {
+        border-right: none;
+        border-radius: $pane-btn-radius 0 0 $pane-btn-radius;
+    }
+
+
+    // stylize pane content
+    .pane-preview {
+        // border-left: 1px solid #ccc;
+
+        #preview { padding: 15px; }
+        #preview-empty {
+            @extend .center-absolutely;
+            width: 50%;
+            line-height: 100px;
+            height: 100px;
+            text-align: center;
+            vertical-align: middle;
+            color: $text-disabled-color;
+        }
+
+        &:not(.open) {
+            #preview, .bottom-toolbar .container {
+                width: 100%;
+            }
+        }
+
+        .bottom-toolbar {
+            width: 100%;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .bottom-toolbar.floating {
+            background: rgba( 0,0,0, 0.3 );
+        }
+    }
+
+
+}
