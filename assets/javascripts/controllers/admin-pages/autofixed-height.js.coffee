@@ -10,6 +10,6 @@ class @AutofixedHeight
         h = wh - @min_height_delta + 1
         @element.css 'min-height', h # outerHeight h
         @element.height h # outerHeight h
-        console?.log "** FixedHeightWatcher: element resized to #{h} (#{wh} - #{@max_height_delta})"
+        # console?.log "** FixedHeightWatcher: element resized to #{h} (#{wh} - #{@max_height_delta})"
 
 

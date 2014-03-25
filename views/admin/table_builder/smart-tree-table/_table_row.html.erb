@@ -1,0 +1,14 @@
+<tr
+    data-id="<%= table_row.id %>" data-parent-id="<%= table_row.parent_id %>"
+    data-url-preview="<%= table_row.id %>/preview"
+    data-url-edit="<%= table_row.id %>/edit"
+    data-url-delete="<%= table_row.id %>/delete"
+    data-url-append="<%= table_row.id %>/append"
+    data-url-insert="<%= table_row.id %>/insert"
+>
+<% table.columns.each do |col| %>
+    <td>
+        <%= col.block.present? ? col.block.call( table_row ) : h( table_row.send col.field ) %>
+    </td>
+<% end %>
+</tr>

@@ -9,7 +9,7 @@ class @AttachedFooter
         @footer.css "bottom", "0"
         @footer.addClass "floating"
         @footer.hide()
-        console?.log "fadeing IN"
+        # console?.log "fadeing IN"
         @footer.fadeIn()
         @is_floating = true
         # console?.log "** footer is floating"
@@ -17,7 +17,7 @@ class @AttachedFooter
     unfloat_footer: ->
         return unless @is_floating
         @is_floating = false
-        console?.log "fadeing OUT"
+        # console?.log "fadeing OUT"
         # @footer.fadeOut done: =>
         @footer.show()
         @footer.css "position", "static"
@@ -52,4 +52,4 @@ class @AttachedFooter
 
 @attach_floating_footer = (element, footer, observer) ->
     new AttachedFooter $(element), $(footer), observer
-    console?.log "floating footer attached"
+    # console?.log "floating footer attached"

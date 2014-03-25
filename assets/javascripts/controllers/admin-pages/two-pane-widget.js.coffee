@@ -1,8 +1,9 @@
 
+debug = false
 log = (msg) ->
-    console?.log "** two-pane-widget: #{msg}"
+    console?.log "** two-pane-widget: #{msg}" if debug
 error = (msg) ->
-    console?.error "** two-pane-widget: #{msg}"
+    console?.error "** two-pane-widget: #{msg}" if debug
     throw new Error msg
 
 class @TwoPaneWidget

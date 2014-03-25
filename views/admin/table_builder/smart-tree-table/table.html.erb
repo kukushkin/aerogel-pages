@@ -1,0 +1,10 @@
+<table class="table table-condensed" <%= table.html_params %>>
+<thead>
+    <tr>
+    <%= partial table.template("table_column"), locals: { table: table }, collection: table.columns %>
+    </tr>
+</thead>
+<tbody>
+<%= partial table.template("table_row"), locals: { table: table }, collection: table.object %>
+</tbody>
+</table>

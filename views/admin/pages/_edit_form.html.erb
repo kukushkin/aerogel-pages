@@ -1,0 +1,7 @@
+<% form @page, selected_page_id: @selected_page.id do %>
+    <%= field :name %>
+    <%= field :content, as: :textarea %>
+
+    <%= button :cancel, url: "/admin/pages/#{options[:selected_page_id]}" %>
+    <%= button :save %>
+<% end %>
