@@ -79,6 +79,12 @@ $pane-border: 1px solid #ccc;
             }
         }
 
+        .bottom-toolbar:not(.floating) {
+            .container {
+                padding-top: 15px;
+                padding-bottom: 15px;
+            }
+        }
         .bottom-toolbar.floating {
             width: 100%;
             height: 60px;
