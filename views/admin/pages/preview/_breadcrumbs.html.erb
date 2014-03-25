@@ -1,0 +1,7 @@
+<ol class="breadcrumb">
+<% @page.ancestors.sort_by(&:depth).each do |p| %>
+    <li>
+        <%= link_to p.id, p.name, onclick: "tree_select('#{p.id}'); return false" %>
+    </li>
+<% end %>
+</ol>
