@@ -1,5 +1,7 @@
+@import "admin/global";
 @import "two-pane-widget";
 @import "admin/utils/center-absolutely";
+
 
 #page-content {
     width: 100%;
@@ -22,13 +24,13 @@ $pane-border: 1px solid #ccc;
     .pane.left:hover {
         box-shadow: 5px 0px 10px -5px rgba( 0,0,0, 0.3 );
         .btn-open {
-            box-shadow: 5px 0px 10px rgba( 0,0,0, 0.3 );
+            box-shadow: 5px 0px 10px -3px rgba( 0,0,0, 0.3 );
         }
     }
     .pane.right:hover {
         box-shadow: -5px 0px 10px -5px rgba( 0,0,0, 0.3 );
         .btn-open {
-            box-shadow: -5px 0px 10px rgba( 0,0,0, 0.3 );
+            box-shadow: -5px 0px 10px -3px rgba( 0,0,0, 0.3 );
         }
     }
     .pane.right.half-open {

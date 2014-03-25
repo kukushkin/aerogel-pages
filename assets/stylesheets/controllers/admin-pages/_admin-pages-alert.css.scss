@@ -1,0 +1,14 @@
+@import "admin/global";
+
+$alert-width: 70%;
+
+#page-content .admin-alerts {
+    position: fixed;
+    top: $header-height + 15px;
+    z-index: 100;
+    width: $alert-width;
+    left: (100%-$alert-width)/2;
+    .alert {
+        margin-bottom: 15px;
+    }
+}

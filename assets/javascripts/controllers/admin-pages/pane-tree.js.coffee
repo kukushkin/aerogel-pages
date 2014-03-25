@@ -3,17 +3,18 @@ tree_selector = "#tree"
 
 # Callback to be invoked when page (tree item) is selected
 #
-on_tree_item_selected = (id, object, el) ->
+on_tree_item_selected = (id, object, el) =>
   if id?
-    $("#debug").text "selected:'#{object.contents}', parent:#{object.parent_id}"
     action_buttons().show()
     update_action_buttons object
+
   else
+    selected_page = null
     $("#debug").text "selected none"
     action_buttons().hide()
 
-  # notify page preview widget
-  page_preview_show id
+  # notify pages widget
+  on_page_selected id, object
 
 # Returns action buttons elements, or elements within buttons specified by +selector+
 #
@@ -29,6 +30,7 @@ update_action_buttons = (object) ->
   tree.select id
 @tree_expand = (id) ->
   tree.expand id
+
 
 $ ->
   tree = new SmartTreeTable tree_selector,
