@@ -15,7 +15,7 @@ class @TwoPaneWidget
         @btn_open_right = @right_pane.find('.btn-open').first()
         @state = null
         @bind_event_listeners()
-        @open_middle()
+        @open_middle( false )
         log "widget created, left:#{@left_selector} right:#{@right_selector}"
 
     bind_event_listeners: ->
@@ -37,26 +37,29 @@ class @TwoPaneWidget
         else
             @open_middle()
 
-    open_left: ->
+    open_left: ( trigger_event = true ) ->
         return if @state == 'left'
         log "open left pane to full width"
         @open_pane @left_pane
         @close_pane @right_pane
         @state = 'left'
+        @trigger() if trigger_event
 
-    open_right: ->
+    open_right: ( trigger_event = true ) ->
         return if @state == 'right'
         log "open right pane to full width"
         @open_pane @right_pane
         @close_pane @left_pane
         @state = 'right'
+        @trigger() if trigger_event
 
-    open_middle: ->
+    open_middle: ( trigger_event = true ) ->
         return if @state == 'middle'
         log "open panes to middle width"
         @half_open_pane @right_pane
         @half_open_pane @left_pane
         @state = 'middle'
+        @trigger() if trigger_event
 
     open_pane: (pane) ->
         pane.removeClass 'closed half-open'
@@ -69,3 +72,7 @@ class @TwoPaneWidget
     close_pane: (pane) ->
         pane.removeClass 'closed open half-open'
         pane.addClass 'closed'
+
+    trigger: ->
+        @widget.trigger 'changed.two-pane', @state
+

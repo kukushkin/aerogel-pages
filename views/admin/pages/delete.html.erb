@@ -1,12 +1,15 @@
 <% page_title "Delete page?" %>
 
-<% form @page, action: "/admin/pages/#{@page.id}/delete" do %>
+<% form @page,
+        action: "/admin/pages/#{@lang}-#{@page.id}/delete",
+        cancel_url: "/admin/pages/#{@lang}-#{@page.id}" do
+%>
 
 Delete page <%= h object.name %> ?
 
 <p class="alert alert-warning">
     <%= icon_warning %> <%= t.aerogel.admin.warning_permanent_action %>
 </p>
-<%=     button :cancel, url: "/admin/pages/#{object.id}" %>
+<%=     button :cancel, url: options[:cancel_url] %>
 <%=     button :danger_submit, label: "Delete page" %>
 <% end %>

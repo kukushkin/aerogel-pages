@@ -1,82 +1,102 @@
-tree = null
+# Left pane (tree) widget
+#
 tree_selector = "#tree"
 tree_column = 2
-attached_footer = null
 
-# Callback to be invoked when page (tree item) is selected
-#
-on_tree_item_selected = (id, object, el) =>
-  if id?
-    bottom_toolbar().show()
-    update_bottom_toolbar object
-    # element in view?
-    el_t = el.position().top
-    el_b = el_t + el.height()
-    if el_t < 0 || $('.pane-tree .content').height() < el_b
-      scroll_to_element el
+log = (msg) ->
+    console?.log "** admin/pages:tree: #{msg}"
 
-  else
-    selected_page = null
-    $("#debug").text "selected none"
-    bottom_toolbar().hide()
+class @PaneTree
+    constructor: (@element) ->
+        @tree_table = new SmartTreeTable @element.find( tree_selector ).first(),
+            column: tree_column
+            on_select: @on_tree_item_selected
+            prefix:
+                branch:
+                    expanded: '<i class="prefix-expanded fa fa-caret-down"></i>'
+                    collapsed: '<i class="prefix-collapsed fa fa-caret-right"></i>'
+            dragAndDrop:
+                enabled: false
+                dropTarget:
+                    overlay:
+                        before: '<i class="fa fa-long-arrow-up"></i>'
+                        into: '<i class="fa fa-long-arrow-right"></i>'
+                        after: '<i class="fa fa-long-arrow-down"></i>'
 
-  # notify pages widget
-  on_page_selected id, object
+        @select null
 
-# Scroll view to element
-#
-scroll_to_element = (el) ->
-  origin_to = $(tree_selector).position().top
-  scroll_to = el.position().top
-  console?.log "** pane-tree: scrolling to selected: #{scroll_to}: #{origin_to}"
-  $('.pane-tree .content').animate { scrollTop: scroll_to - origin_to } #, 'slow'
+        @attached_footer = new AttachedFooter $(tree_selector), @bottom_toolbar(), $('.pane-tree .content')
 
-# Returns action buttons elements, or elements within buttons specified by +selector+
-#
-bottom_toolbar = (selector = '') ->
-  $('.pane-tree').find(".bottom-toolbar #{selector}")
+        log "initialized"
 
-# Updates action buttons state and labels
-#
-update_bottom_toolbar = (object) ->
-  bottom_toolbar('.page-append-link').attr 'href', object.attributes['data-url-append']
-  bottom_toolbar('.page-insert-link').attr 'href', object.attributes['data-url-insert']
-  bottom_toolbar('.page-delete-link').attr 'href', object.attributes['data-url-delete']
-  bottom_toolbar(' .page-name').text object.contents
-  attached_footer.update_footer()
+    # Updates pane tree widget
+    #
+    update: (state) ->
+        @tree_table.select state.page_id, false
+        @scroll_to_view state.page_id
+        @update_bottom_toolbar state
+        @update_top_toolbar state
+
+    select: (id) ->
+        @tree_table.select id, false
+
+    expand: (id) ->
+        @tree_table.expand id
+
+    scroll_to_view: (id) ->
+        return unless id?
+        row = @tree_table.rows[id]
+        return unless row?
+        el = row.el
+        el_t = el.position().top
+        el_b = el_t + el.height()
+        if el_t < 0 || $('.pane-tree .content').height() < el_b
+            origin_to = @tree_table.table.position().top
+            scroll_to = el.position().top
+            # console?.log "** pane-tree: scrolling to selected: #{scroll_to}: #{origin_to}"
+            @element.find('.content').animate { scrollTop: scroll_to - origin_to } #, 'slow'
 
 
-# Select item, bypass event handlers
-@tree_select = (id) ->
-  tree.select id # , false
-
-# Expand item
-@tree_expand = (id) ->
-  tree.expand id
+    # Callback to be invoked when page (tree item) is selected
+    #
+    on_tree_item_selected: (id, object, el) =>
+        pages_widget.on_page_selected id, object
 
 
-$ ->
-  tree = new SmartTreeTable tree_selector,
-    column: tree_column
-    on_select: on_tree_item_selected
-    prefix:
-      branch:
-        expanded: '<i class="prefix-expanded fa fa-caret-down"></i>'
-        collapsed: '<i class="prefix-collapsed fa fa-caret-right"></i>'
-      dragAndDrop:
-        enabled: false
-        dropTarget:
-          overlay:
-            before: '<i class="fa fa-long-arrow-up"></i>'
-            into: '<i class="fa fa-long-arrow-right"></i>'
-            after: '<i class="fa fa-long-arrow-down"></i>'
+    # Returns row object specified by given +id+
+    #
+    find_row_by_id: (id) ->
+        @tree_table.rows[id]
 
-  on_tree_item_selected null
+    # Returns action buttons elements, or elements within buttons specified by +selector+
+    #
+    bottom_toolbar: (selector = '') ->
+        @element.find(".bottom-toolbar #{selector}")
 
-  top_h = $("#top-menu").outerHeight()
-  foot_h = $("#footer").outerHeight()
-  # new AutofixedHeight $('.pane-tree'), top_h, top_h + foot_h
-  attached_footer = new AttachedFooter $(tree_selector), bottom_toolbar(), $('.pane-tree .content')
+    # Updates action buttons state and labels
+    #
+    update_bottom_toolbar: (state) ->
+        unless state.page_id?
+            @bottom_toolbar().hide()
+            return
+        object = @find_row_by_id state.page_id
+        @bottom_toolbar().show()
+        @bottom_toolbar('.page-append-link').attr 'href', pages_widget.url_to_action 'append'
+        @bottom_toolbar('.page-insert-link').attr 'href', pages_widget.url_to_action 'insert'
+        @bottom_toolbar('.page-delete-link').attr 'href', pages_widget.url_to_action 'delete'
+        @bottom_toolbar(' .page-name').text object.contents
+        @attached_footer.update_footer()
 
-  console?.log "** admin/pages: pane-tree initialized"
+    # Returns top toolbar element, or elements within buttons specified by +selector+
+    #
+    top_toolbar: (selector = '') ->
+        @element.find(".top-toolbar #{selector}")
+
+    # Updates top toolbar buttons and links
+    #
+    update_top_toolbar: (state) ->
+        @top_toolbar('.lang-select-link').each ->
+            lang = $(@).attr 'data-lang-id'
+            $(@).attr 'href', pages_widget.url_to( lang, state.page_id )
+
 

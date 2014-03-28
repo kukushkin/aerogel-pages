@@ -1,0 +1,5 @@
+<li <%= tabs.options[:lang].to_s == tab.url.to_s ? 'class="active"' : '' %>
+    class="<%= tab.options[:class] %>"
+>
+    <%= link_to tab.url+'-', tab.human_label %>
+</li>

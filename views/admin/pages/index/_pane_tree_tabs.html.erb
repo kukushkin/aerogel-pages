@@ -1,0 +1,26 @@
+<div class="top-toolbar">
+    <ul class="nav nav-tabs">
+        <% Page.available_langs.each do |tab_lang| %>
+            <li <%= @lang.to_s == tab_lang.to_s ? 'class="active"' : '' %> >
+                <%= link_to "#{tab_lang}-", tab_lang.to_s,
+                    class: "lang-select-link", 'data-lang-id' => tab_lang
+                %>
+            </li>
+        <% end %>
+        <li class="pull-right dropdown disabled">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <%= icon 'fa-cog' %> <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="disabled">
+                    <a href="#">item 1</a>
+                </li>
+                <li class="divider">
+                </li>
+                <li>
+                    <a href="#">Re-order pages</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

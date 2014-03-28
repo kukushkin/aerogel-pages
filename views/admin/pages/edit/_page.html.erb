@@ -1,0 +1,61 @@
+<%= field :parent_id, as: :hidden %>
+<%= field :page_type_id, as: :hidden %>
+
+<ul class="nav nav-tabs">
+<% Page.available_langs.each do |lang| %>
+    <li <%= options[:current_lang].to_s == lang.to_s ? 'class="active"' : '' %>>
+        <a href="#<%= lang %>" data-toggle="tab">
+            <% if object.content( lang ).present? %>
+                <b><%= lang %></b>
+            <% else %>
+                <%= lang %>
+            <% end %>
+        </a>
+    </li>
+<% end %>
+
+    <li class="dropdown pull-right">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <%= icon 'fa-cog' %> <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="#" onclick="remove_page_content();">
+                    Remove page content
+                </a>
+            </li>
+        </ul>
+    </li>
+
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content page-content-tabs">
+<% Page.available_langs.each do |lang| %>
+    <div class="tab-pane <%= options[:current_lang].to_s == lang.to_s ? 'active' : '' %>"
+        id="<%= lang %>"
+    >
+        <%= partial "admin/pages/edit/page_content",
+            scope: self,
+            locals: {
+                page_content: (object.content(lang) || PageContent.new( lang: lang )),
+                object: object,
+                form_builder: self
+            }
+        %>
+    </div>
+<% end %>
+</div>
+
+<script type="text/javascript">
+function remove_page_content() {
+    lang = $('.page-content-tabs .active').attr('id');
+    alert( "remove page content for "+lang );
+    $('.page-content-tabs .active .marked-for-removal').val( true );
+
+    new_val = $('.page-content-tabs .active .marked-for-removal').val();
+    console.log("page-content-removed value: "+new_val);
+    return false;
+}
+</script>
+

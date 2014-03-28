@@ -1,5 +1,5 @@
 <%= partial 'admin/pages/preview/breadcrumbs' %>
 <h1>
-    <%= @page.name %>
+    <%= @page.content(@lang).try :title %>
 </h1>
-<%= @page.content %>
+<%= @page.content(@lang).try :content %>

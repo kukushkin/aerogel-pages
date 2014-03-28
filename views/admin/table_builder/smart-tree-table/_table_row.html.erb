@@ -1,10 +1,10 @@
 <tr
     data-id="<%= table_row.id %>" data-parent-id="<%= table_row.parent_id %>"
-    data-url-preview="<%= table_row.id %>/preview"
-    data-url-edit="<%= table_row.id %>/edit"
-    data-url-delete="<%= table_row.id %>/delete"
-    data-url-append="<%= table_row.id %>/append"
-    data-url-insert="<%= table_row.id %>/insert"
+    data-url-preview="<%= @lang %>-<%= table_row.id %>/preview"
+    data-url-edit="<%= @lang %>-<%= table_row.id %>/edit"
+    data-url-delete="<%= @lang %>-<%= table_row.id %>/delete"
+    data-url-append="<%= @lang %>-<%= table_row.id %>/append"
+    data-url-insert="<%= @lang %>-<%= table_row.id %>/insert"
 >
 <% table.columns.each do |col| %>
     <td>

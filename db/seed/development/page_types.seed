@@ -1,0 +1,8 @@
+model PageType
+
+find_by :type
+
+seeds [
+{ type: :page, name: 'Page' }
+]
+

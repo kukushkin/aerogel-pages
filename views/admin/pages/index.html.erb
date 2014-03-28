@@ -4,9 +4,9 @@
 
 <div class="pages-widget">
 <div class="pane-tree pane left">
-    <%= partial 'admin/pages/index_pane_tree' %>
+    <%= partial 'admin/pages/index/pane_tree' %>
 </div><div class="pane-preview pane right">
-    <%= partial 'admin/pages/index_pane_preview' %>
+    <%= partial 'admin/pages/index/pane_preview' %>
 </div>
 </div>
 
@@ -14,11 +14,14 @@
 
 <script type="text/javascript">
     $(function(){
-        tree_expand("<%= Page.root.id %>");
-        // pages_widget.open_left();
+        pages_widget.set_state({
 <% if @selected_page %>
-        tree_select("<%= @selected_page.id %>");
+            page_id: "<%= @selected_page.id %>",
 <% end %>
+            lang: "<%= @lang %>"
+        });
+        pane_tree.expand("<%= Page.root.id %>");
+        // pages_widget.open_left();
     });
 
 function edit_page_clicked() {

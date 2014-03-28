@@ -1,0 +1,7 @@
+<% fieldset page_content, parent: form_builder, name: :page_contents do %>
+    <%= field :lang, as: :hidden %>
+    <%= field :marked_for_removal, as: :hidden, class: 'marked-for-removal' %>
+    <%= field :title, required: false %>
+    <%= field :link, required: false %>
+    <%= field :content, as: :textarea %>
+<% end %>

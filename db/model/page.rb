@@ -2,9 +2,25 @@ class Page
   include Model
   include Model::OrderedTree
 
-  field :name, type: String
-  field :content, type: String
+  before_destroy :destroy_children
 
-  validates_presence_of :name
+  belongs_to :page_type
+  embeds_many :page_contents
+
+  validates_presence_of :page_type
+
+  accepts_nested_attributes_for :page_contents
+
+  # Returns content for the specified +lang+.
+  #
+  def content( lang )
+    page_contents.where( lang: lang.to_sym ).first
+  end
+
+  # Returns list of available langs as Symbols
+  #
+  def self.available_langs
+    I18n.available_locales
+  end
 
 end # class Page

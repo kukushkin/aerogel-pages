@@ -7,12 +7,18 @@
     debug message
     </div>
 
+    <%= partial 'admin/pages/index/pane_tree_tabs' %>
     <%
-        table @pages, style: 'smart-tree-table', html_params: { id: 'tree' } do
+        table @pages, style: 'smart-tree-table', lang: @lang, html_params: { id: 'tree' } do
             column :drag_handle, label: '' do |p|
                 ''
             end
-            column :name, label: Page.human_attribute_name(:name)
+            column :name, label: 'Name' do |p|
+              p.content(options[:lang]).try(:title) || 'no translation'
+            end
+            column :type, label: 'Type' do |p|
+              p.page_type.try(:name)
+            end
         end
     %>
 
