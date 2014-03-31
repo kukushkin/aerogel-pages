@@ -1,0 +1,19 @@
+.page-content-header {
+    position: relative;
+    margin-bottom: 15px;
+    padding-bottom: 0;
+    button.close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 32px;
+        height: 32px;
+        z-index: 50;
+    }
+    .inline-group {
+        display: inline-block;
+    }
+}
+.page-content-header-link {
+    margin-bottom: 15px;
+}

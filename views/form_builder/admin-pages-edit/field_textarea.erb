@@ -1,0 +1,28 @@
+<%
+collapsed = field.options[:collapsible] && field.valid?
+%>
+
+<% if collapsed %>
+<a href="#" class="smart-link" id="<%= field.css_id %>-link"
+    data-show-id="#<%= field.css_id %>-group"
+    data-hide-id="#<%= field.css_id %>-link"
+    data-effect="show"
+>
+<%= icon 'fa-caret-right' %>
+<%= field.label -%>
+</a>
+<% end %>
+
+<div id="<%= field.css_id %>-group"
+<% if collapsed %>
+    style="display:none"
+<% end %>
+>
+<label for="<%= field.css_id %>"><%= field.label -%>
+<% if field.required? -%> <abbr class="required" title="<%= t 'aerogel.forms.required' %>">*</abbr>
+<% end -%>
+</label>
+
+<textarea id="<%= field.css_id %>" type="text" name="<%= field.html_name %>" <%= field.required? ? 'required' : '' %>  class="form-control"
+><%= h field.value %></textarea>
+</div>

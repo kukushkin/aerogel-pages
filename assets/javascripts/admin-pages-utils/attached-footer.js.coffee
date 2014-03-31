@@ -5,7 +5,7 @@ class @AttachedFooter
         @placeholder.css 'display', 'block'
         @placeholder.height @footer.outerHeight()
         @element.after @placeholder
-        @footer.css "position", "absolute"
+        @footer.css "position", @opts.position
         @footer.css "bottom", "0"
         @footer.addClass "floating"
         @footer.hide()
@@ -27,6 +27,7 @@ class @AttachedFooter
         # console?.log "** footer is unfloated"
 
     update_footer: ->
+        # t_start = $.now()
         view_y = $(window).scrollTop()
         view_b = view_y + $(window).height()
         el_y = @element.offset().top
@@ -38,8 +39,14 @@ class @AttachedFooter
             @unfloat_footer()
         else
             @float_footer()
+        # t_end = $.now()
+        # console?.log "update_footer: elapsed:#{t_end-t_start}, view_y:#{view_y} view_b:#{view_b}"
 
-    constructor: (@element, @footer, @observer) ->
+    constructor: ( @opts ) ->
+        @element = opts.target
+        @footer = opts.footer
+        @observer = opts.observe
+        @opts.position ||= 'absolute'
         @is_floating = false
         @update_footer()
         @observer.scroll =>

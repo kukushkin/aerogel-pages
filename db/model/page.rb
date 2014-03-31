@@ -5,11 +5,11 @@ class Page
   before_destroy :destroy_children
 
   belongs_to :page_type
-  embeds_many :page_contents
+  embeds_many :page_contents, cascade_callbacks: true
 
   validates_presence_of :page_type
 
-  accepts_nested_attributes_for :page_contents
+  accepts_nested_attributes_for :page_contents, allow_destroy: true
 
   # Returns content for the specified +lang+.
   #

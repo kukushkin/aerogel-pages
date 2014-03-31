@@ -1,18 +1,35 @@
+<% assets 'controllers/admin-pages-edit' %>
+<div class="page-edit-form">
+
 <%= partial "admin/pages/edit/breadcrumbs" %>
 
 <% form @page,
     cancel_url: "/admin/pages/#{@lang}-#{@selected_page.id}",
-    current_lang: @lang do
+    current_lang: @lang,
+    html_params: { novalidate: true } do
 %>
 
     <%= partial "admin/pages/edit/page", scope: self, locals: { form_builder: self, object: object } %>
 
-    <%= button :cancel, url: options[:cancel_url] %>
-    <%= button :save %>
+<div class="form-buttons">
+    <div class="container">
+        <%= button :cancel, url: options[:cancel_url] %>
+        <%= button :save %>
+    </div>
+</div>
 <% end %>
+
+</div>
+
+
 
 <script type="text/javascript">
 $(function(){
-    $('')
+<% Page.available_langs.each do |lang| %>
+    <% if @lang.to_s != lang.to_s && @page.content(lang).blank? %>
+        page_content_clear('<%= lang %>');
+    <% end %>
+<% end %>
 });
 </script>
+

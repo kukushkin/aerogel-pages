@@ -1,0 +1,28 @@
+.page-edit-form {
+    .form {
+        .input-title {
+            margin: 15px 0 5px 0;
+            border: none;
+            border-bottom: 1px dotted #eee;
+            border-radius: 0;
+            box-shadow: none;
+            font-size: 1.5em;
+        }
+    }
+
+    .form-buttons:not(.floating) {
+        .container {
+            width: 100%;
+            padding: 0;
+        }
+    }
+    .form-buttons.floating {
+        background: rgba( 0,0,0, 0.3 );
+        padding-top: 15px;
+        padding-bottom: 15px;
+        width: 100%;
+        left: 0;
+        z-index: 100;
+    }
+
+}

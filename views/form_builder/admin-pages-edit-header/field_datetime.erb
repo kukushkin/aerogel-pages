@@ -1,0 +1,15 @@
+<!-- div class="input-group datetimepicker" -->
+<div class="input-group datetimepicker">
+
+
+<input id="<%= field.css_id %>" type="<%= field.type %>" name="<%= field.html_name %>"
+    value="<%= h field.value.try(:iso8601) %>" <%= field.required? ? 'required' : '' %>
+    <%= field.html_params %> class="form-control"
+    data-target-id="<%= field.css_id %>"
+    style123="width:300px"
+/>
+<span class="input-group-addon">
+<%= icon 'fa-calendar' %>
+</span>
+
+</div>

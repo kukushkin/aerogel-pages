@@ -2,10 +2,11 @@
 
 <% form @page,
         action: "/admin/pages/#{@lang}-#{@page.id}/delete",
-        cancel_url: "/admin/pages/#{@lang}-#{@page.id}" do
+        cancel_url: "/admin/pages/#{@lang}-#{@page.id}",
+        lang: @lang do
 %>
 
-Delete page <%= h object.name %> ?
+Delete page <%= h object.content(options[:lang]).try(:title) %> ?
 
 <p class="alert alert-warning">
     <%= icon_warning %> <%= t.aerogel.admin.warning_permanent_action %>

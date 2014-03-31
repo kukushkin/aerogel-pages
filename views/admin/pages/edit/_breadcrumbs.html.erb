@@ -1,7 +1,9 @@
 <ol class="breadcrumb">
 <% @page.parent.ancestors_and_self.sort_by(&:depth).each do |p| %>
+
     <li>
-        <%= link_to "#{@lang}-#{p.id}", p.content(@lang).try(:title) %>
+        <%= render_once :home, icon('fa-home') %>
+        <%= p.content(@lang).try(:title) %>
     </li>
 <% end if @page.parent.present? %>
     <li>

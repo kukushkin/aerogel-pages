@@ -25,7 +25,10 @@ class @PaneTree
 
         @select null
 
-        @attached_footer = new AttachedFooter $(tree_selector), @bottom_toolbar(), $('.pane-tree .content')
+        @attached_footer = new AttachedFooter
+            target: $(tree_selector)
+            footer: @bottom_toolbar()
+            observe: $('.pane-tree .content')
 
         log "initialized"
 

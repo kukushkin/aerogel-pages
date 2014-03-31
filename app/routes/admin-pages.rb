@@ -55,9 +55,9 @@ namespace "/admin/pages" do
       if @page.save
         redirect "/admin/pages/#{@lang}-#{@page.id}"
       end
-      flash.now[:error] = t.aerogel.db.errors.failed_to_save( name: h( @page.id ),
-        errors: @page.errors.full_messages.join(", ")
-      )
+      # flash.now[:error] = t.aerogel.db.errors.failed_to_save( name: h( @page.id ),
+      #   errors: @page.errors.full_messages.join(", ")
+      # )
       pass
     end
 
@@ -82,17 +82,15 @@ namespace "/admin/pages" do
     end
 
     post "/edit" do
+      # flash.now[:debug] = "params: #{params.inspect}"
       @page = Page.find( params[:id] ) or halt 404
       @selected_page = @page
-      flash.now[:debug] = "params: #{params.inspect}"
-      # pass
-      #
       if @page.update_attributes params[:page].except( :page_type )
         redirect "/admin/pages/#{@lang}-#{@page.id}" #, notice: "Page updated"
       end
-      flash.now[:error] = t.aerogel.db.errors.failed_to_save( name: h( @page.id ),
-        errors: @page.errors.full_messages.join(", ")
-      )
+      # flash.now[:error] = t.aerogel.db.errors.failed_to_save( name: h( @page.id ),
+      #  errors: @page.errors.full_messages.join(", ")
+      #)
       pass
     end
   end # namespace ":lang\::id"

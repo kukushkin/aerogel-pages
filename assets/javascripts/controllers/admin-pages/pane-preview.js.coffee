@@ -7,7 +7,10 @@ class @PanePreview
         @preview = @element.find('#preview').first()
         @preview_empty = @element.find('#preview-empty').first()
         @toolbar = @element.find('.bottom-toolbar').first()
-        @attached_footer = new AttachedFooter @preview, @toolbar, @content
+        @attached_footer = new AttachedFooter
+            target: @preview
+            footer: @toolbar
+            observe: @content
         @current_page_id = null
         log "initialized"
         # ...

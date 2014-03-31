@@ -1,0 +1,21 @@
+<% unless field.type.to_sym == :hidden -%>
+<div class="form-group field <%= 'has-error' if field.invalid? %>">
+<% end -%>
+<%=
+    begin
+        erb form_builder.template( "field_#{field.type}", field.options ), locals: { field: field }, layout: false
+    rescue Errno::ENOENT
+        erb form_builder.template( :field_default, field.options ), locals: { field: field }, layout: false
+    end
+%>
+<% if field.hint %>
+<span class="help-block"><%= field.hint %></span>
+<% end %>
+<% if field.invalid? %>
+<span class="help-block field-errors">
+    <%= field.errors.join(', ') %>
+</span>
+<% end %>
+<% unless field.type.to_sym == :hidden -%>
+</div>
+<% end -%>

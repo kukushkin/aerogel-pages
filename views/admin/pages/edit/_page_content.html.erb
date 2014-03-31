@@ -1,7 +1,38 @@
-<% fieldset page_content, parent: form_builder, name: :page_contents do %>
+<div class="page-content-empty page-content-empty-<%= page_content.lang %>" style="display:none" >
+    <div class="message">
+        No content
+    </div>
+    <div class="button">
+        <a href="#" class="btn btn-default add-page-content-link" data-lang="<%= page_content.lang %>">
+            <%= icon 'fa-plus' %> Add content
+        </a>
+    </div>
+</div>
+
+<div class="page-content page-content-<%= page_content.lang %>">
+
+<% fieldset page_content,
+    parent: form_builder,
+    name: :page_contents,
+    object_index: page_content.lang do
+%>
+
+    <%= field :_destroy, as: :hidden, class: 'marked-for-removal' %>
     <%= field :lang, as: :hidden %>
-    <%= field :marked_for_removal, as: :hidden, class: 'marked-for-removal' %>
-    <%= field :title, required: false %>
-    <%= field :link, required: false %>
+    <%= field :title, as: :title, style: 'admin-pages-edit', required: false %>
+
+
+    <%= partial "admin/pages/edit/page_content_header",
+        scope: self,
+        locals: {
+            page_content: page_content,
+            object: object,
+            form_builder: self
+        }
+    %>
+
+
     <%= field :content, as: :textarea %>
 <% end %>
+
+</div>
