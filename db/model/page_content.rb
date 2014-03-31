@@ -8,7 +8,7 @@ class PageContent
 
   field :lang, type: Symbol
   field :published_at, type: Time
-  field :publication_state, type: Symbol
+  field :publication_state, type: Symbol, default: :published
   field :link, type: String
   field :title, type: String
   field :content, type: String
