@@ -1,8 +1,19 @@
+<div class="page-preview-body">
 <%= partial 'admin/pages/preview/breadcrumbs' %>
-<h3>
+<h3 class="title">
     <%= @page.content(@lang).try :title %>
 </h3>
-<%= l @page.content(@lang).try(:published_at).try(:to_date), default: nil, format: :long %>
-<hr/>
+<div class="headers">
+    <div class="published_at">
+        <%= l @page.content(@lang).try(:published_at).try(:to_date),
+            default: nil,
+            format: :long
+        %>
+    </div>
+</div>
 
-<%= @page.content(@lang).try :content %>
+<div class="content">
+    <%= @page.content(@lang).try :content %>
+</div>
+
+</div>
