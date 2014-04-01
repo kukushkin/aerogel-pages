@@ -38,7 +38,7 @@ def admin_pages_link_as_text( page, lang )
   page_content = page.content( lang )
   return "<span class='nodata'>no content</span>" if page_content.blank?
   case page_content.publication_state.to_sym
-    when :published then page_content.title
+    when :published then h( page_content.link )
     when :hidden then "<span class='state-hidden'>#{h page_content.link}</span>"
     else
       "<span class='state-not-published'>#{h page_content.link}</span>"
