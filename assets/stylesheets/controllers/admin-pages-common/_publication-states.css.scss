@@ -1,0 +1,11 @@
+span.state-hidden {
+    font-style: italic;
+}
+
+span.state-not-published {
+    text-decoration: line-through;
+}
+
+span.nodata {
+    color: $item-nodata-fg;
+}

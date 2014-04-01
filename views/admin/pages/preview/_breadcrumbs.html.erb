@@ -2,7 +2,10 @@
 <% @page.ancestors.sort_by(&:depth).each do |p| %>
     <li>
         <%= render_once :home, icon('fa-home') %>
-        <%= link_to "#{@lang}-#{p.id}", p.content(@lang).try(:title), onclick: "pages_widget.goto_page('#{p.id}'); return false" %>
+        <%= link_to "#{@lang}-#{p.id}",
+                admin_pages_title_as_icon_and_text( p, @lang ),
+                onclick: "pages_widget.goto_page('#{p.id}'); return false"
+        %>
     </li>
 <% end %>
 </ol>

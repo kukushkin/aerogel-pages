@@ -10,11 +10,14 @@
     <%= partial 'admin/pages/index/pane_tree_tabs' %>
     <%
         table @pages, style: 'smart-tree-table', lang: @lang, html_params: { id: 'tree' } do
-            column :drag_handle, label: '' do |p|
+            column :drag_handle, label: '' do
                 ''
             end
+            column :publication_state, label: '' do |p|
+                admin_pages_publication_state_as_icon( p, options[:lang] )
+            end
             column :name, label: 'Name' do |p|
-              p.content(options[:lang]).try(:title) || 'no translation'
+              admin_pages_title_as_text( p, options[:lang] )
             end
             column :type, label: 'Type' do |p|
               p.page_type.try(:name)

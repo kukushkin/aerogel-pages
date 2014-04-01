@@ -8,7 +8,7 @@
             <%= field.options[:prefix] %>
         </span>
     <% end %>
-    <input id="<%= field.css_id %>" type="text" name="<%= field.html_name %>" value="<%= h field.value %>" <%= field.required? ? 'required' : '' %> <%= field.html_params %> class="form-control" />
+    <input id="<%= field.css_id %>" type="text" name="<%= field.html_name %>" value="<%= h field.value %>" <%= field.required? ? 'required' : '' %> class="form-control" />
     <% if field.options.key? :suffix %>
         <span class="input-group-addon">
             <%= field.options[:suffix] %>

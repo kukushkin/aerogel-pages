@@ -9,7 +9,7 @@
         data-effect="slide"
     >
     <%= icon 'fa-caret-right' %> &nbsp;
-    <%= admin_pages_publication_state_as_icon page_content.publication_state %>
+    <%= admin_pages_publication_state_as_icon page, page_content.lang %>
     <%= l page_content.published_at.try(:to_date), default: "no published date" %>
 
     </a>
@@ -44,7 +44,11 @@
     </div>
 </div>
 
-<%= field :link, as: :text_addon, style: 'admin-pages-edit', required: false, prefix: '/ abc / some /' %>
+<%= field :link, as: :text_addon, style: 'admin-pages-edit', required: false,
+        prefix: (
+            admin_pages_url_as_text( page.parent, page_content.lang )+" /"
+        )
+%>
 
 <%= field :html_description, as: :textarea, style: 'admin-pages-edit', collapsible: true,
     label: "HTML description"

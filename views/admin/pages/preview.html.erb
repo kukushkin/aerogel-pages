@@ -1,5 +1,8 @@
 <%= partial 'admin/pages/preview/breadcrumbs' %>
-<h1>
+<h3>
     <%= @page.content(@lang).try :title %>
-</h1>
+</h3>
+<%= l @page.content(@lang).try(:published_at).try(:to_date), default: nil, format: :long %>
+<hr/>
+
 <%= @page.content(@lang).try :content %>

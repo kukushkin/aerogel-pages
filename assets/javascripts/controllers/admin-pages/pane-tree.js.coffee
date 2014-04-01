@@ -1,7 +1,7 @@
 # Left pane (tree) widget
 #
 tree_selector = "#tree"
-tree_column = 2
+tree_column = 3
 
 log = (msg) ->
     console?.log "** admin/pages:tree: #{msg}"

@@ -3,7 +3,7 @@
 
     <li>
         <%= render_once :home, icon('fa-home') %>
-        <%= p.content(@lang).try(:title) %>
+        <%= admin_pages_title_as_icon_and_text p, @lang %>
     </li>
 <% end if @page.parent.present? %>
     <li>
