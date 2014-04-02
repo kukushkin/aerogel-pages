@@ -1,0 +1,2 @@
+<textarea id="<%= field.css_id %>" type="text" name="<%= field.html_name %>" <%= field.required? ? 'required' : '' %>  class="form-control" rows="<%= (field.value || "").split("\n").size+1 %>"
+><%= h field.value %></textarea>

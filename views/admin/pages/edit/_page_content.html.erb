@@ -32,13 +32,15 @@
         }
     %>
 
-    <% fieldset :page_content_blocks do %>
+    <div class="page-content-blocks">
+    <% fieldset :page_content_blocks, style: 'admin-pages-edit-content-block' do %>
         <%= partial "admin/pages/edit/content_block",
                 scope: self,
                 locals: { type: self.object.type }
         %>
         <!-- %= field :content, as: :textarea % -->
     <% end %>
+    </div>
 
     <div class="page-content-block-bottom">
         <a href="#" onclick="page_content_block_add_<%= self.object.lang %>(); return false">add page content block</a>
@@ -54,7 +56,7 @@ function page_content_block_add_<%= page_content.lang %>() {
     var lang = "<%= page_content.lang %>";
     $.get( "page_content_block", { type: 'some-type', page_content_lang: lang } )
     .done(function(data) {
-        $(".page-content-"+lang+" .page-content-block-bottom").before( data );
+        $(".page-content-"+lang+" .page-content-blocks").append( data );
         console.log("page-conten-block-added");
     });
 }

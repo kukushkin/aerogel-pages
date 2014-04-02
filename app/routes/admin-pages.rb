@@ -94,7 +94,7 @@ namespace "/admin/pages" do
       field_prefix = "page[page_contents_attributes][#{page_content_lang}][page_content_blocks_attributes][#{pcb.id}]"
       opts = {
         field_prefix: field_prefix,
-        style: 'admin-pages-edit'
+        style: 'admin-pages-edit-content-block'
       }
       fields = Aerogel::Forms::Fieldset.new pcb, nil, nil, opts do
         partial "admin/pages/edit/content_block", scope: self, locals: { type: type }

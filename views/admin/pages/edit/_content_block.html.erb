@@ -1,3 +1,10 @@
+<div class="page-content-block-header">
+<span class="type"><%= type %></span>
+<span class="button-delete">
+    <%= icon 'fa-times' %>
+</span>
+</div>
+
 <%=
     begin
         partial "admin/pages/edit/content_block_#{type}", layout: false, scope: self
