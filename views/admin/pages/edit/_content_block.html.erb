@@ -1,0 +1,7 @@
+<%=
+    begin
+        partial "admin/pages/edit/content_block_#{type}", layout: false, scope: self
+    rescue Errno::ENOENT
+        partial "admin/pages/edit/content_block_default", layout: false, scope: self
+    end
+%>

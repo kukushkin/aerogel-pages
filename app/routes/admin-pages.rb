@@ -11,29 +11,27 @@ namespace "/admin/pages" do
   namespace "/:lang-:id" do
     before do
       @lang = params[:lang]
+      @selected_page = Page.find( params[:id] ) or halt 404
     end
 
     get do
       @pages = Page.traverse
-      @selected_page = Page.find( params[:id] ) or halt 404
       pass
     end
 
     get "/preview" do
       layout "admin/pages/preview"
-      @page = Page.find params[:id]
+      @page = @selected_page
       pass
     end
 
     get "/append" do
-      @selected_page = Page.find( params[:id] ) or halt 404
       @page = Page.new( parent_id: @selected_page.parent_id )
       @page.page_type = PageType.where( type: :page ).first
       pass
     end
 
     post "/append" do
-      @selected_page = Page.find( params[:id] ) or halt 404
       @page = Page.new( params[:page] )
       @page.parent_id = @selected_page.parent_id
       pass unless @page.save
@@ -42,14 +40,12 @@ namespace "/admin/pages" do
     end
 
     get "/insert" do
-      @selected_page = Page.find( params[:id] ) or halt 404
       @page = Page.new( parent_id: @selected_page.id )
       @page.page_type = PageType.where( type: :page ).first
       pass
     end
 
     post "/insert" do
-      @selected_page = Page.find( params[:id] ) or halt 404
       @page = Page.new( params[:page] )
       @page.parent_id = @selected_page.id
       if @page.save
@@ -62,29 +58,25 @@ namespace "/admin/pages" do
     end
 
     get "/delete" do
-      @page = Page.find( params[:id] ) or halt 404
-      @selected_page = @page
+      @page = @selected_page
       pass
     end
 
     post "/delete" do
-      @page = Page.find( params[:id] ) or halt 404
-      @selected_page = @page
+      @page = @selected_page
       # pass unless @page.save
       redirect "/admin/pages/#{@lang}-#{@page.id}", error: "Not implemented yet"
     end
 
 
     get "/edit" do
-      @page = Page.find params[:id]
-      @selected_page = @page
+      @page = @selected_page
       pass
     end
 
     post "/edit" do
       # flash.now[:debug] = "params: #{params.inspect}"
-      @page = Page.find( params[:id] ) or halt 404
-      @selected_page = @page
+      @page = @selected_page
       if @page.update_attributes params[:page].except( :page_type )
         redirect "/admin/pages/#{@lang}-#{@page.id}" #, notice: "Page updated"
       end
@@ -93,6 +85,23 @@ namespace "/admin/pages" do
       #)
       pass
     end
+
+    get "/page_content_block" do
+      # @page =
+      page_content_lang = params[:page_content_lang]
+      type = params[:type] || 'standard'
+      pcb = PageContentBlock.new
+      field_prefix = "page[page_contents_attributes][#{page_content_lang}][page_content_blocks_attributes][#{pcb.id}]"
+      opts = {
+        field_prefix: field_prefix,
+        style: 'admin-pages-edit'
+      }
+      fields = Aerogel::Forms::Fieldset.new pcb, nil, nil, opts do
+        partial "admin/pages/edit/content_block", scope: self, locals: { type: type }
+      end
+      fields.render
+    end
+
   end # namespace ":lang\::id"
   #
   # Common Pages controller routes

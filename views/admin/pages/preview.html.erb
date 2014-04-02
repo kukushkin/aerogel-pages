@@ -13,7 +13,9 @@
 </div>
 
 <div class="content">
-    <%= @page.content(@lang).try :content %>
+    <%= partial "admin/pages/preview/block",
+        collection: @page.content(@lang).try(:page_content_blocks)
+    %>
 </div>
 
 </div>

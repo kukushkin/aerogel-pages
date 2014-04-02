@@ -11,9 +11,13 @@ class PageContent
   field :publication_state, type: Symbol, default: :published
   field :link, type: String
   field :title, type: String
-  field :content, type: String
   field :html_description, type: String
   field :html_keywords, type: String
+
+  embeds_many :page_content_blocks, cascade_callbacks: true
+  accepts_nested_attributes_for :page_content_blocks,
+    reject_if: :all_blank,
+    allow_destroy: true
 
   validates_presence_of :lang, :link, :title
   validates :publication_state, inclusion: { in: PUBLICATION_STATES }
