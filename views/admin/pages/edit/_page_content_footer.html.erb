@@ -1,0 +1,47 @@
+<% collapsed = true %>
+
+<!-- .header.closed -->
+<div class="header closed" <%= collapsed ? "" : "style='display:none'"  %> >
+    <a href="#" class="smart-link"
+data-show-id=".page-content-<%= page_content.lang %> .page-content-footer .header.open, .page-content-<%= page_content.lang %> .page-content-footer .content"
+data-hide-id=".page-content-<%= page_content.lang %> .page-content-footer .header.closed"
+        data-effect="slide"
+    >
+        <%= icon 'fa-plus' -%><span class="header-label">добавить блок</span>
+    </a>
+</div>
+<!-- /.header.closed -->
+
+
+<div class="content"  <%= collapsed ? "style='display:none'" : "" %> >
+    <ul class="block-creators">
+        <% page.available_content_block_types.each do |block_type| %>
+        <li>
+            <a href="#" class="btn-block-create smart-link"
+                data-lang="<%= page_content.lang %>"
+                data-type="<%= block_type %>"
+                data-show-id=".page-content-<%= page_content.lang %> .page-content-footer .header.closed"
+                data-hide-id=".page-content-<%= page_content.lang %> .page-content-footer .header.open, .page-content-<%= page_content.lang %> .page-content-footer .content"
+                data-effect="slide"
+
+            >
+                <%= icon 'fa-plus' %>
+                <span class="block-creator-label"><%= block_type %></span>
+            </a>
+        </li>
+        <% end %>
+    </ul>
+</div>
+<!-- /.content -->
+
+<!-- .header.open -->
+<div class="header open" <%= collapsed ? "style='display:none'" : "" %> >
+    <a href="#" class="smart-link"
+data-show-id=".page-content-<%= page_content.lang %> .page-content-footer .header.closed"
+data-hide-id=".page-content-<%= page_content.lang %> .page-content-footer .header.open, .page-content-<%= page_content.lang %> .page-content-footer .content"
+        data-effect="slide"
+    >
+        <%= icon 'fa-chevron-up' -%><span class="header-label">добавить блок</span>
+    </a>
+</div>
+<!-- /.header -->

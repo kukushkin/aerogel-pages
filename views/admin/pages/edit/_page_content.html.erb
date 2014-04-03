@@ -19,9 +19,14 @@
 
     <%= field :_destroy, as: :hidden, class: 'marked-for-removal' %>
     <%= field :lang, as: :hidden %>
-    <%= field :title, as: :title, style: 'admin-pages-edit', required: false %>
+
+    <div class="title">
+        <%= field :title, as: :title, style: 'admin-pages-edit', required: false %>
+    </div>
 
 
+
+    <div class="page-content-header">
     <%= partial "admin/pages/edit/page_content_header",
         scope: self,
         locals: {
@@ -31,6 +36,7 @@
             form_builder: self
         }
     %>
+    </div>
 
     <div class="page-content-blocks">
     <% fieldset :page_content_blocks, style: 'admin-pages-edit-content-block' do %>
@@ -42,22 +48,16 @@
     <% end %>
     </div>
 
-    <div class="page-content-block-bottom">
-        <a href="#" onclick="page_content_block_add_<%= self.object.lang %>(); return false">add page content block</a>
-
+    <div class="page-content-footer">
+        <%= partial "admin/pages/edit/page_content_footer",
+                scope: self,
+                locals: {
+                    page: page,
+                    page_content: self.object
+                }
+        %>
     </div>
 
 <% end %>
 
 </div>
-
-<script type="text/javascript">
-function page_content_block_add_<%= page_content.lang %>() {
-    var lang = "<%= page_content.lang %>";
-    $.get( "page_content_block", { type: 'some-type', page_content_lang: lang } )
-    .done(function(data) {
-        $(".page-content-"+lang+" .page-content-blocks").append( data );
-        console.log("page-conten-block-added");
-    });
-}
-</script>

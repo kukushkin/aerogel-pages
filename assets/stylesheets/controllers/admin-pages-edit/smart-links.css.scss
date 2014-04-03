@@ -1,0 +1,9 @@
+.smart-link {
+    text-decoration: none;
+    color: $link-js-color;
+    &:hover {
+        text-decoration: none;
+        color: $link-js-hover-color;
+    }
+    // border-bottom: 1px dotted $text-color;
+}

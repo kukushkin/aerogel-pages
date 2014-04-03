@@ -89,8 +89,8 @@ namespace "/admin/pages" do
     get "/page_content_block" do
       # @page =
       page_content_lang = params[:page_content_lang]
-      type = params[:type] || 'standard'
-      pcb = PageContentBlock.new
+      type = params[:page_content_block_type] || 'standard'
+      pcb = PageContentBlock.new( type: type )
       field_prefix = "page[page_contents_attributes][#{page_content_lang}][page_content_blocks_attributes][#{pcb.id}]"
       opts = {
         field_prefix: field_prefix,

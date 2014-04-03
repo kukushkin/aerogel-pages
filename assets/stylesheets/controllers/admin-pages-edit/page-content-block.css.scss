@@ -1,4 +1,3 @@
-$block-header-height: 25px;
 
 .page-content-blocks fieldset:first-child {
     &:hover {
@@ -6,47 +5,60 @@ $block-header-height: 25px;
     }
 }
 
+$block-header-height: 30px;
+$block-header-closed-height: 30px;
+
 fieldset.page_content_block {
     position: relative;
     // background: #eee;
-    padding-top: $block-header-height; // height of block header
+    // padding-top: $block-header-height; // height of block header
     box-sizing: content-box;
     margin-top: -1px;
-    border-top: 1px dashed #ccc;
-    border-bottom: 1px dashed #ccc;
+    border-top: 1px dashed #ddd;
+    border-bottom: 1px dashed #ddd;
     &:hover {
-        // z-index: 1;
+        z-index: 1;
         border-top: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
     }
 
-    .page-content-block-header {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 0 5px;
-        height: $block-header-height;
-        // border: 1px solid green;
+    .header {
+        position: relative;
+        &.open { height: $block-header-height; line-height: $block-header-height; }
+        &.closed { height: $block-header-closed-height; line-height: $block-header-closed-height; }
 
+        .header-label {
+        }
+        i { width: 16px; }
         .type {
-            font-variant: small-caps;
-            font-size: 1.5em;
-            color: #ddd;
-            vertical-align: top;
-            line-height: $block-header-height/2.0;
+            text-transform: uppercase;
+        }
+        .btn-block-delete {
+            position: absolute;
+            right: 0;
+            border: none;
+            background: inherit;
+            color: $link-js-color;
+            padding-right: 0;
+            &:hover {
+                text-decoration: none;
+                color: $link-js-hover-color;
+            }
+        }
+
+
+    }
+
+    .content {
+        margin-bottom: 5px;
+        .form-group {
+            margin-bottom: 5px;
         }
     }
 
-    .form-group {
-        margin-bottom: 5px;
-    }
-
-    &:hover {
-        // background: #eee;
-    }
-    &:not(:hover) {
-        .page-content-block-header {
-            display: none;
+    &:not(:hover)  {
+        .header.open {
+            visibility: hidden;
         }
         textarea:not(:hover):not(:focus) {
             border: 1px solid white;

@@ -1,14 +1,46 @@
-<div class="page-content-block-header">
-<span class="type"><%= type %></span>
-<span class="button-delete">
-    <%= icon 'fa-times' %>
-</span>
-</div>
+<div class="page-content-block id-<%= self.object.id %>">
+    <!-- .header -->
+    <div class="header closed" style="display:none">
+        <span class="header-label">
+            <a href="#" class="smart-link"
+                data-show-id=".page-content-block.id-<%= self.object.id %> .header.open, .page-content-block.id-<%= self.object.id %> .content"
+                data-hide-id=".page-content-block.id-<%= self.object.id %> .header.closed"
+                data-effect="slide"
+            >
+            <%= icon 'fa-chevron-right' %><span class="type"><%= type %></span>
+            <span class="preview">...</span>
+            </a>
+        </span>
+    </div>
 
-<%=
-    begin
-        partial "admin/pages/edit/content_block_#{type}", layout: false, scope: self
-    rescue Errno::ENOENT
-        partial "admin/pages/edit/content_block_default", layout: false, scope: self
-    end
-%>
+    <div class="header open">
+        <span class="header-label">
+            <a href="#" class="smart-link"
+                data-hide-id=".page-content-block.id-<%= self.object.id %> .header.open, .page-content-block.id-<%= self.object.id %> .content"
+                data-show-id=".page-content-block.id-<%= self.object.id %> .header.closed"
+                data-effect="slide"
+            >
+            <%= icon 'fa-chevron-down' %><span class="type"><%= type %></span>
+            </a>
+        </span>
+        <button type="button" class="btn-block-delete smart-link" title="Delete block"
+            data-hide-id=".page_content_block.id-<%= self.object.id %>"
+            data-effect="slide"
+        >
+            <%= icon 'fa-times' %>
+        </button>
+    </div>
+    <!-- /.header -->
+
+    <div class="content">
+        <%= field :_destroy, as: :hidden, class: 'marked-for-removal' %>
+    <%=
+        begin
+            partial "admin/pages/edit/content_block_#{type}", layout: false, scope: self
+        rescue Errno::ENOENT
+            partial "admin/pages/edit/content_block_default", layout: false, scope: self
+        end
+    %>
+    </div>
+
+</div>

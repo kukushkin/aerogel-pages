@@ -1,60 +1,68 @@
-<% page_content_header_expanded = page_content.errors.present? || !page_content.persisted? %>
+<% collapsed = page_content.errors.blank? && page_content.persisted? %>
 
-<div class="page-content-header-link"
-    <%= page_content_header_expanded ? "style='display:none'" : ""  %>
->
+<!-- .header -->
+<div class="header closed" <%= collapsed ? "" : "style='display:none'"  %> >
     <a href="#" class="smart-link"
-        data-show-id=".page-content-<%= page_content.lang %> .page-content-header"
-        data-hide-id=".page-content-<%= page_content.lang %> .page-content-header-link"
+data-show-id=".page-content-<%= page_content.lang %> .page-content-header .header.open, .page-content-<%= page_content.lang %> .page-content-header .content"
+data-hide-id=".page-content-<%= page_content.lang %> .page-content-header .header.closed"
         data-effect="slide"
     >
-    <%= icon 'fa-caret-right' %> &nbsp;
-    <%= admin_pages_publication_state_as_icon page, page_content.lang %>
-    <%= l page_content.published_at.try(:to_date), default: "no published date" %>
-
+        <%= icon 'fa-chevron-right' -%><span class="header-label"><%=
+                txt = admin_pages_publication_state_as_icon( page, page_content.lang )
+                txt.present? ? txt+" " : ''
+            -%><%=
+                l page_content.published_at.try(:to_date),
+                    format: :long,
+                    default: "no published date"
+            -%>
+        </span>
     </a>
 </div>
 
-<div class="page-content-header well well-sm"
-    <%= page_content_header_expanded ? "": "style='display:none'" %>
->
-
-<button type="button" class="close smart-link" aria-hidden="true"
-    data-show-id=".page-content-<%= page_content.lang %> .page-content-header-link"
-    data-hide-id=".page-content-<%= page_content.lang %> .page-content-header"
-    data-effect="slide"
->&times;</button>
-
-
-<div class="row">
-    <div class="col-sm-5">
-        <%= field :published_at, as: :datetime, style: 'admin-pages-edit' %>
-    </div>
-    <div class="col-sm-7">
-        <%= field :publication_state, as: :radio_buttons, style: 'admin-pages-edit',
-            values:%w(published hidden not_published),
-            labels:[
-                icon('fa-check')+' published',
-                icon('fa-eye')+' hidden',
-                icon('fa-times')+' not published'
-            ],
-            required: true
-
-        %>
-    </div>
+<div class="header open" <%= collapsed ? "style='display:none'" : "" %> >
+    <a href="#" class="smart-link"
+data-show-id=".page-content-<%= page_content.lang %> .page-content-header .header.closed"
+data-hide-id=".page-content-<%= page_content.lang %> .page-content-header .header.open, .page-content-<%= page_content.lang %> .page-content-header .content"
+        data-effect="slide"
+    >
+        <%= icon 'fa-chevron-down' -%><span class="header-label">параметры страницы
+        </span>
+    </a>
 </div>
+<!-- /.header -->
 
-<%= field :link, as: :text_addon, style: 'admin-pages-edit', required: false,
-        prefix: (
-            admin_pages_url_as_text( page.parent, page_content.lang )+" /"
-        )
-%>
+<div class="content"  <%= collapsed ? "style='display:none'" : "" %> >
+    <div class="row">
+        <div class="col-sm-5">
+            <%= field :published_at, as: :datetime, style: 'admin-pages-edit' %>
+        </div>
+        <div class="col-sm-7">
+            <%= field :publication_state, as: :radio_buttons, style: 'admin-pages-edit',
+                values:%w(published hidden not_published),
+                labels:[
+                    icon('fa-check')+' published',
+                    icon('fa-eye')+' hidden',
+                    icon('fa-times')+' not published'
+                ],
+                required: true
 
-<%= field :html_description, as: :textarea, style: 'admin-pages-edit', collapsible: true,
-    label: "HTML description"
-%>
-<%= field :html_keywords, as: :textarea, style: 'admin-pages-edit', collapsible: true,
-    label: "HTML keywords"
- %>
+            %>
+        </div>
+    </div>
+
+    <%= field :link, as: :text_addon, style: 'admin-pages-edit', required: false,
+            prefix: (
+                admin_pages_url_as_text( page.parent, page_content.lang )+" /"
+            )
+    %>
+
+    <%= field :html_description, as: :textarea, style: 'admin-pages-edit', collapsible: true,
+        label: "HTML description"
+    %>
+    <%= field :html_keywords, as: :textarea, style: 'admin-pages-edit', collapsible: true,
+        label: "HTML keywords"
+     %>
 
 </div>
+<!-- /.content -->
+

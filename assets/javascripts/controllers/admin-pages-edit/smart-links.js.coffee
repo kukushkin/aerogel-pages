@@ -39,4 +39,4 @@ smart_link_click = (e) ->
     false
 
 $ ->
-    $('.smart-link').on 'click', smart_link_click
+    $('body').on 'click', '.smart-link', smart_link_click

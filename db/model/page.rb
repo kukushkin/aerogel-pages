@@ -19,6 +19,13 @@ class Page
     page_contents.where( lang: lang.to_sym ).first
   end
 
+  # Returns list of allowed content block types.
+  #
+  def available_content_block_types
+    %w(text image some-other-block a aa aaa bbb bbbb sadasdasd asdsadsd sadasda asdasd adas asddad)
+    # [:text, :image, :'some-other-block', :aaa, :]
+  end
+
   # Returns list of available langs as Symbols
   #
   def self.available_langs
