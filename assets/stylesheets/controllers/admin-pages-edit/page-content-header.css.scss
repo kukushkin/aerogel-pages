@@ -1,27 +1,10 @@
-$block-header-height: 30px;
-$block-header-closed-height: 30px;
+
 $block-content-fields-spacing: 10px;
 .page-content-header {
-    position: relative;
-    // margin-bottom: 15px;
-    padding: 0;
-    margin: 0;
-    .header {
-        height: $block-header-height;
-        line-height: $block-header-height;
-        position: relative;
+    @include page-block-expandable( 30px );
 
-        i { width: 16px; }
-
-        .header-label {
-            text-transform: uppercase;
-            /// font-size: 1.5em;
-        }
-    }
     .content {
-        background: #eee;
-        padding: 5px 15px 5px 15px;
-        margin: 0;
+        @include panel-info;
         .row, .form-group {
             margin-bottom: $block-content-fields-spacing;
         }

@@ -5,13 +5,8 @@
     }
 }
 
-$block-header-height: 30px;
-$block-header-closed-height: 30px;
-
 fieldset.page_content_block {
-    position: relative;
-    // background: #eee;
-    // padding-top: $block-header-height; // height of block header
+    @include page-block-expandable( 30px );
     box-sizing: content-box;
     margin-top: -1px;
     border-top: 1px dashed #ddd;
@@ -23,16 +18,7 @@ fieldset.page_content_block {
     }
 
     .header {
-        position: relative;
-        &.open { height: $block-header-height; line-height: $block-header-height; }
-        &.closed { height: $block-header-closed-height; line-height: $block-header-closed-height; }
 
-        .header-label {
-        }
-        i { width: 16px; }
-        .type {
-            text-transform: uppercase;
-        }
         .btn-block-delete {
             position: absolute;
             right: 0;
