@@ -14,7 +14,7 @@ class PageContent
   field :html_description, type: String
   field :html_keywords, type: String
 
-  embeds_many :page_blocks, class_name: "Pages::Block", cascade_callbacks: true
+  embeds_many :page_blocks, class_name: "Pages::Block", order: :position.asc, cascade_callbacks: true
   accepts_nested_attributes_for :page_blocks,
     reject_if: :all_blank,
     allow_destroy: true

@@ -57,4 +57,21 @@ fieldset.page_block {
         }
 
     }
+
+    &.ui-sortable-helper {
+        padding: 3px;
+        background: white;
+        border: 1px solid #ddd;
+        opacity: 0.7;
+        box-shadow: 5px 5px 5px rgba( 0, 0, 0, 0.5 );
+    }
+}
+
+// sortable placehoder
+.page-block-sortable-placeholder {
+    height: 30px;
+    // border: 1px solid green;
+    background: #93e08a;
+    border-top: 1px dashed #ddd;
+    border-bottom: 1px dashed #ddd;
 }

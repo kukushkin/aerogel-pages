@@ -90,8 +90,9 @@ namespace "/admin/pages" do
       # @page =
       page_content_lang = params[:page_content_lang]
       type = params[:page_block_type] || 'standard'
+      position = params[:page_block_position].to_i
 
-      page_block = Aerogel::Pages.create_page_block type
+      page_block = Aerogel::Pages.create_page_block type, position: position
       field_prefix = "page[page_contents_attributes][#{page_content_lang}][page_blocks_attributes][#{page_block.id}]"
       opts = {
         field_prefix: field_prefix,

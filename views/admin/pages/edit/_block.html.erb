@@ -35,6 +35,7 @@
     <div class="content">
         <%= field :_destroy, as: :hidden, class: 'marked-for-removal' %>
         <%= field :_type, as: :hidden %>
+        <%= field :position, as: :hidden, class: 'page-block-position' %>
     <%=
         begin
             partial "admin/pages/edit/block/#{type}", layout: false, scope: self
