@@ -33,3 +33,4 @@ class @DatetimePickerField
         # ...
     datetimepicker: ->
         @widget.data("DateTimePicker")
+

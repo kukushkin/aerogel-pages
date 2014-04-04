@@ -1,21 +1,30 @@
 <div class="page-preview-body">
 <%= partial 'admin/pages/preview/breadcrumbs' %>
-<h3 class="title">
-    <%= @page.content(@lang).try :title %>
-</h3>
-<div class="headers">
-    <div class="published_at">
-        <%= l @page.content(@lang).try(:published_at).try(:to_date),
-            default: nil,
-            format: :long
+<% if @page.content(@lang).present? %>
+    <h3 class="title">
+        <%= @page.content(@lang).try :title %>
+    </h3>
+    <div class="headers">
+        <div class="published_at">
+            <%= l @page.content(@lang).try(:published_at).try(:to_date),
+                default: nil,
+                format: :long
+            %>
+        </div>
+    </div>
+
+    <div class="content">
+        <%= partial "admin/pages/preview/block",
+            collection: @page.content(@lang).try(:page_blocks)
         %>
     </div>
-</div>
-
-<div class="content">
-    <%= partial "admin/pages/preview/block",
-        collection: @page.content(@lang).try(:page_blocks)
-    %>
-</div>
-
+<% else %>
+    <div class="content">
+        <br/>
+        <span class="nodata">
+            <%= icon 'fa-warning' %> Page has no content in this language
+        </span>
+        <br/>
+    </div>
+<% end %>
 </div>
