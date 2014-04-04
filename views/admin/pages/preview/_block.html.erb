@@ -1,3 +1,7 @@
-<p>
-    <%= block.content %>
-</p>
+<%=
+    begin
+        partial "admin/pages/preview/block/#{block.type}", locals: { block: block }, scope: self
+    rescue Errno::ENOENT
+        partial "admin/pages/preview/block/default", locals: { block: block }, scope: self
+    end
+%>

@@ -1,0 +1,67 @@
+<!-- label for="<%= field.css_id %>"><%= field.label -%>
+<% if field.required? -%> <abbr class="required" title="<%= t 'aerogel.forms.required' %>">*</abbr>
+<% end -%>
+</label -->
+
+<div class="smart-file-input">
+    <%= tag :input, type: :hidden,
+        name: field.html_name("retained_#{field.name}"),
+        value: field.data_object.send(:"retained_#{field.name}")
+    %>
+    <%= tag :input, type: :hidden,
+            name: field.html_name("remove_#{field.name}"),
+            class: "file-remove-field"
+    %>
+    <input id="<%= field.css_id %>" type="file" name="<%= field.html_name %>" <%= field.html_params %> />
+
+    <div class="file-empty">
+        <div>
+            <span class="file-label"><i><%= t.aerogel.forms.file.empty %></i></span>
+        </div>
+        <span class="btn btn-default btn-sm btn-file-select">
+            <%= t.aerogel.forms.file.select %>
+        </span>
+    </div>
+    <div class="file-exists">
+
+        <% if field.value %>
+        <div class="file-old">
+            <%= image_thumb_tag field.value, 'x'+( field.options[:height] ? field.options[:height] : '100' ) %>
+            <!--
+            <br/>
+            <span class="file-label"><%= field.value.try(:description) %></span>
+            -->
+        </div>
+        <% end %>
+
+        <div class="file-new">
+            <img class="file-preview fancybox"
+                height="<%= field.options[:height] ? field.options[:height] : '100' %>" />
+            <!--
+            <br/>
+            <span class="file-label"></span>
+            -->
+        </div>
+        <!-- span class="btn btn-default btn-sm btn-file-change">
+            <%= t.aerogel.forms.file.change %>
+        </span -->
+        <!-- span class="btn btn-default btn-sm btn-file-remove">
+            <%= t.aerogel.forms.file.remove %>
+        </span -->
+    </div>
+</div>
+
+<% field.form_object.options[:multipart] = true %>
+
+
+<script type="text/javascript">
+$(function(){
+    console.log("applying smart-file-input started");
+    $("#<%= field.css_id %>").closest(".smart-file-input").each(function(){
+        console.log("found element for smart-file-input");
+        smart_file_input( $(this) );
+    });
+    console.log("applying smart-file-input finished");
+});
+</script>
+

@@ -6,6 +6,7 @@
 <% form @page,
     cancel_url: "/admin/pages/#{@lang}-#{@selected_page.id}",
     current_lang: @lang,
+    multipart: true,
     html_params: { novalidate: true } do
 %>
 

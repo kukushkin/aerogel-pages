@@ -15,7 +15,7 @@ data-hide-id=".page-content-<%= page_content.lang %> .page-content-footer .heade
 
 <div class="content"  <%= collapsed ? "style='display:none'" : "" %> >
     <ul class="block-creators">
-        <% page.available_content_block_types.each do |block_type| %>
+        <% page.available_block_types.each do |block_type| %>
         <li>
             <a href="#" class="btn-block-create smart-link"
                 data-lang="<%= page_content.lang %>"

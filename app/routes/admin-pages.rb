@@ -86,18 +86,19 @@ namespace "/admin/pages" do
       pass
     end
 
-    get "/page_content_block" do
+    get "/edit/page_block" do
       # @page =
       page_content_lang = params[:page_content_lang]
-      type = params[:page_content_block_type] || 'standard'
-      pcb = PageContentBlock.new( type: type )
-      field_prefix = "page[page_contents_attributes][#{page_content_lang}][page_content_blocks_attributes][#{pcb.id}]"
+      type = params[:page_block_type] || 'standard'
+
+      page_block = Aerogel::Pages.create_page_block type
+      field_prefix = "page[page_contents_attributes][#{page_content_lang}][page_blocks_attributes][#{page_block.id}]"
       opts = {
         field_prefix: field_prefix,
-        style: 'admin-pages-edit-content-block'
+        style: 'admin-pages-edit-block'
       }
-      fields = Aerogel::Forms::Fieldset.new pcb, nil, nil, opts do
-        partial "admin/pages/edit/content_block", scope: self, locals: { type: type }
+      fields = Aerogel::Forms::Fieldset.new page_block, nil, nil, opts do
+        partial "admin/pages/edit/block", scope: self, locals: { type: type }
       end
       fields.render
     end

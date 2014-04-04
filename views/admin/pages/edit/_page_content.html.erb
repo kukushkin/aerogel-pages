@@ -38,9 +38,9 @@
     %>
     </div>
 
-    <div class="page-content-blocks">
-    <% fieldset :page_content_blocks, style: 'admin-pages-edit-content-block' do %>
-        <%= partial "admin/pages/edit/content_block",
+    <div class="page-blocks">
+    <% fieldset :page_blocks, style: 'admin-pages-edit-block' do %>
+        <%= partial "admin/pages/edit/block",
                 scope: self,
                 locals: { type: self.object.type }
         %>

@@ -1,11 +1,11 @@
 
-.page-content-blocks fieldset:first-child {
+.page-blocks fieldset:first-child {
     &:hover {
         border-top: 1px solid #ccc;
     }
 }
 
-fieldset.page_content_block {
+fieldset.page_block {
     @include page-block-expandable( 30px );
     box-sizing: content-box;
     margin-top: -1px;
@@ -46,9 +46,14 @@ fieldset.page_content_block {
         .header.open {
             visibility: hidden;
         }
-        textarea:not(:hover):not(:focus) {
-            border: 1px solid white;
-            box-shadow: none;
+        .btn {
+            visibility: hidden;
+        }
+        textarea, input {
+            &:not(:hover):not(:focus) {
+                border: 1px solid white;
+                box-shadow: none;
+            }
         }
 
     }

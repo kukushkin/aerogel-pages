@@ -14,27 +14,14 @@ class PageContent
   field :html_description, type: String
   field :html_keywords, type: String
 
-  embeds_many :page_content_blocks, cascade_callbacks: true
-  accepts_nested_attributes_for :page_content_blocks,
+  embeds_many :page_blocks, class_name: "Pages::Block", cascade_callbacks: true
+  accepts_nested_attributes_for :page_blocks,
     reject_if: :all_blank,
     allow_destroy: true
 
   validates_presence_of :lang, :link, :title
   validates :publication_state, inclusion: { in: PUBLICATION_STATES }
 
-  #
-  # Page
-  #   type: page
-  #   allowed_children: *
-  #  \PageContent:ru
-  #    lang: ru
-  #    link
-  #    is_published
-  #    is_visible
-  #    created/updated/published
-  #    title
-  #
-  #  \PageContent:en
-  #
+
 
 end # class PageContent

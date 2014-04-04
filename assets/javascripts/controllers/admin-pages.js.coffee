@@ -1,5 +1,6 @@
 #= require smart-tree-table
 #= require jquery.history
+#= require aerogel-media
 #= require_tree ../admin-pages-utils
 #= require_tree ./admin-pages
 

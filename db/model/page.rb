@@ -21,9 +21,8 @@ class Page
 
   # Returns list of allowed content block types.
   #
-  def available_content_block_types
-    %w(text image some-other-block a aa aaa bbb bbbb sadasdasd asdsadsd sadasda asdasd adas asddad)
-    # [:text, :image, :'some-other-block', :aaa, :]
+  def available_block_types
+    Aerogel::Pages.registered_page_block_types.keys
   end
 
   # Returns list of available langs as Symbols

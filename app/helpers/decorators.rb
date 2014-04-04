@@ -55,6 +55,7 @@ end
 # links are generated as icon and text
 #
 def admin_pages_url_as_text( page, lang )
+  return '' if page.nil?
   page.ancestors_and_self.sort_by(&:depth).map do |p|
     if p.root?
       icon 'fa-home'
