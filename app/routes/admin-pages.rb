@@ -65,7 +65,10 @@ namespace "/admin/pages" do
     post "/delete" do
       @page = @selected_page
       # pass unless @page.save
-      redirect "/admin/pages/#{@lang}-#{@page.id}", error: "Not implemented yet"
+      parent_id = @page.parent_id
+      @page.destroy
+      redirect "/admin/pages/#{@lang}-#{parent_id}",
+        notice: "Page \"#{admin_pages_title_as_text @page, @lang}\" deleted."
     end
 
 

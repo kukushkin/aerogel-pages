@@ -16,7 +16,14 @@ end
 #
 def admin_pages_title_as_text( page, lang )
   page_content = page.content( lang )
-  return "<span class='nodata'>no translation</span>" if page_content.blank?
+  if page_content.nil?
+    publication_state = :not_published
+    other_page_content = page.page_contents.first
+    if other_page_content.nil?
+      return "<span class='nodata'>no translation</span>"
+    end
+    return "<span class='nodata'>#{other_page_content.lang}: #{h other_page_content.title}</span>"
+  end
   case page_content.publication_state.to_sym
     when :published then h page_content.title
     when :hidden then "<span class='state-hidden'>#{h page_content.title}</span>"

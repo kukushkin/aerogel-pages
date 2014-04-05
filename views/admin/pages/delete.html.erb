@@ -6,7 +6,12 @@
         lang: @lang do
 %>
 
-Delete page <%= h object.content(options[:lang]).try(:title) %> ?
+<% subpages_count = object.descendants.count %>
+<% if subpages_count == 0 %>
+    Delete page "<%= admin_pages_title_as_text object, options[:lang] %>" ?
+<% else %>
+    Delete page "<b><%= admin_pages_title_as_text object, options[:lang] %></b>" and <b><%= subpages_count %></b> of its subpages?
+<% end %>
 
 <p class="alert alert-warning">
     <%= icon_warning %> <%= t.aerogel.admin.warning_permanent_action %>
