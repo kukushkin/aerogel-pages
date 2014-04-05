@@ -8,7 +8,7 @@ find_by :parent_id
 
 seeds [
 {
-  parent_id: nil, page_type: page_type_simple, page_contents: [
+  parent_id: nil, page_type: page_type_simple, page_contents_attributes: [
     { lang: :en, link: '/', title: 'Home page' },
     { lang: :ru, link: '/', title: 'Главная страница' },
   ]

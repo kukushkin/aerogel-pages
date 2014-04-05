@@ -5,13 +5,15 @@ class Page
   before_destroy :destroy_children
 
   belongs_to :page_type
-  embeds_many :page_contents, cascade_callbacks: true
+  has_many :page_contents, dependent: :destroy
 
   validates_presence_of :page_type
 
   accepts_nested_attributes_for :page_contents,
     reject_if: :all_blank,
     allow_destroy: true
+
+  scope :with_content, ->(lang) { where( :'page_contents.lang' => lang ) }
 
   # Returns content for the specified +lang+.
   #

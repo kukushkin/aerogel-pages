@@ -1,9 +1,20 @@
 <%
     page = block.page_content.page
     lang = block.page_content.lang
+    listed_page_contents = PageContent.children_of(page).where( lang: lang ).published_and_hidden
 %>
-<ul>
-<% page.children.each do |p| %>
-    <li><%= h p.content(lang).try(:title) %></li>
+<table class="table table-condensed">
+<% listed_page_contents.desc(:published_at).each do |pc| %>
+<tr>
+    <td width="30%">
+        <%= l pc.published_at.try(:to_date), default: '<span class="nodata">no date</span>' %>
+    </td>
+    <td>
+        <%= link_to "#{lang}-#{pc.page.id}",
+                admin_pages_title_as_icon_and_text( pc.page, lang ),
+                onclick: "pages_widget.goto_page('#{pc.page.id}'); return false"
+        %>
+    </td>
+</tr>
 <% end %>
-</ul>
+</table>

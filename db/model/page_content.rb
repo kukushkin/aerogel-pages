@@ -2,7 +2,7 @@ class PageContent
   include Model
   include Model::Timestamps
 
-  embedded_in :page
+  belongs_to :page
 
   PUBLICATION_STATES = [:published, :hidden, :not_published]
 
@@ -22,6 +22,9 @@ class PageContent
   validates_presence_of :lang, :link, :title
   validates :publication_state, inclusion: { in: PUBLICATION_STATES }
 
+  scope :children_of, ->(other_page) { where( :page_id.in => other_page.children.map(&:_id) ) }
+  scope :published, where( :publication_state => :published )
+  scope :published_and_hidden, where( :publication_state.in => [:published, :hidden] )
 
 
 end # class PageContent
