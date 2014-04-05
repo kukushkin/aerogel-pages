@@ -9,7 +9,7 @@ module Pages
     # Returns symbolized block type, inferred from class name.
     #
     def type
-      self.class.name.split("::").last.downcase.to_sym
+      self.class.name.split("::").last.underscore.to_sym
     end
 
   end # class Block

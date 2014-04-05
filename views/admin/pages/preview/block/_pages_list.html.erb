@@ -1,0 +1,9 @@
+<%
+    page = block.page_content.page
+    lang = block.page_content.lang
+%>
+<ul>
+<% page.children.each do |p| %>
+    <li><%= h p.content(lang).try(:title) %></li>
+<% end %>
+</ul>
