@@ -1,3 +1,40 @@
-Listing children of this page
-<%= field :content, as: :radio_buttons, values: [:self, :other], labels: [:self, :other] %>
-<%= field :content_other %>
+<% details_expanded = !self.valid? %>
+<div class="details form-inline" <%= details_expanded ? '' : 'style="display:none"' %> >
+<div>
+    <%= field :target_page_id %>
+</div>
+<div>
+    <%= field :ordered_by, as: :radio_buttons,
+        values:[:position, :published_at, :updated_at],
+        labels:['position', 'published at', 'updated at'],
+        required: true
+    %>
+    <%= field :ordered_asc, as: :radio_buttons,
+        values:[:asc, :desc],
+        labels:[ icon('fa-chevron-up'), icon('fa-chevron-down') ],
+        required: true
+    %>
+    <%= field :limit, placeholder: 'limit', label: ' ', width: '30px' %>
+    <%= field :show_hidden, as: :radio_buttons,
+        values: [true, false],
+        labels: ['show published & hidden', 'only published'],
+        required: true
+    %>
+</div>
+
+<div>
+    <%= field :template %>
+</div>
+
+</div> <!-- /.details  -->
+
+<div class="content">
+<table class="table table-condensed">
+<% self.object.listed_page_contents.to_a.each do |pc| %>
+<tr>
+    <td><%= admin_pages_title_as_text pc.page, pc.lang %></td>
+</tr>
+<% end %>
+</table>
+</div> <!-- /.content -->
+

@@ -1,17 +1,27 @@
-<%
-    page = block.page_content.page
-    lang = block.page_content.lang
-    listed_page_contents = PageContent.children_of(page).where( lang: lang ).published_and_hidden
-%>
 <table class="table table-condensed">
-<% listed_page_contents.desc(:published_at).each do |pc| %>
+<thead>
 <tr>
-    <td width="30%">
-        <%= l pc.published_at.try(:to_date), default: '<span class="nodata">no date</span>' %>
+<% unless block.ordered_by == :position %>
+    <th width="30%">
+        <%= t block.ordered_by %>
+    </th>
+<% end %>
+    <th>
+        <%= t.title %>
+    </th>
+</tr>
+</thead>
+
+<% block.listed_page_contents.each do |pc| %>
+<tr>
+<% unless block.ordered_by == :position %>
+    <td width="30%" title="<%= l pc.try( block.ordered_by ), default: '' %>">
+        <%= l pc.try( block.ordered_by ).try(:to_date), default: '<span class="nodata">no date</span>' %>
     </td>
+<% end %>
     <td>
-        <%= link_to "#{lang}-#{pc.page.id}",
-                admin_pages_title_as_icon_and_text( pc.page, lang ),
+        <%= link_to "#{pc.lang}-#{pc.page.id}",
+                admin_pages_title_as_icon_and_text( pc.page, pc.lang ),
                 onclick: "pages_widget.goto_page('#{pc.page.id}'); return false"
         %>
     </td>

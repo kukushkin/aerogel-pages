@@ -90,19 +90,27 @@ namespace "/admin/pages" do
     end
 
     get "/edit/page_block" do
-      # @page =
-      page_content_lang = params[:page_content_lang]
-      type = params[:page_block_type] || 'standard'
-      position = params[:page_block_position].to_i
-
-      page_block = Aerogel::Pages.create_page_block type, position: position
-      field_prefix = "page[page_contents_attributes][#{page_content_lang}][page_blocks_attributes][#{page_block.id}]"
+      # Find or Create page and page content with given ids
+      # and place the new block inside
+      #
+      page = Page.find( params[:page_block][:page_id] )
+      unless page.present?
+        page = Page.new
+        page._id = params[:page_block][:page_id]
+      end
+      page_content = page.page_contents.find params[:page_block][:page_content_id]
+      unless page_content.present?
+        page_content = page.page_contents.new lang: params[:page_block][:lang]
+        page_content._id = params[:page_block][:page_content_id]
+      end
+      page_block = page_content.create_page_block params[:page_block]
+      field_prefix = "page[page_contents_attributes][#{page_content.lang}][page_blocks_attributes][#{page_block.id}]"
       opts = {
         field_prefix: field_prefix,
         style: 'admin-pages-edit-block'
       }
       fields = Aerogel::Forms::Fieldset.new page_block, nil, nil, opts do
-        partial "admin/pages/edit/block", scope: self, locals: { type: type }
+        partial "admin/pages/edit/block", scope: self, locals: { type: params[:page_block][:type] }
       end
       fields.render
     end

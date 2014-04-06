@@ -26,5 +26,12 @@ class PageContent
   scope :published, where( :publication_state => :published )
   scope :published_and_hidden, where( :publication_state.in => [:published, :hidden] )
 
+  # Create a new embedded page block.
+  #
+  def create_page_block( opts )
+    pb = Aerogel::Pages.create_page_block opts[:type], opts
+    pb.page_content = self
+    pb
+  end
 
 end # class PageContent

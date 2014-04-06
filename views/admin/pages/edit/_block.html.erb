@@ -1,48 +1,16 @@
 <div class="page-block id-<%= self.object.id %>">
-    <!-- .header -->
-    <div class="header closed" style="display:none">
-        <span class="header-label">
-            <a href="#" class="smart-link"
-                data-show-id=".page-block.id-<%= self.object.id %> .header.open, .page-block.id-<%= self.object.id %> .content"
-                data-hide-id=".page-block.id-<%= self.object.id %> .header.closed"
-                data-effect="slide"
-            >
-            <%= icon 'fa-chevron-right' %><span class="type"><%= type %></span>
-            <span class="preview">...</span>
-            </a>
-        </span>
-    </div>
+    <%= field :_destroy, as: :hidden, class: 'marked-for-removal' %>
+    <%= field :_type, as: :hidden %>
+    <%= field :position, as: :hidden, class: 'page-block-position' %>
 
-    <div class="header open">
-        <span class="header-label">
-            <a href="#" class="smart-link"
-                data-hide-id=".page-block.id-<%= self.object.id %> .header.open, .page-block.id-<%= self.object.id %> .content"
-                data-show-id=".page-block.id-<%= self.object.id %> .header.closed"
-                data-effect="slide"
-            >
-            <%= icon 'fa-chevron-down' %><span class="type"><%= type %></span>
-            </a>
-        </span>
-        <button type="button" class="btn-block-delete smart-link" title="Delete block"
-            data-hide-id=".page_block.id-<%= self.object.id %>"
-            data-effect="slide"
-        >
-            <%= icon 'fa-times' %>
-        </button>
-    </div>
-    <!-- /.header -->
+    <%= partial "admin/pages/edit/block_header", scope: self, locals: { type: type } %>
 
-    <div class="content">
-        <%= field :_destroy, as: :hidden, class: 'marked-for-removal' %>
-        <%= field :_type, as: :hidden %>
-        <%= field :position, as: :hidden, class: 'page-block-position' %>
     <%=
         begin
-            partial "admin/pages/edit/block/#{type}", layout: false, scope: self
+            partial "admin/pages/edit/block/#{type}", scope: self
         rescue Errno::ENOENT
-            partial "admin/pages/edit/block/default", layout: false, scope: self
+            partial "admin/pages/edit/block/default", scope: self
         end
     %>
-    </div>
 
 </div>

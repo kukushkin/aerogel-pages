@@ -1,0 +1,17 @@
+<label for="<%= field.css_id %>"><%= field.label -%>
+<% if field.required? -%> <abbr class="required" title="<%= t 'aerogel.forms.required' %>">*</abbr>
+<% end -%>
+</label>
+
+<!-- div class="input-group" -->
+    <select id="<%= field.css_id %>" name="<%= field.html_name %>" class="form-control selectize">
+    <!-- <%= field.value %> -->
+    <% unless field.value.present? %>
+        <option value></option>
+    <% end %>
+    <% field.options[:from].each do |option| %>
+        <option value="<%= h option[field.options[:values]] %>" <%= ( field.value == option[field.options[:values]] ) ? 'selected="selected"' : '' %>><%= h option[field.options[:labels]] %></option>
+    <% end %>
+    </select>
+<!-- /div -->
+

@@ -16,9 +16,13 @@ page_block_delete = (el) ->
 page_block_create = (el) ->
     lang = el.attr 'data-lang'
     opts =
-        page_content_lang: el.attr 'data-lang'
-        page_block_type: el.attr 'data-type'
-        page_block_position: page_block_get_new_position( lang )
+        page_block:
+            lang: el.attr 'data-lang'
+            type: el.attr 'data-type'
+            position: page_block_get_new_position( lang )
+            page_id: el.attr 'data-page-id'
+            page_content_id: el.attr 'data-page-content-id'
+
     console?.log "** creating new page block:", opts
     $.get "edit/page_block", opts, (data) =>
         $(".page-content-"+lang+" .page-blocks").append( data );

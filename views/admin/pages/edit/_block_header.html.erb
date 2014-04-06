@@ -1,0 +1,58 @@
+<!-- .header -->
+<div class="header closed" style="display:none">
+    <span class="header-label">
+        <a href="#" class="smart-link"
+            data-show-id=".page-block.id-<%= self.object.id %> .header.open, .page-block.id-<%= self.object.id %> .content"
+            data-hide-id=".page-block.id-<%= self.object.id %> .header.closed"
+            data-effect="slide"
+        >
+        <%= icon 'fa-chevron-right' %><span class="type"><%= type %></span>
+        <span class="preview">...</span>
+        </a>
+    </span>
+</div>
+
+<div class="header open">
+    <span class="header-label">
+        <a href="#" class="smart-link"
+            data-hide-id=".page-block.id-<%= self.object.id %> .header.open, .page-block.id-<%= self.object.id %> .content"
+            data-show-id=".page-block.id-<%= self.object.id %> .header.closed"
+            data-effect="slide"
+        >
+        <%= icon 'fa-chevron-down' %><span class="type"><%= type %></span>
+        </a>
+    </span>
+
+<% if self.object.has_details? %>
+<% details_expanded = !self.valid? %>
+    <span class="header-label delimiter">
+        &nbsp;
+    </span>
+    <span class="header-label header-details closed" <%= details_expanded ? 'style="display:none"' : '' %> >
+        <a href="#" class="smart-link"
+            data-show-id=".page-block.id-<%= self.object.id %> .header-details.open, .page-block.id-<%= self.object.id %> .details"
+            data-hide-id=".page-block.id-<%= self.object.id %> .header-details.closed"
+            data-effect="slide"
+        >
+        <%= icon 'fa-chevron-right' %><span class="type">details</span>
+        </a>
+    </span>
+    <span class="header-label header-details open" <%= details_expanded ? '' : 'style="display:none"' %> >
+        <a href="#" class="smart-link"
+            data-hide-id=".page-block.id-<%= self.object.id %> .header-details.open, .page-block.id-<%= self.object.id %> .details"
+            data-show-id=".page-block.id-<%= self.object.id %> .header-details.closed"
+            data-effect="slide"
+        >
+        <%= icon 'fa-chevron-down' %><span class="type">details</span>
+        </a>
+    </span>
+<% end %>
+
+    <button type="button" class="btn-block-delete smart-link" title="Delete block"
+        data-hide-id=".page_block.id-<%= self.object.id %>"
+        data-effect="slide"
+    >
+        <%= icon 'fa-times' %>
+    </button>
+</div>
+<!-- /.header -->

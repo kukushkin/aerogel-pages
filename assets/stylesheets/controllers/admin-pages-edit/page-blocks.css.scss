@@ -18,6 +18,7 @@ fieldset.page_block {
     }
 
     .header {
+        color: $link-js-color;
 
         .btn-block-delete {
             position: absolute;
@@ -32,7 +33,9 @@ fieldset.page_block {
             }
         }
 
-
+        .header-label {
+            display: inline-block;
+        }
     }
 
     .content {
@@ -42,17 +45,24 @@ fieldset.page_block {
         }
     }
 
+    .details {
+        @include panel-info;
+    }
+
     &:not(:hover)  {
         .header.open {
             visibility: hidden;
         }
-        .btn {
-            visibility: hidden;
-        }
-        textarea, input {
-            &:not(:hover):not(:focus) {
-                border: 1px solid white;
-                box-shadow: none;
+        .content {
+            // hide inputs in .content, not in .details
+            .btn {
+                visibility: hidden;
+            }
+            textarea, input {
+                &:not(:hover):not(:focus) {
+                    border: 1px solid white;
+                    box-shadow: none;
+                }
             }
         }
 
