@@ -1,0 +1,34 @@
+.tree-select-page-widget {
+    // border: 1px solid $input-border-color;
+    max-height: 300px;
+    overflow-y: scroll;
+
+    .smart-tree-table {
+        thead {
+            display: none;
+        }
+        tbody {
+            tr td:nth-child(1) {
+                width: 30px;
+            }
+        }
+    }
+}
+
+
+.list-select-template-widget {
+    // border: 1px solid $input-border-color;
+    max-height: 300px;
+    overflow-y: scroll;
+
+    .smart-list-table {
+        thead {
+            display: none;
+        }
+        tbody {
+            tr td:nth-child(1) {
+                // width: 30px;
+            }
+        }
+    }
+}

@@ -115,6 +115,29 @@ namespace "/admin/pages" do
       fields.render
     end
 
+    get "/edit/select_page" do
+      @pages = Page.traverse
+      @select_lang = params[:select_lang] || @lang
+      @select_page_id = params[:select_page_id] || nil
+      view "admin/pages/edit/select_page"
+    end
+
+    get "/edit/select_template" do
+      @select_template_name = params[:select_template_name] || nil
+      @select_template_prefix = params[:select_template_prefix] || nil
+      @templates = []
+      templates_wildcard = File.join( @select_template_prefix, '**/*.erb' )
+      template_entry = Struct.new :id, :module, :filename
+      Aerogel.get_resource_list( :views, templates_wildcard ) do |f, rf, path, base_path|
+        id = rf
+        filename = rf.sub(/^#{@select_template_prefix}/, '')
+        module_name = base_path[:module_name]
+        @templates << template_entry.new( id, module_name, filename )
+      end
+
+      view "admin/pages/edit/select_template"
+    end
+
   end # namespace ":lang\::id"
   #
   # Common Pages controller routes

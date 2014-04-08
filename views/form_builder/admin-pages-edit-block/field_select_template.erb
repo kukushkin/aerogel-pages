@@ -1,0 +1,32 @@
+<%
+    template_prefix = field.options[:prefix] or
+        raise ArgumentError.new("field_select_template requires :prefix option to be set")
+    template_label = field.value.present? ? field.value.sub(/^#{template_prefix}/, '') : ''
+%>
+
+<div class="input-group input-group-sm field-select-template id-<%= field.css_id %>"
+    data-prefix="<%= h template_prefix %>"
+>
+    <span class="input-group-btn">
+        <button class="btn btn-default btn-clear" type="button"
+        >
+            <%= icon 'fa-times' %>
+        </button>
+    </span>
+    <span class="input-group-addon">
+        <%= template_prefix %>
+    </span>
+    <input id="<%= field.css_id %>" type="hidden" name="<%= field.html_name %>"
+        value="<%= h field.value %>"
+        class="form-control input-text-inline template-id"
+    />
+    <input type="text" placeholder="<%= h field.placeholder %>" class="form-control template-label" readonly="readonly"
+        value="<%= h template_label %>"
+    />
+    <span class="input-group-btn">
+        <button class="btn btn-default btn-select" type="button"
+        >
+            &hellip;
+        </button>
+    </span>
+</div>

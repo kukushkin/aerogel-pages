@@ -1,9 +1,28 @@
-<% details_expanded = !self.valid? %>
+<%
+    details_expanded = !self.valid?
+    current_lang = self.object.lang
+%>
 <div class="details form-inline" <%= details_expanded ? '' : 'style="display:none"' %> >
-<div>
-    <%= field :target_page_id %>
+<div class="row">
+    <div class="col-sm-6">
+        <label>
+            Show pages from
+        </label>
+        <%= field :target_page_id, as: :select_page, lang: current_lang, placeholder: "This page" %>
+    </div>
+    <div class="col-sm-6">
+        <%= field :show_hidden, as: :radio_buttons,
+            values: [true, false],
+            labels: ['published & hidden', 'only published'],
+            required: true
+        %>
+        <%= field :limit, as: :text_inline, width: '30px' %>
+    </div>
 </div>
-<div>
+<div class="form-row">
+    <label>
+        Order by
+    </label>
     <%= field :ordered_by, as: :radio_buttons,
         values:[:position, :published_at, :updated_at],
         labels:['position', 'published at', 'updated at'],
@@ -14,16 +33,10 @@
         labels:[ icon('fa-chevron-up'), icon('fa-chevron-down') ],
         required: true
     %>
-    <%= field :limit, placeholder: 'limit', label: ' ', width: '30px' %>
-    <%= field :show_hidden, as: :radio_buttons,
-        values: [true, false],
-        labels: ['show published & hidden', 'only published'],
-        required: true
-    %>
 </div>
 
-<div>
-    <%= field :template %>
+<div class="form-row">
+    <%= field :template, as: :select_template, prefix: "admin", placeholder: "Use default template" %>
 </div>
 
 </div> <!-- /.details  -->
@@ -32,7 +45,7 @@
 <table class="table table-condensed">
 <% self.object.listed_page_contents.to_a.each do |pc| %>
 <tr>
-    <td><%= admin_pages_title_as_text pc.page, pc.lang %></td>
+    <td><%= admin_pages_title_as_text pc.page, current_lang %></td>
 </tr>
 <% end %>
 </table>

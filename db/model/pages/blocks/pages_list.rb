@@ -13,7 +13,9 @@ module Pages::Blocks
     has_details!
 
     def listed_page_contents
-      listed = PageContent.children_of(page).where( lang: lang )
+      target_page = target_page_id.present? ? Page.find( target_page_id ) : page
+      return [] if target_page.nil?
+      listed = PageContent.children_of(target_page).where( lang: lang )
       listed = (show_hidden ? listed.published_and_hidden : listed.published )
       listed = listed.order_by( ordered_by => (ordered_asc == :asc ? 1 : -1) )
       listed = listed.limit( limit ) if limit.present? && limit > 0

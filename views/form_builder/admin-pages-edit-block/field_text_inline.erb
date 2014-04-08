@@ -1,5 +1,5 @@
 <input id="<%= field.css_id %>" type="<%= field.type %>" name="<%= field.html_name %>"
     value="<%= h field.value %>" <%= field.required? ? 'required' : '' %>
     placeholder="<%= h field.label %><%= field.required? ? ' *' : '' %>"
-    class="form-control input-title" <%= field.html_params %>
+    class="form-control input-text-inline input-sm" <%= field.html_params %>
 />

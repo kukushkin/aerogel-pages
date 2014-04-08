@@ -47,6 +47,7 @@ fieldset.page_block {
 
     .details {
         @include panel-info;
+        @include form-details;
     }
 
     &:not(:hover)  {

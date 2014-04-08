@@ -1,0 +1,50 @@
+<% page_title "Select template" %>
+
+<div class="list-select-template-widget">
+<% if @templates.blank? %>
+<span class="nodata">No templates found in "<%= @select_template_prefix %>"</span>
+<% else %>
+<%
+    table @templates, style: 'smart-list-table', html_params: { id: 'listSelectTemplate' }  do
+        column :module
+        column :filename
+    end
+%>
+<% end %>
+</div>
+
+<% form nil, html_params: { class: 'select-template-form' } do %>
+<%= button :cancel %>
+<%= button :select, onclick: "on_click_select();", id: "btn-select-template", disabled: true %>
+<% end %>
+
+
+<script type="text/javascript">
+var list = null;
+
+$(function(){
+    list = new SmartListTable( $("#listSelectTemplate").first(), {
+        column: 2,
+        on_select: on_template_select,
+    });
+    var selected_template_id = '<%= @select_template_name %>';
+    if ( selected_template_id ) {
+        list.select( selected_template_id );
+    }
+});
+
+var template_id = null;
+var template_label = null;
+
+function on_template_select( id, object, el ) {
+    console.log("template selected: "+id);
+    $("#btn-select-template").removeAttr('disabled');
+    template_id = id;
+    template_label = object.contents;
+}
+function on_click_select() {
+    console.log("clicked Select: id:"+template_id+" label: '"+template_label+"'" );
+    admin_modal_select_and_close( { template_id: template_id, template_label: template_label } );
+    return false;
+}
+</script>

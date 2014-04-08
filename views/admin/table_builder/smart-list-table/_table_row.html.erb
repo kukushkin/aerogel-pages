@@ -1,0 +1,9 @@
+<tr
+    data-id="<%= table_row.id %>"
+>
+<% table.columns.each do |col| %>
+    <td>
+        <%= col.block.present? ? col.block.call( table_row ) : h( table_row.send col.field ) %>
+    </td>
+<% end %>
+</tr>

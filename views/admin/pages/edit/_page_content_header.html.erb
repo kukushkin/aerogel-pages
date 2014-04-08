@@ -13,7 +13,7 @@ data-hide-id=".page-content-<%= page_content.lang %> .page-content-header .heade
             -%><%=
                 l page_content.published_at.try(:to_date),
                     format: :long,
-                    default: "no published date"
+                    default: "no 'published at' date"
             -%>
         </span>
     </a>

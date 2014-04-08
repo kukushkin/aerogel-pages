@@ -1,0 +1,59 @@
+<% page_title "Выбрать страницу" %>
+
+<div class="tree-select-page-widget">
+<%
+    table @pages, style: 'smart-tree-table', lang: @select_lang, html_params: { id: 'treeSelectPage' } do
+        column :publication_state, label: '' do |p|
+            admin_pages_publication_state_as_icon( p, options[:lang] )
+        end
+        column :name, label: 'Name' do |p|
+          admin_pages_title_as_text( p, options[:lang] )
+        end
+    end
+%>
+</div>
+
+<% form nil, html_params: { class: 'select-page-form' } do %>
+<%= button :cancel %>
+<%= button :select, onclick: "on_click_select();", id: "btn-select-page", disabled: true %>
+<% end %>
+
+<script type="text/javascript">
+var tree = null;
+
+$(function(){
+    tree = new SmartTreeTable( $("#treeSelectPage").first(), {
+        column: 2,
+        on_select: on_page_select,
+        prefix: {
+            branch: {
+                expanded: '<i class="prefix-expanded fa fa-caret-down"></i>',
+                collapsed: '<i class="prefix-collapsed fa fa-caret-right"></i>'
+            }
+        }
+
+    });
+    var selected_page_id = '<%= @select_page_id %>';
+    if ( selected_page_id ) {
+        tree.select( selected_page_id );
+        tree.expand( selected_page_id );
+    } else {
+        // expand root
+        tree.expand( '<%= Page.root.id %>' );
+    }
+});
+
+var page_id = null;
+var page_label = null;
+
+function on_page_select( id, object, el ) {
+    $("#btn-select-page").removeAttr('disabled');
+    page_id = id;
+    page_label = object.contents;
+}
+function on_click_select() {
+    console.log("clicked Select: id:"+page_id+" label: '"+page_label+"'" );
+    admin_modal_select_and_close( { page_id: page_id, page_label: page_label } );
+    return false;
+}
+</script>

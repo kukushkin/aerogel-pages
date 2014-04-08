@@ -1,0 +1,34 @@
+<%
+# Find selected page label:
+current_lang = field.options[:lang] or
+    raise ArgumentError.new( "field_select requires :lang option to be set")
+selected_page = nil
+selected_page_label = ''
+if field.value.present?
+    selected_page = Page.find field.value
+    selected_page_label = selected_page.content(current_lang).try(:title) if selected_page.present?
+end
+%>
+
+<div class="input-group input-group-sm field-select-page id-<%= field.css_id %>"
+    data-lang="<%= current_lang %>"
+>
+    <span class="input-group-btn">
+        <button class="btn btn-default btn-clear" type="button">
+            <%= icon 'fa-times' %>
+        </button>
+    </span>
+    <input id="<%= field.css_id %>" type="hidden" name="<%= field.html_name %>"
+        value="<%= h field.value %>"
+        class="form-control input-text-inline page-id"
+    />
+    <input type="text" placeholder="<%= h field.placeholder %>" class="form-control page-label" readonly="readonly"
+        value="<%= h selected_page_label %>"
+    />
+    <!-- input type="text" class="form-control"/ -->
+    <span class="input-group-btn">
+        <button class="btn btn-default btn-select" type="button">
+            &hellip;
+        </button>
+    </span>
+</div>
