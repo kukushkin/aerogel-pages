@@ -13,7 +13,7 @@ data-hide-id=".page-content-<%= page_content.lang %> .page-content-header .heade
             -%><%=
                 l page_content.published_at.try(:to_date),
                     format: :long,
-                    default: "no 'published at' date"
+                    default: t.aerogel.admin.pages.views.edit.no_publication_date
             -%>
         </span>
     </a>
@@ -25,7 +25,8 @@ data-show-id=".page-content-<%= page_content.lang %> .page-content-header .heade
 data-hide-id=".page-content-<%= page_content.lang %> .page-content-header .header.open, .page-content-<%= page_content.lang %> .page-content-header .content"
         data-effect="slide"
     >
-        <%= icon 'fa-chevron-down' -%><span class="header-label">параметры страницы
+        <%= icon 'fa-chevron-down' -%><span class="header-label"><%=
+            t.aerogel.admin.pages.views.edit.page_details %>
         </span>
     </a>
 </div>
@@ -56,12 +57,8 @@ data-hide-id=".page-content-<%= page_content.lang %> .page-content-header .heade
             )
     %>
 
-    <%= field :html_description, as: :textarea, style: 'admin-pages-edit', collapsible: true,
-        label: "HTML description"
-    %>
-    <%= field :html_keywords, as: :textarea, style: 'admin-pages-edit', collapsible: true,
-        label: "HTML keywords"
-     %>
+    <%= field :html_description, as: :textarea, style: 'admin-pages-edit', collapsible: true %>
+    <%= field :html_keywords, as: :textarea, style: 'admin-pages-edit', collapsible: true %>
 
 </div>
 <!-- /.content -->

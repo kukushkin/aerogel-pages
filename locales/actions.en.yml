@@ -1,4 +1,11 @@
 en:
     aerogel:
-        module123:
-            actions:
+        admin:
+            pages:
+                delete: Delete page
+                delete_short: Delete
+                insert: Insert page
+                insert_short: Insert
+                append: Append page
+                append_short: Append
+                edit: Edit page

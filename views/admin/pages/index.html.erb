@@ -13,18 +13,14 @@
 
 
 <script type="text/javascript">
-    $(function(){
-        pages_widget.set_state({
+$(function(){
+    pages_widget.set_state({
 <% if @selected_page %>
-            page_id: "<%= @selected_page.id %>",
+        page_id: "<%= @selected_page.id %>",
 <% end %>
-            lang: "<%= @lang %>"
-        });
-        pane_tree.expand("<%= Page.root.id %>");
-        // pages_widget.open_left();
+        lang: "<%= @lang %>"
     });
-
-function edit_page_clicked() {
-    alert("selected_page: "+selected_page);
-}
+    pane_tree.expand("<%= Page.root.id %>");
+    // pages_widget.open_left();
+});
 </script>

@@ -5,6 +5,7 @@ ru:
                 pages: Страницы
 
             decorators:
+                no_date: "<span class='nodata'>нет даты</span>"
                 # confirmed: confirmed
                 # not_confirmed: not confirmed
 

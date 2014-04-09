@@ -1,8 +1,18 @@
 en:
     mongoid:
         models:
-            model123: Model 123
+            page: Page
+            page_content: Page Content
 
         attributes:
-            'module123/model123':
-                attr1: Attr 1
+            page:
+                title: Title
+                type: Type
+
+            page_content:
+                title: Title
+                published_at: Published at
+                publication_state: Publication state
+                link: Link
+                html_description: "&lt;HTML/&gt; meta description"
+                html_keywords: "&lt;HTML/&gt; meta keywords"

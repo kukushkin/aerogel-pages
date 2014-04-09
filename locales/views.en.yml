@@ -1,5 +1,38 @@
 en:
     aerogel:
-        module123:
-            views:
-                index: Index
+        admin:
+            pages:
+                views:
+                    index:
+                        no_page_selected: No page is selected
+
+                    delete:
+                        title: Delete page?
+                        text_no_subpages: |
+                            <p>
+                                Do you really want to delete page <b>%{title}</b>?
+                            </p>
+
+                        text_with_subpages: |
+                            <p>
+                                Do you really want to delete page <b>%{title}</b> and <b>%{count}</b>
+                                of its subpages?
+                            </p>
+
+                    preview:
+                        no_content_in_this_language: Page has no content in this language
+
+                    edit:
+                        clear_page_content: Clear page content
+                        no_content: No content
+                        add_content: Add content
+                        page_details: Page details
+                        no_publication_date: No publication date
+                        add_block: Add block
+                        block:
+                            details: Details
+                            text: Text
+                            image: Image
+                            hr: HR
+                            pages_list: "Pages: List"
+

@@ -1,8 +1,19 @@
 ru:
     mongoid:
         models:
-            model123: Модель 123
+            page: Страница
+            page_content: Содержание страницы
 
         attributes:
-            'module123/model123':
-                attr1: Аттр 1
+
+            page:
+                title: Заголовок
+                type: Тип
+
+            page_content:
+                title: Заголовок
+                published_at: Дата публикации
+                publication_state: Состояние публикации
+                link: Ссылка
+                html_description: "&lt;HTML/&gt; meta description"
+                html_keywords: "&lt;HTML/&gt; meta keywords"

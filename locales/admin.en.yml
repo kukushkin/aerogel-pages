@@ -5,6 +5,7 @@ en:
                 pages: Pages
 
             decorators:
+                no_date: "<span class='nodata'>no date</span>"
                 confirmed: confirmed
                 not_confirmed: not confirmed
 

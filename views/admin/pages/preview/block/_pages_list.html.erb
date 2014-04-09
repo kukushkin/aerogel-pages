@@ -1,30 +1,14 @@
-<table class="table table-condensed">
-<thead>
-<tr>
-<% unless block.ordered_by == :position %>
-    <th width="30%">
-        <%= t block.ordered_by %>
-    </th>
-<% end %>
-    <th>
-        <%= t.title %>
-    </th>
-</tr>
-</thead>
-
-<% block.listed_page_contents.each do |pc| %>
-<tr>
-<% unless block.ordered_by == :position %>
-    <td width="30%" title="<%= l pc.try( block.ordered_by ), default: '' %>">
-        <%= l pc.try( block.ordered_by ).try(:to_date), default: '<span class="nodata">no date</span>' %>
-    </td>
-<% end %>
-    <td>
-        <%= link_to "#{pc.lang}-#{pc.page.id}",
-                admin_pages_title_as_icon_and_text( pc.page, pc.lang ),
-                onclick: "pages_widget.goto_page('#{pc.page.id}'); return false"
-        %>
-    </td>
-</tr>
-<% end %>
-</table>
+<%
+table block.listed_page_contents do
+    unless block.ordered_by == :position
+        column block.ordered_by, style: "width:25%" do |pc|
+            l pc.try( block.ordered_by ).try(:to_date), default: t.aerogel.admin.decorators.no_date
+        end
+    end
+    column :title do |pc|
+        link_to "#{pc.lang}-#{pc.page.id}",
+            admin_pages_title_as_icon_and_text( pc.page, pc.lang ),
+            onclick: "pages_widget.goto_page('#{pc.page.id}'); return false"
+    end
+end
+%>

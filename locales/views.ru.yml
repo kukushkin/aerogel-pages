@@ -1,5 +1,39 @@
 ru:
     aerogel:
-        module123:
-            views:
-                index: Список
+        admin:
+            pages:
+                views:
+                    index:
+                        no_page_selected: Страница не выбрана
+
+                    delete:
+                        title: Удалить страницу?
+                        text_no_subpages: |
+                            <p>
+                                Вы действительно хотите удалить страницу <b>%{title}</b>?
+                            </p>
+
+                        text_with_subpages: |
+                            <p>
+                                Вы действительно хотите удалить страницу <b>%{title}</b> и <b>%{count}</b>
+                                её вложенных страниц?
+                            </p>
+
+                    preview:
+                        no_content_in_this_language: Страница не имеет содержания на этом языке
+
+
+                    edit:
+                        clear_page_content: Удалить содержимое страницы
+                        no_content: Нет содержания
+                        add_content: Добавить содержание
+                        page_details: Параметры страницы
+                        no_publication_date: Нет даты публикации
+                        add_block: Добавить блок
+                        block:
+                            details: Параметры
+                            text: Текст
+                            image: Картинка
+                            hr: HR
+                            pages_list: "Страницы: Список"
+

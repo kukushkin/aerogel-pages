@@ -7,7 +7,9 @@ data-show-id=".page-content-<%= page_content.lang %> .page-content-footer .heade
 data-hide-id=".page-content-<%= page_content.lang %> .page-content-footer .header.closed"
         data-effect="slide"
     >
-        <%= icon 'fa-plus' -%><span class="header-label">добавить блок</span>
+        <%= icon 'fa-plus' -%><span class="header-label"><%=
+            t.aerogel.admin.pages.views.edit.add_block
+        %></span>
     </a>
 </div>
 <!-- /.header.closed -->
@@ -28,7 +30,9 @@ data-hide-id=".page-content-<%= page_content.lang %> .page-content-footer .heade
 
             >
                 <%= icon 'fa-plus' %>
-                <span class="block-creator-label"><%= block_type %></span>
+                <span class="block-creator-label"><%=
+                    t block_type, scope: 'aerogel.admin.pages.views.edit.block'
+                %></span>
             </a>
         </li>
         <% end %>
@@ -43,7 +47,9 @@ data-show-id=".page-content-<%= page_content.lang %> .page-content-footer .heade
 data-hide-id=".page-content-<%= page_content.lang %> .page-content-footer .header.open, .page-content-<%= page_content.lang %> .page-content-footer .content"
         data-effect="slide"
     >
-        <%= icon 'fa-chevron-up' -%><span class="header-label">добавить блок</span>
+        <%= icon 'fa-chevron-up' -%><span class="header-label"><%=
+            t.aerogel.admin.pages.views.edit.add_block
+        %></span>
     </a>
 </div>
 <!-- /.header -->

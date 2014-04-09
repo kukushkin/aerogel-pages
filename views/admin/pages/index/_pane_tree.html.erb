@@ -3,10 +3,6 @@
 </div>
 
 <div class="content">
-    <div id='debug' style="display:none">
-    debug message
-    </div>
-
     <%= partial 'admin/pages/index/pane_tree_tabs' %>
     <%
         table @pages, style: 'smart-tree-table', lang: @lang, html_params: { id: 'tree' } do
@@ -16,10 +12,10 @@
             column :publication_state, label: '' do |p|
                 admin_pages_publication_state_as_icon( p, options[:lang] )
             end
-            column :name, label: 'Name' do |p|
+            column :title do |p|
               admin_pages_title_as_text( p, options[:lang] )
             end
-            column :type, label: 'Type' do |p|
+            column :type do |p|
               p.page_type.try(:name)
             end
         end
@@ -28,18 +24,24 @@
     <div class="bottom-toolbar">
         <div class="container">
             <div class="btn-group">
-                <% link_to "new", class: "btn btn-default btn-sm page-append-link", title: "Add new page" do %>
-                    <%= icon 'fa-plus' %> Add
+                <% link_to "new",
+                    class: "btn btn-default btn-sm page-append-link",
+                    title: t.aerogel.admin.pages.append do
+                %>
+                    <%= icon 'fa-plus' %> <%= t.aerogel.admin.pages.append_short %>
                 <% end %>
 
-                <% link_to "new", class: "btn btn-default btn-sm page-insert-link", title: "Insert new page" do %>
-                    <%= icon 'fa-arrow-right' %> Insert
+                <% link_to "new",
+                    class: "btn btn-default btn-sm page-insert-link",
+                    title: t.aerogel.admin.pages.insert do
+                %>
+                    <%= icon 'fa-arrow-right' %> <%= t.aerogel.admin.pages.insert_short %>
                 <% end %>
             </div>
 
             <% link_to_modal "new", class: "btn btn-default btn-sm page-delete-link" do %>
                 <%= icon 'fa-times' %>
-                Delete page
+                <%= t.aerogel.admin.pages.delete %>
             <% end %>
         </div>
     </div>

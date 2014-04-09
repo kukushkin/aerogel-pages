@@ -1,4 +1,11 @@
 ru:
     aerogel:
-        module123:
-            actions:
+        admin:
+            pages:
+                delete: Удалить страницу
+                delete_short: Удалить
+                insert: Вставить новую страницу
+                insert_short: Вставить
+                append: Добавить новую страницу
+                append_short: Добавить
+                edit: Редактировать страницу
