@@ -2,7 +2,8 @@ class PageContent
   include Model
   include Model::Timestamps
 
-  belongs_to :page
+  embedded_in :page
+  # belongs_to :page
 
   PUBLICATION_STATES = [:published, :hidden, :not_published]
 

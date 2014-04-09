@@ -5,7 +5,8 @@ class Page
   before_destroy :destroy_children
 
   belongs_to :page_type
-  has_many :page_contents, dependent: :destroy
+  # has_many :page_contents, dependent: :destroy
+  embeds_many :page_contents, cascade_callbacks: true
 
   validates_presence_of :page_type
 
@@ -14,6 +15,10 @@ class Page
     allow_destroy: true
 
   scope :with_content, ->(lang) { where( :'page_contents.lang' => lang ) }
+  scope :published, ->(lang) { elem_match( page_contents: { lang: lang, :publication_state => :published } ) }
+  scope :published_and_hidden, ->(lang) {
+    elem_match( page_contents: { lang: lang, :publication_state.in => [:published, :hidden] } )
+  }
 
   # Returns content for the specified +lang+.
   #

@@ -48,8 +48,19 @@
 <div class="tab-content page-content-tabs">
 <% Page.available_langs.each do |lang| %>
 <%
-    page_content = object.content(lang) || PageContent.new( lang: lang )
-    page_content.page = self.object if page_content.page_id.nil?
+    page_content = object.content(lang)
+    unless page_content.present?
+        page_content = object.page_contents.new( lang: lang )
+        unless options[:current_lang].to_s == lang.to_s
+%>
+            <script type="text/javascript">
+            $(function(){
+                // сlear empty page content panes
+                page_content_clear('<%= lang %>');
+            });
+            </script>
+<%      end
+    end
 %>
     <div class="tab-pane <%= options[:current_lang].to_s == lang.to_s ? 'active' : '' %>"
         id="<%= lang %>"

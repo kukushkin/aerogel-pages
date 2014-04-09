@@ -3,14 +3,14 @@
 <div class="list-select-template-widget">
 <% if @templates.blank? %>
 <span class="nodata">No templates found in "<%= @select_template_prefix %>"</span>
-<% else %>
+<% end %>
 <%
     table @templates, style: 'smart-list-table', html_params: { id: 'listSelectTemplate' }  do
         column :module
         column :filename
     end
 %>
-<% end %>
+
 </div>
 
 <% form nil, html_params: { class: 'select-template-form' } do %>

@@ -21,16 +21,3 @@
 <% end %>
 
 </div>
-
-
-
-<script type="text/javascript">
-$(function(){
-<% Page.available_langs.each do |lang| %>
-    <% if @lang.to_s != lang.to_s && @page.content(lang).blank? %>
-        page_content_clear('<%= lang %>');
-    <% end %>
-<% end %>
-});
-</script>
-

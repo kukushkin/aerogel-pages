@@ -2,6 +2,7 @@ require 'aerogel/core'
 require 'aerogel/admin'
 require "aerogel/pages/version"
 require "aerogel/pages/core"
+require "aerogel/pages/traversal"
 
 module Aerogel
 
