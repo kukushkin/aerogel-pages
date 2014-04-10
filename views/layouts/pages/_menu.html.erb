@@ -1,0 +1,43 @@
+<ul class="menu open">
+    <li>
+        <%= link_to "/", icon('fa-home')+" "+Page.root.content(current_locale).title %>
+    </li>
+    <%= partial "layouts/pages/menu_item", collection: Page.root.children.published( current_locale ) %>
+
+    <li class="divider"></li>
+    <li>
+        <a href="#" class="smart-link"
+            data-show-id=".menu.closed"
+            data-hide-id=".menu.open"
+            data-effect="slide"
+        >
+            <%= icon 'fa-bars' %> <%= icon 'fa-caret-up' %>
+        </a>
+    </li>
+</ul>
+
+<ul class="menu closed">
+    <li>
+        <a href="#" class="smart-link"
+            data-show-id=".menu.open"
+            data-hide-id=".menu.closed"
+            data-effect="slide"
+        >
+            <%= icon 'fa-bars' %> <%= icon 'fa-caret-down' %>
+        </a>
+    </li>
+<% Page.available_langs.each do |lang| %>
+    <li class="<%= (lang == current_locale) ? 'active' : '' %>">
+        <%= link_to current_page_url( locale: lang ), lang.to_s %>
+    </li>
+<% end %>
+    <li class="pull-right">
+        <% if current_user %>
+            <%= link_to '/user', icon('fa-user')+" #{current_user.full_name}" %> /
+            <%= link_to '/user/logout', icon('glyphicon-log-out')+ " #{t.aerogel.users.actions.logout}" %>
+        <% else %>
+            <%= link_to '/user/login', icon('glyphicon-log-in')+" #{t.aerogel.users.actions.login}" %>
+        <% end %>
+    </li>
+
+</ul>

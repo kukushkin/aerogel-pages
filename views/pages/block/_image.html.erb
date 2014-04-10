@@ -1,0 +1,8 @@
+<div class="image <%= block.alignment %>">
+    <% if block.thumb.present? %>
+        <%= image_thumb_tag block.image, block.thumb, title: block.name %>
+    <% else %>
+        <%= image_tag block.image %><br/>
+        <%= block.name %>
+    <% end %>
+</div>

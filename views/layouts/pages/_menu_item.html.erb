@@ -1,0 +1,15 @@
+<%
+    page_content = menu_item.content current_locale
+    subpages = menu_item.children.published( current_locale ).to_a
+%>
+<li class="<%= (current_url.start_with? page_content.url) ? 'active' : '' %>">
+    <%= link_to page_content.url, h(page_content.title) %>
+
+    <% if subpages.present? %>
+    <ul class="menu">
+        <%= partial "layouts/pages/menu_item", collection: subpages %>
+    </ul>
+    <% end %>
+
+</li>
+

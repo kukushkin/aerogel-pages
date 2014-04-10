@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="<%= current_locale %>">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title><%= page_title ? page_title : (config.title? ? config.title : 'aerogel') %></title>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    <%= assets %>
+
+</head>
+<body>
+
+    <div id="page-header-and-content">
+        <div class="header container">
+            <%= partial 'layouts/pages/menu' %>
+            <%= partial 'layouts/pages/breadcrumbs' %>
+        </div>
+
+        <article id="page-content" class="container">
+            <h3 class="title">
+                <%= page_title %>
+            </h3>
+            <div class="headers">
+                <% if current_page %>
+                <div class="published_at">
+                    <%= l current_page.published_at.try(:to_date),
+                        default: nil,
+                        format: :long
+                    %>
+                </div>
+                <% end %>
+            </div>
+
+            <hr/>
+
+            <%= partial 'layouts/pages/flashes' %>
+            <%= yield %>
+        </article>
+    </div>
+
+    <div id="page-footer">
+        <div id="footer-content" class="container">
+            <div class="footer">
+                environment: <%= settings.environment %>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+

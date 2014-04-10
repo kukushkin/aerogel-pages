@@ -1,0 +1,10 @@
+<% if current_page.present? && !current_page.page.root? %>
+<ol class="breadcrumb">
+<% current_page.page.ancestors.sort_by(&:depth).each do |p| %>
+    <li>
+        <%= render_once :home, icon('fa-home') %>
+        <%= link_to p.content(current_locale).url, h( p.content(current_locale).title ) %>
+    </li>
+<% end %>
+</ol>
+<% end %>

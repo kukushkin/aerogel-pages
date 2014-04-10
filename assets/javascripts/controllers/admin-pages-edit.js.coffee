@@ -2,8 +2,9 @@
 #= require bootstrap-datetimepicker
 #= require smart-tree-table
 #= require smart-list-table
+#= require smart-links
 #= require aerogel-media
-#= require_tree ./admin-pages-edit
+#= require_tree ../admin-pages-edit
 #= require admin-pages-utils/attached-footer
 
 @select_page_dialog = (field) ->

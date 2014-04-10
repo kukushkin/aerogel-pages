@@ -1,0 +1,7 @@
+<%=
+    begin
+        partial "pages/block/#{block.type}", locals: { block: block }, scope: self
+    rescue Errno::ENOENT
+        partial "pages/block/default", locals: { block: block }, scope: self
+    end
+%>

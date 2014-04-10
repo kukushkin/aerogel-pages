@@ -1,0 +1,19 @@
+//= require bootstrap
+//= require aerogel-media
+//= require font-awesome
+
+$header-height: 0;
+$footer-height: 35px;
+
+$footer-bg: white; // #fafafa;
+$footer-fg: #ccc;
+$footer-link-color: #999;
+
+$border-color: #eee;
+$border-radius: 5px;
+
+$image-margin: 5px;
+
+$text-color: #555;
+
+@import "./pages/*";

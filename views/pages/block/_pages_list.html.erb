@@ -1,0 +1,13 @@
+<%=
+    begin
+        if block.template.present?
+            partial_name = block.template.sub(/.erb$/, '')
+        else
+            partial_name = "pages/list/_default.html"
+        end
+        (erb partial_name.to_sym, locals: { block: block }, scope: self, layout: false)
+    rescue Errno::ENOENT
+        "<!-- failed to render list using template '#{block.template}', using default template -->"+
+        (partial "pages/list/default", locals: { block: block }, scope: self)
+    end
+%>

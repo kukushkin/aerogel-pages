@@ -2,7 +2,7 @@
 #= require jquery.history
 #= require aerogel-media
 #= require_tree ../admin-pages-utils
-#= require_tree ./admin-pages
+#= require_tree ../admin-pages
 
 
 @pages_widget = null

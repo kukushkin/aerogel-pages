@@ -1,0 +1,45 @@
+ul.menu {
+    $border: 1px solid $border-color;
+    border-left: $border;
+    border-right: $border;
+    border-bottom: $border;
+
+
+    padding: 5px 15px;
+    border-radius: 0 0 $border-radius $border-radius;
+    list-style-type: none;
+
+    .menu {
+        border-right: none;
+        padding-left: 20px;
+        border-radius: 0 0 0 0;
+        background: inherit;
+    }
+
+    li.divider {
+        height: 6px;
+        border-bottom: $border;
+        margin-bottom: 6px;
+    }
+    &.open {
+        background: #fafafa;
+        display: none;
+
+        li.active:before {
+            content: "\00BB";
+        }
+    }
+    &.closed {
+        background: white;
+        li {
+            margin-right: 15px;
+            display: inline-block;
+        }
+        li.active {
+            color: $text-color;
+            A { color: $text-color; }
+        }
+    }
+}
+
+

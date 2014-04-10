@@ -1,0 +1,13 @@
+.footer {
+    padding-left: 15px;
+    padding-right: 15px;
+    color: $footer-fg;
+    background-color: $footer-bg;
+    border-radius: $border-radius $border-radius 0 0;
+    border: 1px solid $border-color;
+    height: $footer-height;
+    line-height: $footer-height;
+    A {
+      color: $footer-link-color;
+    }
+}

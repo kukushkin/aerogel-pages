@@ -1,0 +1,18 @@
+.image {
+    &.left {
+        float: left;
+        margin: $image-margin $image-margin $image-margin 0;
+    }
+    &.middle {
+        margin: $image-margin;
+        text-align: center;
+        img {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    &.right {
+        float: right;
+        margin: $image-margin 0px $image-margin $image-margin;
+    }
+}

@@ -1,0 +1,12 @@
+<%
+table block.listed_page_contents do
+    unless block.ordered_by == :position
+        column block.ordered_by, style: "width:25%" do |pc|
+            l pc.try( block.ordered_by ).try(:to_date), default: '--'
+        end
+    end
+    column :title do |pc|
+        link_to pc.url, pc.title
+    end
+end
+%>

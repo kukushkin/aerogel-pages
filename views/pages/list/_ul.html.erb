@@ -1,0 +1,7 @@
+<ul class="pages-list">
+<% block.listed_page_contents.each do |pc| %>
+    <li>
+        <%= link_to pc.url, h(pc.title) %>
+    </li>
+<% end %>
+</ul>

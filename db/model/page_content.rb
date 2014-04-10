@@ -11,9 +11,12 @@ class PageContent
   field :published_at, type: Time
   field :publication_state, type: Symbol, default: :published
   field :link, type: String
+  field :parent_links, type: Array, default: nil
   field :title, type: String
   field :html_description, type: String
   field :html_keywords, type: String
+
+  before_save :update_links
 
   embeds_many :page_blocks, class_name: "Pages::Block", order: :position.asc, cascade_callbacks: true
   accepts_nested_attributes_for :page_blocks,
@@ -34,5 +37,45 @@ class PageContent
     pb.page_content = self
     pb
   end
+
+  # Returns url to this page if it is accessible, constructed from the parent links.
+  #
+  def url
+    parts = [parent_links, link].flatten
+    parts.shift # skip root page
+    "/"+parts.join("/")
+  end
+
+# private
+
+  def update_links
+    self.parent_links = default_parent_links if parent_links.nil?
+    update_children_links
+  end
+
+  def default_parent_links
+    puts "** default_parent_links: self.page=#{self.inspect}"
+    puts "** default_parent_links: self=#{self.inspect}"
+    parent = self.page.parent
+    if parent.present?
+      if parent.content(lang).present?
+        pc = parent.content self.lang
+        pc.parent_links + [pc.link]
+      else
+        [nil] # invalid parent link
+      end
+    else
+      []
+    end
+  end
+
+  def update_children_links
+    return unless link_changed? || parent_links_changed?
+    links = parent_links + [link]
+    page.children.with_content( lang ).each do |p|
+      p.content( lang ).update_attributes parent_links: links
+    end
+  end
+
 
 end # class PageContent
