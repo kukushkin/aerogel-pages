@@ -2,11 +2,11 @@
 # Find selected page label:
 current_lang = field.options[:lang] or
     raise ArgumentError.new( "field_select requires :lang option to be set")
-selected_page = nil
+selected_page_node = nil
 selected_page_label = ''
 if field.value.present?
-    selected_page = Page.find field.value
-    selected_page_label = selected_page.content(current_lang).try(:title) if selected_page.present?
+    selected_page_node = PageNode.find field.value
+    selected_page_label = selected_page_node.page(current_lang).try(:title) if selected_page_node.present?
 end
 %>
 
@@ -20,7 +20,7 @@ end
     </span>
     <input id="<%= field.css_id %>" type="hidden" name="<%= field.html_name %>"
         value="<%= h field.value %>"
-        class="form-control input-text-inline page-id"
+        class="form-control input-text-inline page-node-id"
     />
     <input type="text" placeholder="<%= h field.placeholder %>" class="form-control page-label" readonly="readonly"
         value="<%= h selected_page_label %>"

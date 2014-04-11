@@ -1,17 +1,17 @@
-<% collapsed = page_content.errors.blank? && page_content.persisted? %>
+<% collapsed = page.errors.blank? && page.persisted? %>
 
 <!-- .header -->
 <div class="header closed" <%= collapsed ? "" : "style='display:none'"  %> >
     <a href="#" class="smart-link"
-data-show-id=".page-content-<%= page_content.lang %> .page-content-header .header.open, .page-content-<%= page_content.lang %> .page-content-header .content"
-data-hide-id=".page-content-<%= page_content.lang %> .page-content-header .header.closed"
+data-show-id=".page-<%= page.lang %> .page-header .header.open, .page-<%= page.lang %> .page-header .content"
+data-hide-id=".page-<%= page.lang %> .page-header .header.closed"
         data-effect="slide"
     >
         <%= icon 'fa-chevron-right' -%><span class="header-label"><%=
-                txt = admin_pages_publication_state_as_icon( page, page_content.lang )
+                txt = admin_pages_publication_state_as_icon( page_node, page.lang )
                 txt.present? ? txt+" " : ''
             -%><%=
-                l page_content.published_at.try(:to_date),
+                l page.published_at.try(:to_date),
                     format: :long,
                     default: t.aerogel.admin.pages.views.edit.no_publication_date
             -%>
@@ -21,8 +21,8 @@ data-hide-id=".page-content-<%= page_content.lang %> .page-content-header .heade
 
 <div class="header open" <%= collapsed ? "style='display:none'" : "" %> >
     <a href="#" class="smart-link"
-data-show-id=".page-content-<%= page_content.lang %> .page-content-header .header.closed"
-data-hide-id=".page-content-<%= page_content.lang %> .page-content-header .header.open, .page-content-<%= page_content.lang %> .page-content-header .content"
+data-show-id=".page-<%= page.lang %> .page-header .header.closed"
+data-hide-id=".page-<%= page.lang %> .page-header .header.open, .page-<%= page.lang %> .page-header .content"
         data-effect="slide"
     >
         <%= icon 'fa-chevron-down' -%><span class="header-label"><%=
@@ -53,7 +53,7 @@ data-hide-id=".page-content-<%= page_content.lang %> .page-content-header .heade
 
     <%= field :link, as: :text_addon, style: 'admin-pages-edit', required: false,
             prefix: (
-                admin_pages_url_as_text( page.parent, page_content.lang )+" /"
+                admin_pages_url_as_text( page_node.parent, page.lang )+" /"
             )
     %>
 

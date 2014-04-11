@@ -16,9 +16,9 @@ def current_page_url( opts = {} )
       current_page.url
     else
       # find this page in other lang
-      other_page = Aerogel::Pages::Traversal.find_closest_in_other_lang( current_page.page, opts[:locale] )
+      other_page = Aerogel::Pages::Traversal.find_closest_in_other_lang( current_page, opts[:locale] )
       return nil unless other_page.present?
-      url_to( other_page.content( opts[:locale] ).url, opts )
+      url_to( other_page.url, opts )
     end
   else
     current_url opts

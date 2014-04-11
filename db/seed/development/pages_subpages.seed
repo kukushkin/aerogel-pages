@@ -1,0 +1,20 @@
+# Sub pages created here only if root has no children
+#
+page_type_simple = PageType.where( type: :page ).first
+page_node_root = PageNode.root
+
+puts "!! page_type_simple=#{page_type_simple}"
+
+model PageNode
+
+find_by :parent_id
+
+seeds [
+{
+  parent_id: page_node_root.id, page_type: page_type_simple, pages_attributes: [
+    { lang: :en, link: 'news', title: 'News' },
+    { lang: :ru, link: 'news', title: 'Новости' },
+  ]
+}
+]
+

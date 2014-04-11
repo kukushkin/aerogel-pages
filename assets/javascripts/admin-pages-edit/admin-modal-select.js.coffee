@@ -10,20 +10,20 @@ modal_result = null
 
 @admin_modal_select_page_clear = (e) ->
     field = $(e.currentTarget).closest('.field-select-page')
-    field.find('.page-id').val ''
+    field.find('.page-node-id').val ''
     field.find('.page-label').val ''
 
 @admin_modal_select_page_select = (e) ->
     field = $(e.currentTarget).closest('.field-select-page')
     modal_result = null
     select_lang = field.data 'lang'
-    select_page_id = field.find(".page-id").val()
+    select_page_node_id = field.find(".page-node-id").val()
     $("#adminModal").modal
-        remote: "edit/select_page?select_lang=#{select_lang}&select_page_id=#{select_page_id}"
+        remote: "edit/select_page?select_lang=#{select_lang}&select_page_node_id=#{select_page_node_id}"
     $("#adminModal").on 'hidden.bs.modal', ->
         if modal_result?
             console?.log "** select page: selected result: #{modal_result.page_id}, #{modal_result.page_label}"
-            field.find('.page-id').val modal_result.page_id
+            field.find('.page-node-id').val modal_result.page_node_id
             html_result = $.parseHTML(modal_result.page_label)
             text_result = $(html_result).text().replace(/^\s+|\s+$/g, '')
             field.find('.page-label').val text_result

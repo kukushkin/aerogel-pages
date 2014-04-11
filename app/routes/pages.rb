@@ -6,9 +6,8 @@ get "/*" do
   @page = Aerogel::Pages::Traversal.find path, current_locale
   pass if @page.nil?
 
-  @page_content = @page.try :content, current_locale
-  current_page @page_content
-  page_title @page_content.title
+  current_page @page
+  page_title @page.try( :title )
   view "pages/view"
 end
 

@@ -8,7 +8,7 @@
         <label>
             Show pages from
         </label>
-        <%= field :target_page_id, as: :select_page, lang: current_lang, placeholder: "This page" %>
+        <%= field :target_page_node_id, as: :select_page, lang: current_lang, placeholder: "This page" %>
     </div>
     <div class="col-sm-6">
         <%= field :show_hidden, as: :radio_buttons,
@@ -43,9 +43,9 @@
 
 <div class="content">
 <table class="table table-condensed">
-<% self.object.listed_page_contents.to_a.each do |pc| %>
+<% self.object.listed_pages.to_a.each do |p| %>
 <tr>
-    <td><%= admin_pages_title_as_text pc.page, current_lang %></td>
+    <td><%= admin_pages_title_as_text p.page_node, current_lang %></td>
 </tr>
 <% end %>
 </table>

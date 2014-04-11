@@ -1,0 +1,79 @@
+<%= field :parent_id, as: :hidden %>
+<%= field :page_type_id, as: :hidden %>
+
+<div class="page-toolbar">
+
+<ul class="nav nav-tabs">
+<% Page.available_langs.each do |lang| %>
+    <li <%= options[:current_lang].to_s == lang.to_s ? 'class="active"' : '' %>>
+        <a href="#<%= lang %>" data-toggle="tab">
+            <% if object.page( lang ).present? %>
+                <% if object.page( lang ).errors.present? %>
+                    <span class="present has-error">
+                        <%= icon 'fa-warning' %> <%= lang %>
+                    </span>
+                <% else %>
+                    <span class="present">
+                        <%= lang %>
+                    </span>
+                <% end %>
+            <% else %>
+                <span class="empty">
+                    <%= lang %>
+                </span>
+            <% end %>
+        </a>
+    </li>
+<% end %>
+
+    <li class="dropdown pull-right">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <%= icon 'fa-cog' %> <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="#" class="clear-page-content-link">
+                    <%= t.aerogel.admin.pages.views.edit.clear_page_content %>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+</ul>
+
+</div>
+
+
+<!-- Tab panes -->
+<div class="tab-content page-tabs">
+<% Page.available_langs.each do |lang| %>
+<%
+    page = object.page(lang)
+    unless page.present?
+        page = object.pages.new( lang: lang )
+        unless options[:current_lang].to_s == lang.to_s
+%>
+            <script type="text/javascript">
+            $(function(){
+                // сlear empty page content panes
+                page_clear('<%= lang %>');
+            });
+            </script>
+<%      end
+    end
+%>
+    <div class="tab-pane <%= options[:current_lang].to_s == lang.to_s ? 'active' : '' %>"
+        id="<%= lang %>"
+    >
+        <%= partial "admin/pages/edit/page",
+            scope: self,
+            locals: {
+                page_node: object,
+                page: page,
+                object: object,
+                form_builder: self
+            }
+        %>
+    </div>
+<% end %>
+</div>

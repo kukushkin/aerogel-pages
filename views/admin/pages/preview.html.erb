@@ -1,12 +1,12 @@
 <div class="page-preview-body">
 <%= partial 'admin/pages/preview/breadcrumbs' %>
-<% if @page.content(@lang).present? %>
+<% if @page_node.page(@lang).present? %>
     <h3 class="title">
-        <%= @page.content(@lang).try :title %>
+        <%= @page_node.page(@lang).try :title %>
     </h3>
     <div class="headers">
         <div class="published_at">
-            <%= l @page.content(@lang).try(:published_at).try(:to_date),
+            <%= l @page_node.page(@lang).try(:published_at).try(:to_date),
                 default: nil,
                 format: :long
             %>
@@ -15,7 +15,7 @@
 
     <div class="content">
         <%= partial "admin/pages/preview/block",
-            collection: @page.content(@lang).try(:page_blocks)
+            collection: @page_node.page(@lang).try(:page_blocks)
         %>
     </div>
 <% else %>

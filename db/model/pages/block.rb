@@ -2,7 +2,7 @@ module Pages
   class Block
     include Model
 
-    embedded_in :page_content
+    embedded_in :page
 
     field :position, type: Integer
 
@@ -12,16 +12,16 @@ module Pages
       self.class.name.split("::").last.underscore.to_sym
     end
 
-    # Returns Page the block belongs to.
+    # Returns PageNode of the Page the block belongs to.
     #
-    def page
-      page_content.page
+    def page_node
+      page.page_node
     end
 
     # Returns lang of the PageContent the block belongs to.
     #
     def lang
-      page_content.lang
+      page.lang
     end
 
     # Returns +true+ if block has configurable details.

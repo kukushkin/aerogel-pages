@@ -1,8 +1,8 @@
 <ul class="menu open">
     <li>
-        <%= link_to "/", icon('fa-home')+" "+Page.root.content(current_locale).title %>
+        <%= link_to "/", icon('fa-home')+" "+Page.root(current_locale).try(:title) %>
     </li>
-    <%= partial "layouts/pages/menu_item", collection: Page.root.children.published( current_locale ) %>
+    <%= partial "layouts/pages/menu_item", collection: Page.root(current_locale).try(:children) %>
 
     <li class="divider"></li>
     <li>

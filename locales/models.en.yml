@@ -2,14 +2,14 @@ en:
     mongoid:
         models:
             page: Page
-            page_content: Page Content
+            page_node: Page (tree node)
 
         attributes:
-            page:
+            page_node:
                 title: Title
                 type: Type
 
-            page_content:
+            page:
                 title: Title
                 published_at: Published at
                 publication_state: Publication state

@@ -3,7 +3,7 @@ namespace "/admin/pages" do
   admin_menu "/admin/pages/", icon: 'fa-file', label: :'aerogel.admin.panes.pages', priority: 10
 
   get "/", "/:lang-" do
-    @pages = Page.traverse
+    @page_nodes = PageNode.traverse
     @lang = params[:lang] || I18n.default_locale
     pass
   end
@@ -11,45 +11,45 @@ namespace "/admin/pages" do
   namespace "/:lang-:id" do
     before do
       @lang = params[:lang]
-      @selected_page = Page.find( params[:id] ) or halt 404
+      @selected_page_node = PageNode.find( params[:id] ) or halt 404
     end
 
     get do
-      @pages = Page.traverse
+      @page_nodes = PageNode.traverse
       pass
     end
 
     get "/preview" do
       layout "admin/pages/preview"
-      @page = @selected_page
+      @page_node = @selected_page_node
       pass
     end
 
     get "/append" do
-      @page = Page.new( parent_id: @selected_page.parent_id )
-      @page.page_type = PageType.where( type: :page ).first
+      @page_node = PageNode.new( parent_id: @selected_page_node.parent_id )
+      @page_node.page_type = PageType.where( type: :page ).first
       pass
     end
 
     post "/append" do
-      @page = Page.new( params[:page] )
-      @page.parent_id = @selected_page.parent_id
-      pass unless @page.save
-      @page.move_below @selected_page
-      redirect "/admin/pages/#{@lang}-#{@page.id}"
+      @page_node = PageNode.new( params[:page_node] )
+      @page_node.parent_id = @selected_page_node.parent_id
+      pass unless @page_node.save
+      @page_node.move_below @selected_page_node
+      redirect "/admin/pages/#{@lang}-#{@page_node.id}"
     end
 
     get "/insert" do
-      @page = Page.new( parent_id: @selected_page.id )
-      @page.page_type = PageType.where( type: :page ).first
+      @page_node = PageNode.new( parent_id: @selected_page_node.id )
+      @page_node.page_type = PageType.where( type: :page ).first
       pass
     end
 
     post "/insert" do
-      @page = Page.new( params[:page] )
-      @page.parent_id = @selected_page.id
-      if @page.save
-        redirect "/admin/pages/#{@lang}-#{@page.id}"
+      @page_node = PageNode.new( params[:page_node] )
+      @page_node.parent_id = @selected_page_node.id
+      if @page_node.save
+        redirect "/admin/pages/#{@lang}-#{@page_node.id}"
       end
       # flash.now[:error] = t.aerogel.db.errors.failed_to_save( name: h( @page.id ),
       #   errors: @page.errors.full_messages.join(", ")
@@ -58,30 +58,30 @@ namespace "/admin/pages" do
     end
 
     get "/delete" do
-      @page = @selected_page
+      @page_node = @selected_page_node
       pass
     end
 
     post "/delete" do
-      @page = @selected_page
+      @page_node = @selected_page_node
       # pass unless @page.save
-      parent_id = @page.parent_id
-      @page.destroy
+      parent_id = @page_node.parent_id
+      @page_node.destroy
       redirect "/admin/pages/#{@lang}-#{parent_id}",
-        notice: "Page \"#{admin_pages_title_as_text @page, @lang}\" deleted."
+        notice: "Page \"#{admin_pages_title_as_text @page_node, @lang}\" deleted."
     end
 
 
     get "/edit" do
-      @page = @selected_page
+      @page_node = @selected_page_node
       pass
     end
 
     post "/edit" do
       # flash.now[:debug] = "params: #{params.inspect}"
-      @page = @selected_page
-      if @page.update_attributes params[:page].except( :page_type )
-        redirect "/admin/pages/#{@lang}-#{@page.id}" #, notice: "Page updated"
+      @page_node = @selected_page_node
+      if @page_node.update_attributes params[:page_node].except( :page_type )
+        redirect "/admin/pages/#{@lang}-#{@page_node.id}" #, notice: "Page updated"
       end
       # flash.now[:error] = t.aerogel.db.errors.failed_to_save( name: h( @page.id ),
       #  errors: @page.errors.full_messages.join(", ")
@@ -93,18 +93,18 @@ namespace "/admin/pages" do
       # Find or Create page and page content with given ids
       # and place the new block inside
       #
-      page = Page.find( params[:page_block][:page_id] )
+      page_node = PageNode.find( params[:page_block][:page_node_id] )
+      unless page_node.present?
+        page_node = Page.new
+        page_node._id = params[:page_block][:page_node_id]
+      end
+      page = page_node.pages.find params[:page_block][:page_id]
       unless page.present?
-        page = Page.new
+        page = page_node.pages.new lang: params[:page_block][:lang]
         page._id = params[:page_block][:page_id]
       end
-      page_content = page.page_contents.find params[:page_block][:page_content_id]
-      unless page_content.present?
-        page_content = page.page_contents.new lang: params[:page_block][:lang]
-        page_content._id = params[:page_block][:page_content_id]
-      end
-      page_block = page_content.create_page_block params[:page_block]
-      field_prefix = "page[page_contents_attributes][#{page_content.lang}][page_blocks_attributes][#{page_block.id}]"
+      page_block = page.create_page_block params[:page_block]
+      field_prefix = "page_node[pages_attributes][#{page.lang}][page_blocks_attributes][#{page_block.id}]"
       opts = {
         field_prefix: field_prefix,
         style: 'admin-pages-edit-block'
@@ -116,9 +116,9 @@ namespace "/admin/pages" do
     end
 
     get "/edit/select_page" do
-      @pages = Page.traverse
+      @page_nodes = PageNode.traverse
       @select_lang = params[:select_lang] || @lang
-      @select_page_id = params[:select_page_id] || nil
+      @select_page_node_id = params[:select_page_node_id] || nil
       view "admin/pages/edit/select_page"
     end
 

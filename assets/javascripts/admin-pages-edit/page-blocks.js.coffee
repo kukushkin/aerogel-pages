@@ -3,10 +3,10 @@
 #
 
 page_block_lang = (el) ->
-    el.closest('.page-content').attr 'data-lang'
+    el.closest('.page').attr 'data-lang'
 
 page_blocks = (lang) ->
-    $(".page-content-#{lang} .page-blocks fieldset.page_block")
+    $(".page-#{lang} .page-blocks fieldset.page_block")
 
 page_block_delete = (el) ->
     marked_for_removal = el.closest('.page_block').find('.marked-for-removal')
@@ -20,12 +20,12 @@ page_block_create = (el) ->
             lang: el.attr 'data-lang'
             type: el.attr 'data-type'
             position: page_block_get_new_position( lang )
+            page_node_id: el.attr 'data-page-node-id'
             page_id: el.attr 'data-page-id'
-            page_content_id: el.attr 'data-page-content-id'
 
     console?.log "** creating new page block:", opts
     $.get "edit/page_block", opts, (data) =>
-        $(".page-content-"+lang+" .page-blocks").append( data );
+        $(".page-"+lang+" .page-blocks").append( data );
 
 page_block_sort_start = (e, ui) ->
     console?.log "** page block sortable start"

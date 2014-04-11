@@ -1,5 +1,5 @@
 <ol class="breadcrumb">
-<% @page.ancestors.sort_by(&:depth).each do |p| %>
+<% @page_node.ancestors.sort_by(&:depth).each do |p| %>
     <li>
         <%= render_once :home, icon('fa-home') %>
         <%= link_to "#{@lang}-#{p.id}",

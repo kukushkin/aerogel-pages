@@ -15,12 +15,12 @@
 <script type="text/javascript">
 $(function(){
     pages_widget.set_state({
-<% if @selected_page %>
-        page_id: "<%= @selected_page.id %>",
+<% if @selected_page_node %>
+        page_node_id: "<%= @selected_page_node.id %>",
 <% end %>
         lang: "<%= @lang %>"
     });
-    pane_tree.expand("<%= Page.root.id %>");
+    pane_tree.expand("<%= PageNode.root.id %>");
     // pages_widget.open_left();
 });
 </script>

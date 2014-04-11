@@ -1,10 +1,20 @@
-<% if current_page.present? && !current_page.page.root? %>
+<% if current_page.present? && !current_page.root? %>
 <ol class="breadcrumb">
-<% current_page.page.ancestors.sort_by(&:depth).each do |p| %>
+<% current_page.page_node.ancestors.sort_by(&:depth).each do |page_node| %>
     <li>
         <%= render_once :home, icon('fa-home') %>
-        <%= link_to p.content(current_locale).url, h( p.content(current_locale).title ) %>
+        <%= link_to page_node.page(current_locale).try(:url),
+            h( page_node.page(current_locale).try(:title) )
+        %>
     </li>
 <% end %>
 </ol>
+<% elsif current_page.blank? %>
+<ol class="breadcrumb">
+    <li>
+        <%= render_once :home, icon('fa-home') %>
+        <%= link_to Page.root( current_locale ).try(:url), h( Page.root( current_locale ).try(:title) ) %>
+    </li>
+</ol>
+
 <% end %>

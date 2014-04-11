@@ -11,15 +11,15 @@ class @PanePreview
             target: @preview
             footer: @toolbar
             observe: @content
-        @current_page_id = null
+        @current_page_node_id = null
         log "initialized"
         # ...
         #
     update: (state) ->
-        if state.page_id?
+        if state.page_node_id?
             url_preview = pages_widget.url_to_action 'preview'
             url_edit = pages_widget.url_to_action 'edit'
-            if @current_page_id != state.page_id
+            if @current_page_node_id != state.page_node_id
                 $.get url_preview, (data) =>
                     @preview.html data
                     @preview.show()
@@ -32,6 +32,6 @@ class @PanePreview
             @preview.hide()
             @toolbar.hide()
             @preview_empty.show()
-        @current_page_id = state.page_id
+        @current_page_node_id = state.page_node_id
 
 

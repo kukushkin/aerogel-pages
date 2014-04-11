@@ -2,15 +2,15 @@ ru:
     mongoid:
         models:
             page: Страница
-            page_content: Содержание страницы
+            page_node: Страница (узел дерева)
 
         attributes:
 
-            page:
+            page_node:
                 title: Заголовок
                 type: Тип
 
-            page_content:
+            page:
                 title: Заголовок
                 published_at: Дата публикации
                 publication_state: Состояние публикации

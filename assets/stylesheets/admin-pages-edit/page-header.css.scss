@@ -1,6 +1,6 @@
 
 $block-content-fields-spacing: 10px;
-.page-content-header {
+.page-header {
     @include page-block-expandable( 30px );
 
     .content {

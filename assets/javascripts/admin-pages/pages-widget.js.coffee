@@ -25,10 +25,10 @@ class @PagesWidget
 
     # Callback invoked by tree 'selected' event
     on_page_selected: ( id, object ) =>
-        @current_state.page_id = id
+        @current_state.page_node_id = id
         # @current_state.page_attributes = object.attributes
         @push_state()
-        log "on_page_selected: id:#{@current_state.page_id}"
+        log "on_page_selected: id:#{@current_state.page_node_id}"
 
 
     # Callback invoked on pane open/close events
@@ -38,30 +38,30 @@ class @PagesWidget
 
     # Go to page
     goto_page: (id) ->
-        @current_state.page_id = id
+        @current_state.page_node_id = id
         @push_state()
 
     push_state: ->
         # push current state to history,
         url = ''
-        if @current_state.page_id?
-            url = "#{@current_state.lang}-#{@current_state.page_id}"
+        if @current_state.page_node_id?
+            url = "#{@current_state.lang}-#{@current_state.page_node_id}"
         log "setting url to '#{url}'"
         log "setting lang '#{@current_state.lang}'"
         History.pushState( @current_state, @current_title, url )
 
 
     set_state: ( state ) ->
-        log "set_state: id:#{state.page_id}"
+        log "set_state: id:#{state.page_node_id}"
         # console?.log state
         @current_state = state
-        if state.page_id?
-            row = pane_tree.find_row_by_id state.page_id
+        if state.page_node_id?
+            row = pane_tree.find_row_by_id state.page_node_id
             @current_state.page_attributes = row.attributes
         @update @current_state
 
     update: ( state ) ->
-        log "calling update(): id=#{state.page_id}"
+        log "calling update(): id=#{state.page_node_id}"
         pane_tree.update state
         pane_preview.update state
         if state.open_pane == 'left'
@@ -80,4 +80,4 @@ class @PagesWidget
     # Constructs url to +action+ on page specified by current state.
     #
     url_to_action: ( action ) ->
-        @url_to( @current_state.lang, @current_state.page_id, action )
+        @url_to( @current_state.lang, @current_state.page_node_id, action )

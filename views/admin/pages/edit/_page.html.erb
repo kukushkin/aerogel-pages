@@ -1,79 +1,63 @@
-<%= field :parent_id, as: :hidden %>
-<%= field :page_type_id, as: :hidden %>
-
-<div class="page-content-toolbar">
-
-<ul class="nav nav-tabs">
-<% Page.available_langs.each do |lang| %>
-    <li <%= options[:current_lang].to_s == lang.to_s ? 'class="active"' : '' %>>
-        <a href="#<%= lang %>" data-toggle="tab">
-            <% if object.content( lang ).present? %>
-                <% if object.content( lang ).errors.present? %>
-                    <span class="present has-error">
-                        <%= icon 'fa-warning' %> <%= lang %>
-                    </span>
-                <% else %>
-                    <span class="present">
-                        <%= lang %>
-                    </span>
-                <% end %>
-            <% else %>
-                <span class="empty">
-                    <%= lang %>
-                </span>
-            <% end %>
+<div class="page-empty page-empty-<%= page.lang %>" style="display:none" >
+    <div class="message">
+        <%= t.aerogel.admin.pages.views.edit.no_content %>
+    </div>
+    <div class="button">
+        <a href="#" class="btn btn-default add-page-content-link" data-lang="<%= page.lang %>">
+            <%= icon 'fa-plus' %> <%= t.aerogel.admin.pages.views.edit.add_content %>
         </a>
-    </li>
-<% end %>
-
-    <li class="dropdown pull-right">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <%= icon 'fa-cog' %> <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-            <li>
-                <a href="#" class="clear-page-content-link">
-                    <%= t.aerogel.admin.pages.views.edit.clear_page_content %>
-                </a>
-            </li>
-        </ul>
-    </li>
-
-</ul>
-
+    </div>
 </div>
 
+<div class="page page-<%= page.lang %>" data-lang="<%= page.lang %>">
 
-<!-- Tab panes -->
-<div class="tab-content page-content-tabs">
-<% Page.available_langs.each do |lang| %>
-<%
-    page_content = object.content(lang)
-    unless page_content.present?
-        page_content = object.page_contents.new( lang: lang )
-        unless options[:current_lang].to_s == lang.to_s
+<% fieldset page,
+    parent: form_builder,
+    name: :pages,
+    object_index: page.lang do
 %>
-            <script type="text/javascript">
-            $(function(){
-                // сlear empty page content panes
-                page_content_clear('<%= lang %>');
-            });
-            </script>
-<%      end
-    end
-%>
-    <div class="tab-pane <%= options[:current_lang].to_s == lang.to_s ? 'active' : '' %>"
-        id="<%= lang %>"
-    >
-        <%= partial "admin/pages/edit/page_content",
-            scope: self,
-            locals: {
-                page: object,
-                page_content: page_content,
-                object: object,
-                form_builder: self
-            }
+
+    <%= field :_destroy, as: :hidden, class: 'marked-for-removal' %>
+    <%= field :lang, as: :hidden %>
+
+    <div class="title">
+        <%= field :title, as: :title, style: 'admin-pages-edit', required: false %>
+    </div>
+
+
+
+    <div class="page-header">
+    <%= partial "admin/pages/edit/page_header",
+        scope: self,
+        locals: {
+            page_node: page_node,
+            page: page,
+            object: object,
+            form_builder: self
+        }
+    %>
+    </div>
+
+    <div class="page-blocks">
+    <% fieldset :page_blocks, style: 'admin-pages-edit-block' do %>
+        <%= partial "admin/pages/edit/block",
+                scope: self,
+                locals: { type: self.object.type }
+        %>
+        <!-- %= field :content, as: :textarea % -->
+    <% end %>
+    </div>
+
+    <div class="page-footer">
+        <%= partial "admin/pages/edit/page_footer",
+                scope: self,
+                locals: {
+                    page_node: page_node,
+                    page: self.object
+                }
         %>
     </div>
+
 <% end %>
+
 </div>

@@ -35,8 +35,8 @@ class @PaneTree
     # Updates pane tree widget
     #
     update: (state) ->
-        @tree_table.select state.page_id, false
-        @scroll_to_view state.page_id
+        @tree_table.select state.page_node_id, false
+        @scroll_to_view state.page_node_id
         @update_bottom_toolbar state
         @update_top_toolbar state
 
@@ -79,10 +79,10 @@ class @PaneTree
     # Updates action buttons state and labels
     #
     update_bottom_toolbar: (state) ->
-        unless state.page_id?
+        unless state.page_node_id?
             @bottom_toolbar().hide()
             return
-        object = @find_row_by_id state.page_id
+        object = @find_row_by_id state.page_node_id
         @bottom_toolbar().show()
         @bottom_toolbar('.page-append-link').attr 'href', pages_widget.url_to_action 'append'
         @bottom_toolbar('.page-insert-link').attr 'href', pages_widget.url_to_action 'insert'
@@ -100,6 +100,6 @@ class @PaneTree
     update_top_toolbar: (state) ->
         @top_toolbar('.lang-select-link').each ->
             lang = $(@).attr 'data-lang-id'
-            $(@).attr 'href', pages_widget.url_to( lang, state.page_id )
+            $(@).attr 'href', pages_widget.url_to( lang, state.page_node_id )
 
 

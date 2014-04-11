@@ -3,8 +3,8 @@
 <!-- .header.closed -->
 <div class="header closed" <%= collapsed ? "" : "style='display:none'"  %> >
     <a href="#" class="smart-link"
-data-show-id=".page-content-<%= page_content.lang %> .page-content-footer .header.open, .page-content-<%= page_content.lang %> .page-content-footer .content"
-data-hide-id=".page-content-<%= page_content.lang %> .page-content-footer .header.closed"
+data-show-id=".page-<%= page.lang %> .page-footer .header.open, .page-<%= page.lang %> .page-footer .content"
+data-hide-id=".page-<%= page.lang %> .page-footer .header.closed"
         data-effect="slide"
     >
         <%= icon 'fa-plus' -%><span class="header-label"><%=
@@ -20,12 +20,12 @@ data-hide-id=".page-content-<%= page_content.lang %> .page-content-footer .heade
         <% page.available_block_types.each do |block_type| %>
         <li>
             <a href="#" class="btn-block-create smart-link"
-                data-lang="<%= page_content.lang %>"
+                data-lang="<%= page.lang %>"
                 data-type="<%= block_type %>"
-                data-page-id="<%= page_content.page.id %>"
-                data-page-content-id="<%= page_content.id %>"
-                data-show-id=".page-content-<%= page_content.lang %> .page-content-footer .header.closed"
-                data-hide-id=".page-content-<%= page_content.lang %> .page-content-footer .header.open, .page-content-<%= page_content.lang %> .page-content-footer .content"
+                data-page-node-id="<%= page_node.id %>"
+                data-page-id="<%= page.id %>"
+                data-show-id=".page-<%= page.lang %> .page-footer .header.closed"
+                data-hide-id=".page-<%= page.lang %> .page-footer .header.open, .page-<%= page.lang %> .page-footer .content"
                 data-effect="slide"
 
             >
@@ -43,8 +43,8 @@ data-hide-id=".page-content-<%= page_content.lang %> .page-content-footer .heade
 <!-- .header.open -->
 <div class="header open" <%= collapsed ? "style='display:none'" : "" %> >
     <a href="#" class="smart-link"
-data-show-id=".page-content-<%= page_content.lang %> .page-content-footer .header.closed"
-data-hide-id=".page-content-<%= page_content.lang %> .page-content-footer .header.open, .page-content-<%= page_content.lang %> .page-content-footer .content"
+data-show-id=".page-<%= page.lang %> .page-footer .header.closed"
+data-hide-id=".page-<%= page.lang %> .page-footer .header.open, .page-<%= page.lang %> .page-footer .content"
         data-effect="slide"
     >
         <%= icon 'fa-chevron-up' -%><span class="header-label"><%=

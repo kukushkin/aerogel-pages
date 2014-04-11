@@ -26,7 +26,7 @@ $ ->
        new DatetimePickerField $(@)
 
     @attached_footer = new AttachedFooter
-        target: $(".page-content-tabs")
+        target: $(".page-tabs")
         footer: $(".form-buttons")
         observe: $(window)
         position: 'fixed'

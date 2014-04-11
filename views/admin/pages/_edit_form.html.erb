@@ -3,14 +3,14 @@
 
 <%= partial "admin/pages/edit/breadcrumbs" %>
 
-<% form @page,
-    cancel_url: "/admin/pages/#{@lang}-#{@selected_page.id}",
+<% form @page_node,
+    cancel_url: "/admin/pages/#{@lang}-#{@selected_page_node.id}",
     current_lang: @lang,
     multipart: true,
     html_params: { novalidate: true } do
 %>
 
-    <%= partial "admin/pages/edit/page", scope: self, locals: { form_builder: self, object: object } %>
+    <%= partial "admin/pages/edit/page_node", scope: self, locals: { form_builder: self, object: object } %>
 
 <div class="form-buttons">
     <div class="container">
