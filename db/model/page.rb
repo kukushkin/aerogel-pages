@@ -99,8 +99,8 @@ class Page
   # Mongoid does not initialize relations at 'assign defaults' stage.
   #
   def default_parent_links
-    puts "** default_parent_links: self.page_node=#{self.page_node.inspect}"
-    puts "** default_parent_links: self=#{self.inspect}"
+    # puts "** default_parent_links: self.page_node=#{self.page_node.inspect}"
+    # puts "** default_parent_links: self=#{self.inspect}"
     parent_page = parent
     if parent_page.present?
       parent_page.parent_links + [parent_page.link]
@@ -111,7 +111,7 @@ class Page
 
   def update_children_links
     return unless link_changed? || parent_links_changed?
-    puts "** update children links fired"
+    # puts "** update children links fired"
     links = parent_links + [link]
     children.each do |p|
       p.update_attributes parent_links: links

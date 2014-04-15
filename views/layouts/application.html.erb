@@ -45,6 +45,9 @@
     <div id="page-footer">
         <div id="footer-content" class="container">
             <div class="footer">
+                <% if can? '/admin/' %>
+                    <%= link_to '/admin/', icon('fa-dashboard')+" admin" %>
+                <% end %>
                 environment: <%= settings.environment %>
 
                 <span class="pull-right">

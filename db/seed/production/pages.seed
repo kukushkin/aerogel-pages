@@ -1,0 +1,17 @@
+page_type_simple = PageType.where( type: :page ).first
+
+puts "!! page_type_simple=#{page_type_simple}"
+
+model PageNode
+
+find_by :parent_id
+
+seeds [
+{
+  parent_id: nil, page_type: page_type_simple, pages_attributes: [
+    { lang: :en, link: '', title: 'Home page' },
+    { lang: :ru, link: '', title: 'Главная страница' },
+  ]
+}
+]
+
