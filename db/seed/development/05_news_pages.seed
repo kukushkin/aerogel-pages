@@ -2,7 +2,7 @@ news_page_node = PageNode.root.children.first
 
 model Page
 
-find_by :page_node_id
+find_by :page_node_id, :lang
 
 seeds [
   { page_node_id: news_page_node.id, lang: :en, link: 'news', title: 'News' },
