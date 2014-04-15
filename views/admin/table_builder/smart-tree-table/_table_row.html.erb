@@ -7,7 +7,7 @@
     data-url-insert="<%= @lang %>-<%= table_row.id %>/insert"
 >
 <% table.columns.each do |col| %>
-    <td>
+    <td <td <%= col.html_params %> >
         <%= col.block.present? ? col.block.call( table_row ) : h( table_row.send col.field ) %>
     </td>
 <% end %>
