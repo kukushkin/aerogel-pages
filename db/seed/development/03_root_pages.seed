@@ -1,0 +1,10 @@
+root_page_node = PageNode.root
+
+model Page
+
+find_by :page_node_id
+
+seeds [
+  { page_node_id: root_page_node.id, lang: :en, link: '', title: 'Home page' },
+  { page_node_id: root_page_node.id, lang: :ru, link: '', title: 'Главная страница' }
+]

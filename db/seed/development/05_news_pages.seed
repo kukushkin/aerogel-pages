@@ -1,0 +1,10 @@
+news_page_node = PageNode.root.children.first
+
+model Page
+
+find_by :page_node_id
+
+seeds [
+  { page_node_id: news_page_node.id, lang: :en, link: 'news', title: 'News' },
+  { page_node_id: news_page_node.id, lang: :ru, link: 'новости', title: 'Новости' }
+]
