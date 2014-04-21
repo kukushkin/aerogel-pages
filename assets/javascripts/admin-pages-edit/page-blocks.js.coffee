@@ -61,6 +61,11 @@ $ ->
 
     $('.page-blocks').sortable
         placeholder: 'page-block-sortable-placeholder'
+        handle: '.page-block .header'
         start: page_block_sort_start
         stop: page_block_sort_stop
+        delay: 150
+        distance: 5
+
+
 
