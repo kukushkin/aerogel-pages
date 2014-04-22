@@ -31,13 +31,7 @@
         <%= link_to current_page_url( locale: lang ), lang.to_s %>
     </li>
 <% end %>
-    <li class="pull-right">
-        <% if current_user %>
-            <%= link_to '/user', icon('fa-user')+" #{current_user.full_name}" %> /
-            <%= link_to '/user/logout', icon('glyphicon-log-out')+ " #{t.aerogel.users.actions.logout}" %>
-        <% else %>
-            <%= link_to '/user/login', icon('glyphicon-log-in')+" #{t.aerogel.users.actions.login}" %>
-        <% end %>
-    </li>
+
+<%= partial 'layouts/pages/menu_user' %>
 
 </ul>
