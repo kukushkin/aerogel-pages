@@ -1,8 +1,8 @@
 <% page_title t.aerogel.admin.pages.views.delete.title %>
 
-<% form @page,
-        action: "/admin/pages/#{@lang}-#{@page.id}/delete",
-        cancel_url: "/admin/pages/#{@lang}-#{@page.id}",
+<% form @page_node,
+        action: "/admin/pages/#{@lang}-#{@page_node.id}/delete",
+        cancel_url: "/admin/pages/#{@lang}-#{@page_node.id}",
         lang: @lang do
 %>
 
