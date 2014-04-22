@@ -3,7 +3,7 @@ class Page
   include Model::Timestamps
 
   # embedded_in :page
-  belongs_to :page_node
+  belongs_to :page_node, touch: true
 
   PUBLICATION_STATES = [:published, :hidden, :not_published]
 
@@ -17,6 +17,8 @@ class Page
   field :html_keywords, type: String
 
   before_save :update_links
+  before_update :touch_ancestors
+  before_destroy :touch_ancestors
 
   embeds_many :page_blocks, class_name: "Pages::Block", order: :position.asc #, cascade_callbacks: true
   accepts_nested_attributes_for :page_blocks,
@@ -73,6 +75,12 @@ class Page
     Page.where( lang: lang, :page_node_id.in => page_node.children.map(&:_id) )
   end
 
+  # Returns ancestors of this page.
+  #
+  def ancestors
+    Page.where( lang: lang, :page_node_id.in => page_node.ancestors.map(&:_id) )
+  end
+
   # Returns list of allowed content block types.
   #
   def available_block_types
@@ -118,5 +126,12 @@ class Page
     end
   end
 
+  # Touches parents (if present)
+  #
+  def touch_ancestors
+    ancestors.update_all updated_at: Time.now
+    page_node.ancestors.update_all updated_at: Time.now
+    page_node.touch
+  end
 
 end # class Page

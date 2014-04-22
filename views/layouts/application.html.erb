@@ -16,8 +16,8 @@
 
     <div id="page-header-and-content">
         <div class="header container">
-            <%= partial 'layouts/pages/menu' %>
-            <%= partial 'layouts/pages/breadcrumbs' %>
+            <%= partial 'layouts/pages/menu', cacheable: [page_root, current_page, current_user] %>
+            <%= partial 'layouts/pages/breadcrumbs', cacheable: [page_root, current_page] %>
         </div>
 
         <article id="page-content" class="container">

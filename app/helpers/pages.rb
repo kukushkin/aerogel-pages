@@ -1,3 +1,9 @@
+# Returns root page in current lang
+#
+def page_root
+  @current_page_root ||= Page.root( current_locale )
+end
+
 # Returns or sets current Page object being served.
 #
 def current_page( page = nil )
