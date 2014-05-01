@@ -95,7 +95,7 @@ namespace "/admin/pages" do
       #
       page_node = PageNode.find( params[:page_block][:page_node_id] )
       unless page_node.present?
-        page_node = Page.new
+        page_node = PageNode.new
         page_node._id = params[:page_block][:page_node_id]
       end
       page = page_node.pages.find params[:page_block][:page_id]
