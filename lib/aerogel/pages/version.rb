@@ -1,5 +1,5 @@
 module Aerogel
   module Pages
-    VERSION = "1.4.11"
+    VERSION = "1.4.12"
   end
 end
