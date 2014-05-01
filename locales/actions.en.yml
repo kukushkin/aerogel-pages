@@ -4,8 +4,13 @@ en:
             pages:
                 delete: Delete page
                 delete_short: Delete
+                deleted: "Page <b>%{title}</b> deleted"
                 insert: Insert page
                 insert_short: Insert
                 append: Append page
                 append_short: Append
                 edit: Edit page
+                reorder: Re-order pages
+                reorder_cancel: Cancel
+                reorder_save: Save changes
+                reordered: Pages reordered

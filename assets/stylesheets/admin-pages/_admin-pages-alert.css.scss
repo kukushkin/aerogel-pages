@@ -10,5 +10,6 @@ $alert-width: 70%;
     left: (100%-$alert-width)/2;
     .alert {
         margin-bottom: 15px;
+        box-shadow: 4px 4px 11px 0px rgba(0, 0, 0, 0.73);
     }
 }

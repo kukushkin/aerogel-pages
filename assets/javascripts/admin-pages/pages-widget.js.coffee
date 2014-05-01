@@ -30,6 +30,13 @@ class @PagesWidget
         @push_state()
         log "on_page_selected: id:#{@current_state.page_node_id}"
 
+    # Callback invoked by tree 'reorder pages' action
+    on_pages_reorder_started: () =>
+        @current_state.pages_reorder_enabled = true
+        # @current_state.page_attributes = object.attributes
+        @push_state()
+        log "on_pages_reorder: started!"
+
 
     # Callback invoked on pane open/close events
     on_pane_open: ( left_middle_right ) =>
@@ -43,12 +50,17 @@ class @PagesWidget
 
     push_state: ->
         # push current state to history,
+        #@history_id ?= 1
+        #@history_id += 1
         url = ''
         if @current_state.page_node_id?
             url = "#{@current_state.lang}-#{@current_state.page_node_id}"
+        # if !!@current_state.pages_reorder_enabled
+        #    url = "#{url}#reorder_pages"
         log "setting url to '#{url}'"
         log "setting lang '#{@current_state.lang}'"
         History.pushState( @current_state, @current_title, url )
+        @update( @current_state )
 
 
     set_state: ( state ) ->

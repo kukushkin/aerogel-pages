@@ -8,6 +8,27 @@ namespace "/admin/pages" do
     pass
   end
 
+  post "/pages_reorder" do
+    positions = {}
+    params[:page_nodes].each do |id, data|
+      parent_id = data['parent_id']
+      page_node = PageNode.find( id ) or halt 404
+      if positions.key? parent_id
+        new_position = ( positions[parent_id] += 1 )
+      else
+        new_position = ( positions[parent_id] = 0 )
+      end
+      page_node.parent_id = parent_id
+      page_node.position = new_position
+      unless page_node.save
+        halt 500, page_node.errors.full_messages
+      end
+    end
+    redirect "/admin/pages/", notice: t.aerogel.admin.pages.reordered
+    # pass
+  end
+
+
   namespace "/:lang-:id" do
     before do
       @lang = params[:lang]
@@ -68,7 +89,7 @@ namespace "/admin/pages" do
       parent_id = @page_node.parent_id
       @page_node.destroy
       redirect "/admin/pages/#{@lang}-#{parent_id}",
-        notice: "Page \"#{admin_pages_title_as_text @page_node, @lang}\" deleted."
+        notice: t.aerogel.admin.pages.deleted( title: admin_pages_title_as_text( @page_node, @lang ) )
     end
 
 

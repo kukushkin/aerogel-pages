@@ -12,13 +12,11 @@ class Page
   field :published_at, type: Time
   field :publication_state, type: Symbol, default: :published
   field :link, type: String
-  field :parent_links, type: Array, default: nil
   field :title, type: String
   field :html_description, type: String
   field :html_keywords, type: String
 
   before_create :denormalize_position
-  before_save :update_links
   before_update :touch_ancestors
   before_destroy :touch_ancestors
 
@@ -47,6 +45,7 @@ class Page
   # Returns url to this page if it is accessible, constructed from the parent links.
   #
   def url
+    parent_links = ancestors.sort_by(&:depth).map(&:link)
     parts = [parent_links, link].flatten
     parts.shift # skip root page
     "/"+parts.join("/")
@@ -83,6 +82,12 @@ class Page
     Page.where( lang: lang, :page_node_id.in => page_node.ancestors.map(&:_id) )
   end
 
+  # Returns depth of the page_node
+  #
+  def depth
+    page_node.depth
+  end
+
   # Returns list of allowed content block types.
   #
   def available_block_types
@@ -103,35 +108,6 @@ class Page
     self.position = page_node.try(:position)
   end
 
-  def update_links
-    self.parent_links = default_parent_links if parent_links.nil?
-    update_children_links
-  end
-
-  # Generates default value for parent_links, that is used to populate new Page object.
-  #
-  # NOTE: This is impossible to do as field's default with Proc, because by some reason
-  # Mongoid does not initialize relations at 'assign defaults' stage.
-  #
-  def default_parent_links
-    # puts "** default_parent_links: self.page_node=#{self.page_node.inspect}"
-    # puts "** default_parent_links: self=#{self.inspect}"
-    parent_page = parent
-    if parent_page.present?
-      parent_page.parent_links + [parent_page.link]
-    else
-      []
-    end
-  end
-
-  def update_children_links
-    return unless link_changed? || parent_links_changed?
-    # puts "** update children links fired"
-    links = parent_links + [link]
-    children.each do |p|
-      p.update_attributes parent_links: links
-    end
-  end
 
   # Touches parents (if present)
   #

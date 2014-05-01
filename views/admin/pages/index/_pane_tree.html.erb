@@ -23,7 +23,7 @@
 
     <div class="bottom-toolbar">
         <div class="container">
-            <div class="btn-group">
+            <div class="btn-group page-actions">
                 <% link_to "new",
                     class: "btn btn-default btn-sm page-append-link",
                     title: t.aerogel.admin.pages.append do
@@ -39,10 +39,21 @@
                 <% end %>
             </div>
 
-            <% link_to_modal "new", class: "btn btn-default btn-sm page-delete-link" do %>
+            <% link_to_modal "new", class: "btn btn-default btn-sm page-delete-link page-actions" do %>
                 <%= icon 'fa-times' %>
                 <%= t.aerogel.admin.pages.delete %>
             <% end %>
+
+            <div class="pages-reorder-actions">
+                <% form nil, action: "pages_reorder", html_params: { class: 'pages-reorder-form' } do %>
+                    <%= link_to "", t.aerogel.admin.pages.reorder_cancel.to_s,
+                        class: "btn btn-default pages-reorder-cancel-link"
+                    %>
+                    <%= button :submit, label: t.aerogel.admin.pages.reorder_save.to_s,
+                        class: "btn btn-primary pages-reorder-save-link"
+                    %>
+                <% end %>
+            </div>
         </div>
     </div>
 

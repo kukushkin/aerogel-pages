@@ -16,6 +16,7 @@ class PageNode
     allow_destroy: true
 
   before_update :touch_ancestors
+  before_update :touch_pages
   before_update :denormalize_position
   before_destroy :touch_ancestors
 
@@ -39,10 +40,15 @@ private
     ancestors.update_all updated_at: Time.now
   end
 
+  # Touches pages (if present)
+  #
+  def touch_pages
+    pages.update_all updated_at: Time.now
+  end
+
   # Denormalize +position+ to owned Page(s).
   #
   def denormalize_position
-    return unless position_changed?
     pages.update_all( position: position )
   end
 

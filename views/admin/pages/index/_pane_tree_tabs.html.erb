@@ -7,18 +7,23 @@
                 %>
             </li>
         <% end %>
-        <li class="pull-right dropdown disabled">
+        <li class="pull-right dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <%= icon 'fa-cog' %> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+                <!--
                 <li class="disabled">
                     <a href="#">item 1</a>
                 </li>
                 <li class="divider">
                 </li>
-                <li>
-                    <a href="#">Re-order pages</a>
+                -->
+                <li class="pages-reorder-link">
+                    <a href="#" class="pages-reorder-link">
+                        <span class="checkmark"><%= icon 'fa-check' %></span>
+                        <%= t.aerogel.admin.pages.reorder %>
+                    </a>
                 </li>
             </ul>
         </li>

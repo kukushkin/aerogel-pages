@@ -4,8 +4,13 @@ ru:
             pages:
                 delete: Удалить страницу
                 delete_short: Удалить
+                deleted: "Страница <b>%{title}</b> удалена"
                 insert: Вставить новую страницу
                 insert_short: Вставить
                 append: Добавить новую страницу
                 append_short: Добавить
                 edit: Редактировать страницу
+                reorder: Изменить порядок страниц
+                reorder_cancel: Отмена
+                reorder_save: Сохранить изменения
+                reordered: Порядок страниц изменён
