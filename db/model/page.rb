@@ -4,6 +4,7 @@ class Page
 
   # embedded_in :page
   belongs_to :page_node, touch: true
+  field :position, type: Integer # !!! denormalized from PageNode
 
   PUBLICATION_STATES = [:published, :hidden, :not_published]
 
@@ -16,6 +17,7 @@ class Page
   field :html_description, type: String
   field :html_keywords, type: String
 
+  before_create :denormalize_position
   before_save :update_links
   before_update :touch_ancestors
   before_destroy :touch_ancestors
@@ -95,6 +97,11 @@ class Page
 
 
 # private
+
+  def denormalize_position
+    # puts "** denormalizing position from page_node: #{page_node_id} -> #{page_node.inspect}"
+    self.position = page_node.try(:position)
+  end
 
   def update_links
     self.parent_links = default_parent_links if parent_links.nil?

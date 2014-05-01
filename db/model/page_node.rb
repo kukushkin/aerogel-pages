@@ -16,6 +16,7 @@ class PageNode
     allow_destroy: true
 
   before_update :touch_ancestors
+  before_update :denormalize_position
   before_destroy :touch_ancestors
 
   # scope :with_content, ->(lang) { where( :'pages.lang' => lang ) }
@@ -38,6 +39,11 @@ private
     ancestors.update_all updated_at: Time.now
   end
 
-
+  # Denormalize +position+ to owned Page(s).
+  #
+  def denormalize_position
+    return unless position_changed?
+    pages.update_all( position: position )
+  end
 
 end # class Page
