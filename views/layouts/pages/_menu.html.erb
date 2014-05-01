@@ -2,7 +2,9 @@
     <li>
         <%= link_to "/", icon('fa-home')+" "+Page.root(current_locale).try(:title) %>
     </li>
-    <%= partial "layouts/pages/menu_item", collection: Page.root(current_locale).try(:children) %>
+    <%= partial "layouts/pages/menu_item",
+        collection: Page.root(current_locale).try(:children).try(:published).try( :asc, :position )
+    %>
 
     <li class="divider"></li>
     <li>

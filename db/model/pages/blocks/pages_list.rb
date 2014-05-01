@@ -18,16 +18,14 @@ module Pages::Blocks
       return [] if target_page_node.nil?
       listed = target_page_node.page( lang ).children
       listed = (show_hidden ? listed.published_and_hidden : listed.published )
-      listed = listed.to_a
-      # unless ordered_by == :position
-      #   listed = listed.sort_by do |p|
-      #     p.content( lang ).try( :send, ordered_by ).try( :to_i ) || 0
-      #   end
-      # end
-      # listed = listed.reverse if ordered_asc == :desc
-      # listed = listed.first( limit ) if limit.present? && limit > 0
-      @_listed_pages_cache = listed
-      listed
+      if ordered_asc == :desc
+        listed = listed.desc( ordered_by )
+      else
+        listed = listed.asc( ordered_by )
+      end
+      listed = listed.limit( limit ) if limit.present? && limit > 0
+      @_listed_pages_cache = listed.to_a
+      # listed
     end
 
     def listed_pages_DISABLED

@@ -1,6 +1,6 @@
 <%
     page = menu_item
-    subpages = page.children.published.to_a
+    subpages = page.children.published.asc(:position).to_a
 %>
 <li class="<%= (current_url.start_with? page.url) ? 'active' : '' %>">
     <%= link_to page.url, h(page.title) %>
