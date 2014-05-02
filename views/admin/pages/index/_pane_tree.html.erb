@@ -24,6 +24,7 @@
     <div class="bottom-toolbar">
         <div class="container">
             <div class="btn-group page-actions">
+                <!-- append single -->
                 <% link_to "new",
                     class: "btn btn-default btn-sm page-append-link",
                     title: t.aerogel.admin.pages.append do
@@ -31,12 +32,30 @@
                     <%= icon 'fa-plus' %> <%= t.aerogel.admin.pages.append_short %>
                 <% end %>
 
+                <!-- append select multiple -->
+                <% link_to_modal "new",
+                    class: "btn btn-default btn-sm page-append-select-link",
+                    title: t.aerogel.admin.pages.append do
+                %>
+                    <%= icon 'fa-plus' %> <%= t.aerogel.admin.pages.append_short %> &hellip;
+                <% end %>
+
+                <!-- insert single -->
                 <% link_to "new",
                     class: "btn btn-default btn-sm page-insert-link",
                     title: t.aerogel.admin.pages.insert do
                 %>
                     <%= icon 'fa-arrow-right' %> <%= t.aerogel.admin.pages.insert_short %>
                 <% end %>
+
+                <!-- insert multiple -->
+                <% link_to_modal "new",
+                    class: "btn btn-default btn-sm page-insert-select-link",
+                    title: t.aerogel.admin.pages.insert do
+                %>
+                    <%= icon 'fa-arrow-right' %> <%= t.aerogel.admin.pages.insert_short %> &hellip;
+                <% end %>
+
             </div>
 
             <% link_to_modal "new", class: "btn btn-default btn-sm page-delete-link page-actions" do %>

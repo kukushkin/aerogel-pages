@@ -52,6 +52,12 @@ class Page
     # ( root? ? "/" ) : parts.join("/")
   end
 
+  # Returns page type of the page.
+  #
+  def page_type
+    page_node.page_type
+  end
+
   # Returns +true+ if this Page is root.
   #
   def root?

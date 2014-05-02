@@ -80,6 +80,9 @@ class @PaneTree
     # Callback to be invoked when page (tree item) is selected
     #
     on_tree_item_selected: (id, object, el) =>
+        if object?
+            allowed_children = @row_allowed_children_types object
+            console?.log "** tree item selected: #{object.attr 'type'} -> #{allowed_children.length}:#{allowed_children}"
         pages_widget.on_page_selected id, object
 
     # Callback to be invoked when pages (tree branches/leaves) are reordered
@@ -104,6 +107,14 @@ class @PaneTree
     ordered_row_list: ->
         { id: row.id, parent_id: row.parent_id } for row in @tree_table.rows_list()
 
+    # Returns array of allowed children types for the row object
+    #
+    row_allowed_children_types: (row) ->
+        return [] unless row?
+        s = row.attr 'allowed-children'
+        allowed_children = if s then s.split ',' else []
+        allowed_children
+
 
     # Returns action buttons elements, or elements within buttons specified by +selector+
     #
@@ -117,7 +128,8 @@ class @PaneTree
             log "** update_bottom_toolbar: disabling"
             @bottom_toolbar().hide()
             return
-        object = @find_row_by_id state.page_node_id
+        row = @find_row_by_id state.page_node_id
+        parent_row = if row? then @find_row_by_id row.parent_id else null
         @bottom_toolbar().show()
         if @pages_reorder_enabled
             @bottom_toolbar('.pages-reorder-actions').show()
@@ -126,10 +138,55 @@ class @PaneTree
             @bottom_toolbar('.pages-reorder-actions').hide()
             if state.page_node_id?
                 @bottom_toolbar('.page-actions').show()
-                @bottom_toolbar('.page-append-link').attr 'href', pages_widget.url_to_action 'append'
-                @bottom_toolbar('.page-insert-link').attr 'href', pages_widget.url_to_action 'insert'
-                @bottom_toolbar('.page-delete-link').attr 'href', pages_widget.url_to_action 'delete'
-                @bottom_toolbar(' .page-name').text object.contents
+
+                if parent_row?
+                    # nested page selected
+                    allowed_children = @row_allowed_children_types parent_row
+                    if allowed_children.length > 1
+                        # append multiple
+                        @bottom_toolbar('.page-append-link').hide()
+                        @bottom_toolbar('.page-append-select-link').show()
+                        @bottom_toolbar('.page-append-select-link').attr 'href',
+                            pages_widget.url_to_action "append_select"
+                    else if allowed_children.length > 0
+                        # append single
+                        @bottom_toolbar('.page-append-select-link').hide()
+                        @bottom_toolbar('.page-append-link').show()
+                        @bottom_toolbar('.page-append-link').attr 'href',
+                            pages_widget.url_to_action "append?page_type=#{allowed_children}"
+                    else
+                        # no append
+                        @bottom_toolbar('.page-append-link').hide()
+                        @bottom_toolbar('.page-append-select-link').hide()
+
+                    @bottom_toolbar('.page-delete-link').show()
+                    @bottom_toolbar('.page-delete-link').attr 'href', pages_widget.url_to_action 'delete'
+                else
+                    # root selected
+                    @bottom_toolbar('.page-append-link').hide()
+                    @bottom_toolbar('.page-append-select-link').hide()
+                    @bottom_toolbar('.page-delete-link').hide()
+
+                if row?
+                    allowed_children = @row_allowed_children_types row
+                    if allowed_children.length > 1
+                        # insert multiple
+                        @bottom_toolbar('.page-insert-link').hide()
+                        @bottom_toolbar('.page-insert-select-link').show()
+                        @bottom_toolbar('.page-insert-select-link').attr 'href',
+                            pages_widget.url_to_action "insert_select"
+                    else if allowed_children.length > 0
+                        # insert single
+                        @bottom_toolbar('.page-insert-select-link').hide()
+                        @bottom_toolbar('.page-insert-link').show()
+                        @bottom_toolbar('.page-insert-link').attr 'href',
+                            pages_widget.url_to_action "insert?page_type=#{allowed_children}"
+                    else
+                        # no insert
+                        @bottom_toolbar('.page-insert-link').hide()
+                        @bottom_toolbar('.page-insert-select-link').hide()
+
+                # @bottom_toolbar(' .page-name').text row.contents
             else
                 @bottom_toolbar('.page-actions').hide()
         @attached_footer.update_footer()

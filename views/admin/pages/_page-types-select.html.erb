@@ -1,0 +1,17 @@
+<% assets "controllers/admin-pages-page-types-select" %>
+<% base_url = "/admin/pages/#{@lang}-#{@selected_page_node.id}" %>
+<div class="page-types">
+<% @allowed_types.each do |page_type| %>
+    <div class="page-type" style="pull-left">
+        <a href="<%= base_url %>/<%= action %>?page_type=<%= page_type.type %>">
+        <%= icon 'fa-file-o' %>
+        <br/>
+        <%= h page_type.name %>
+        </a>
+    </div>
+<% end %>
+</div>
+
+<% form nil, cancel_url: base_url do %>
+    <%= button :cancel %>
+<% end %>

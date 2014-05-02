@@ -46,9 +46,17 @@ namespace "/admin/pages" do
       pass
     end
 
+    get "/append_select" do
+      @page_node = PageNode.find( @selected_page_node.parent_id ) or halt 404
+      @allowed_types = @page_node.page_type.allowed_children
+      # @page_node.page_type = PageType.where( type: :page ).first
+      pass
+    end
+
     get "/append" do
       @page_node = PageNode.new( parent_id: @selected_page_node.parent_id )
-      @page_node.page_type = PageType.where( type: :page ).first
+      page_type = @page_node.allowed_page_types.where( type: params[:page_type] ).first or halt 404
+      @page_node.page_type = page_type
       pass
     end
 
@@ -60,9 +68,17 @@ namespace "/admin/pages" do
       redirect "/admin/pages/#{@lang}-#{@page_node.id}"
     end
 
+    get "/insert_select" do
+      @page_node = @selected_page_node
+      @allowed_types = @page_node.page_type.allowed_children
+      # @page_node.page_type = PageType.where( type: :page ).first
+      pass
+    end
+
     get "/insert" do
       @page_node = PageNode.new( parent_id: @selected_page_node.id )
-      @page_node.page_type = PageType.where( type: :page ).first
+      page_type = @page_node.allowed_page_types.where( type: params[:page_type] ).first or halt 404
+      @page_node.page_type = page_type
       pass
     end
 
@@ -101,7 +117,7 @@ namespace "/admin/pages" do
     post "/edit" do
       # flash.now[:debug] = "params: #{params.inspect}"
       @page_node = @selected_page_node
-      if @page_node.update_attributes params[:page_node].except( :page_type )
+      if @page_node.update_attributes params[:page_node].except( :page_type_id )
         redirect "/admin/pages/#{@lang}-#{@page_node.id}" #, notice: "Page updated"
       end
       # flash.now[:error] = t.aerogel.db.errors.failed_to_save( name: h( @page.id ),

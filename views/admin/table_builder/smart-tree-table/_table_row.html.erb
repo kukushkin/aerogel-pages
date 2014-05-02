@@ -1,10 +1,7 @@
 <tr
     data-id="<%= table_row.id %>" data-parent-id="<%= table_row.parent_id %>"
-    data-url-preview="<%= @lang %>-<%= table_row.id %>/preview"
-    data-url-edit="<%= @lang %>-<%= table_row.id %>/edit"
-    data-url-delete="<%= @lang %>-<%= table_row.id %>/delete"
-    data-url-append="<%= @lang %>-<%= table_row.id %>/append"
-    data-url-insert="<%= @lang %>-<%= table_row.id %>/insert"
+    data-type="<%= table_row.page_type.type %>"
+    data-allowed-children="<%= table_row.page_type.allowed_children.pluck(:type).join(',') %>"
 >
 <% table.columns.each do |col| %>
     <td <td <%= col.html_params %> >

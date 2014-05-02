@@ -1,0 +1,18 @@
+.page-types {
+    .page-type {
+        display: inline-block;
+        text-align: center;
+        padding: 5px 15px;
+        i {
+            font-size: 36px;
+        }
+        a, a:hover {
+            color: black;
+            text-decoration: none;
+        }
+        &:hover {
+            background: $item-hover-bg;
+            color: $item-hover-fg;
+        }
+    }
+}

@@ -73,7 +73,7 @@ class @PagesWidget
         @update @current_state
 
     update: ( state ) ->
-        log "calling update(): id=#{state.page_node_id}"
+        log "update: id=#{state.page_node_id}"
         pane_tree.update state
         pane_preview.update state
         if state.open_pane == 'left'

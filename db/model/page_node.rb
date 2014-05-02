@@ -32,6 +32,16 @@ class PageNode
     pages.where( lang: lang.to_sym ).first
   end
 
+  # Returns allowed page types (depending on the parent page type).
+  #
+  def allowed_page_types
+    if parent.present?
+      parent.page_type.allowed_children
+    else
+      PageType.where( type: :root ).first
+    end
+  end
+
 private
 
   # Touches parents (if present)
