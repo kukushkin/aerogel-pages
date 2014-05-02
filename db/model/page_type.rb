@@ -2,7 +2,6 @@ class PageType
   include Model
 
   field :type, type: Symbol
-  field :name, type: String
   field :allowed_parents, type: Array
   # field :allowed_children, type: Array
   field :allowed_content_blocks, type: Array
@@ -15,6 +14,10 @@ class PageType
 
   def allowed_children
     self.class.where( :allowed_parents.in => [type] )
+  end
+
+  def human_name
+    Aerogel::I18n.t "aerogel.pages.page_type.#{type}", default: type.to_s.humanize
   end
 
 end # class PageType

@@ -8,6 +8,6 @@
 <% end if @page_node.parent.present? %>
     <li>
         <%= icon 'fa-file-text-o' %>
-        <%= @page_node.page_type.try(:name) %>
+        <%= @page_node.page_type.try(:human_name) %>
     </li>
 </ol>

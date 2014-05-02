@@ -1,12 +1,14 @@
 <% assets "controllers/admin-pages-page-types-select" %>
 <% base_url = "/admin/pages/#{@lang}-#{@selected_page_node.id}" %>
+<% page_title t.aerogel.admin.pages.page_type_select %>
+
 <div class="page-types">
 <% @allowed_types.each do |page_type| %>
     <div class="page-type" style="pull-left">
         <a href="<%= base_url %>/<%= action %>?page_type=<%= page_type.type %>">
         <%= icon 'fa-file-o' %>
         <br/>
-        <%= h page_type.name %>
+        <%= h page_type.human_name %>
         </a>
     </div>
 <% end %>

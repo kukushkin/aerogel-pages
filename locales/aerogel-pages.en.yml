@@ -1,0 +1,8 @@
+en:
+    aerogel:
+        pages:
+            page_type:
+                root: Root page
+                page: Page
+                news: News
+                news_article: News article

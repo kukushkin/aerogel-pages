@@ -16,7 +16,7 @@
               admin_pages_title_as_text( p, options[:lang] )
             end
             column :type do |p|
-              p.page_type.try(:name)
+                p.page_type.try(:human_name)
             end
         end
     %>

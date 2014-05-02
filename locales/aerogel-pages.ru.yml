@@ -1,0 +1,8 @@
+ru:
+    aerogel:
+        pages:
+            page_type:
+                root: Корневая страница
+                page: Страница
+                news: Новостной раздел
+                news_article: Новость
