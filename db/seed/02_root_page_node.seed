@@ -1,0 +1,8 @@
+root_page_type = PageType.where( type: :root ).first
+
+model PageNode
+
+find_by :page_type_id
+
+seeds [{ page_type_id: root_page_type }]
+

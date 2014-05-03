@@ -1,0 +1,12 @@
+model PageType
+
+find_by :type
+force :allowed_parents
+
+seeds [
+{ type: :root, allowed_parents: [] },
+{ type: :page, allowed_parents: [:root, :page] },
+{ type: :news, allowed_parents: [:root, :page] },
+{ type: :news_article, allowed_parents: [:news] }
+]
+

@@ -1,0 +1,15 @@
+# Sub pages created here only if root has no children
+#
+page_type_news = PageType.where( type: :news ).first
+page_node_root = PageNode.root
+
+model PageNode
+
+find_by :parent_id, :page_type_id
+
+seeds [
+{
+  parent_id: page_node_root.id, page_type_id: page_type_news.id
+}
+]
+

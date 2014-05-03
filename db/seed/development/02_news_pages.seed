@@ -1,4 +1,5 @@
-news_page_node = PageNode.root.children.first
+news_page_type = PageType.where( type: :news ).first
+news_page_node = PageNode.where( page_type_id: news_page_type.id ).first
 
 model Page
 
